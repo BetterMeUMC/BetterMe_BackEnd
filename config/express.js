@@ -22,6 +22,7 @@ module.exports = function () {
     require('../src/app/Video/videoRoute')(app);
     require('../src/app/Comm/commRoute')(app);
     // require('../src/app/Board/boardRoute')(app);
+    require('../src/app/Habit/habitRoute')(app);
 
     return app;
 };

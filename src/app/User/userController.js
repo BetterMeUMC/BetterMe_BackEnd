@@ -43,7 +43,7 @@ exports.postUsers = async function (req, res) {
         return res.send(response(baseResponse.SIGNUP_EMAIL_LENGTH));
     if ((password.length < 6)||(password.length > 20))
         return res.send(response(baseResponse.SIGNUP_PASSWORD_LENGTH));
-    if (nickname.length > 20)
+    if (name.length > 20)
         return res.send(response(baseResponse.SIGNUP_NICKNAME_LENGTH));
 
     // 형식 체크 (by 정규표현식)

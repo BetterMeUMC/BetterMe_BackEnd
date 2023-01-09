@@ -5,9 +5,9 @@ const {logger} = require('./winston');
 const pool = mysql.createPool({
     host: "127.0.0.1",
     user: "root",
-    port : '',
-    password: "MySQLsujin!",
-    database: "YoutubeDB",
+    port : '3306',
+    password: "37e747937e",
+    database: "better_me",
 });
 
 module.exports = {

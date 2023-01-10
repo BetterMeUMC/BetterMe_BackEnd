@@ -15,8 +15,9 @@ exports.postHabits = async function(req, res){
     /**
      * Body : emoge, habitName, contents, goodOrBad
      */
+    userIdx = req.params.userIdx;
 
-    const { habitName, contents, goodOrBad, emoge} = req.body;
+    const {habitName, contents, goodOrBad, emoge} = req.body;
 
     //빈 값 체크
     if(!emoge)
@@ -36,6 +37,7 @@ exports.postHabits = async function(req, res){
         return res.send(response(baseResponse.HABIT_CONTENTS_LENGTH));
 
     const habitResponse = await habitService.createHabit(
+        userIdx,
         habitName,
         contents,
         goodOrBad,

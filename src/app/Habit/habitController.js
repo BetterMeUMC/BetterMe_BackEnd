@@ -7,7 +7,7 @@ const {response, errResponse} = require("../../../config/response");
 /**
  * API No. 1
  * API Name : 습관 생성 API
- * [POST] /app/habits
+ * [POST] /app/habits/:userIdx
  */
 
 exports.postHabits = async function(req, res){
@@ -45,4 +45,18 @@ exports.postHabits = async function(req, res){
     );
 
     return res.send(habitResponse);
+}
+
+/**
+ * API No. 2
+ * API Name : 습관 조회 API
+ * [GET] /app/habits/:userIdx
+ */
+
+exports.getHabits = async function(req, res){
+
+    //습관 전체 조회
+    const habitListResult = await habitProvider.retrieveHabitList();
+    return res.send(response(baseResponse.SUCCESS,habitListResult));
+
 }

@@ -14,6 +14,17 @@ async function insertHabit(connection, insertHabitTBLParams){
 
     return insertHabitTBLRow;
 }
+
+async function selectHabit(connection){
+
+    const selectHabitListQuery = `
+    SELECT userIdx, habitName, contents, life, habitDay, goodOrBad, emoge
+    FROM habit;`;
+    const [habitRows] = await connection.query(selectHabitListQuery);
+
+    return habitRows;
+}
 module.exports= {
     insertHabit,
+    selectHabit,
 };

@@ -7,5 +7,9 @@ module.exports = function(app){
     //2. 습관 조회 API
     app.get('/app/habits/:userIdx',habit.getHabits);
 
+    //3. 특정 습관 조회 API
+    app.get('/app/habits/:userIdx/:habitIdx',habit.getHabitById);
+
+
 
 };

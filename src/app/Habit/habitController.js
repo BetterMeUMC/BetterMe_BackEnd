@@ -60,3 +60,19 @@ exports.getHabits = async function(req, res){
     return res.send(response(baseResponse.SUCCESS,habitListResult));
 
 }
+
+/**
+ * API No. 3
+ * API Name : 특정 습관 조회 API
+ * [GET] /app/habits/:userIdx/:habitIdx
+ */
+
+exports.getHabitById = async function(req,res){
+
+    const habitId = req.params.habitIdx;
+
+    const habitByHabitId = await habitProvider.retrieveHabit(habitId);
+    return res.send(response(baseResponse.SUCCESS, habitByHabitId))
+
+
+}

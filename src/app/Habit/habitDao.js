@@ -24,7 +24,18 @@ async function selectHabit(connection){
 
     return habitRows;
 }
+
+async function selectHabitId(connection,habitId){
+    const selectHabitIdQuery = `
+    SELECT userIdx, habitName, contents, life, habitDay, goodOrBad, emoge
+    FROM habit
+    WHERE habitIdx = ?;
+`;
+    const [habitRow] = await connection.query(selectHabitIdQuery, habitId);
+    return habitRow;
+}
 module.exports= {
     insertHabit,
     selectHabit,
+    selectHabitId,
 };

@@ -23,3 +23,13 @@ exports.createHabit = async function(userIdx, habitName, contents, goodOrBad, em
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.editHabit=async function(habitId,habitName, contents, emoge){
+    try{
+        const connection = await pool.getConnection(async (conn) => conn);
+
+    }catch(err){
+
+    }
+
+}

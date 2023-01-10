@@ -76,3 +76,34 @@ exports.getHabitById = async function(req,res){
 
 
 }
+
+/**
+ * API No. 4
+ * API Name : 습관 수정 API
+ * [PATCH] /app/habits/:userIdx/:habitIdx
+ */
+
+exports.patchHabit = async function (req, res){
+
+    const habitId = req.params.habitIdx;
+    const {habitName, contents, emoge} = req.body;
+    //빈 값 체크
+    if(!emoge)
+        return res.send(response(baseResponse.HABIT_EMOGE_EMPTY));
+    if(!habitName)
+        return res.send(response(baseResponse.HABIT_NAME_EMPTY));
+    if (!contents)
+        return res.send(response(baseResponse.HABIT_CONTENTS_EMPTY));
+
+
+    //길이 체크
+    if(emoge.length>1)
+        return res.send(response(baseResponse.HABIT_EMOGE_LENGTH));
+    if(habitName.length>20)
+        return res.send(response(baseResponse.HABIT_NAME_LENGTH));
+    if(contents.length>50)
+        return res.send(response(baseResponse.HABIT_CONTENTS_LENGTH));
+
+    const editHabitInfo = await habitService.editHabit(habitId,habitName, contents, emoge);
+    return res.send(editHabitInfo);
+}

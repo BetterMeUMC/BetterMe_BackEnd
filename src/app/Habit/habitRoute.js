@@ -10,6 +10,9 @@ module.exports = function(app){
     //3. 특정 습관 조회 API
     app.get('/app/habits/:userIdx/:habitIdx',habit.getHabitById);
 
+    //4. 습관 수정 API
+    app.patch('/app/habits/:habitId',habit.patchHabit);
+
 
 
 };

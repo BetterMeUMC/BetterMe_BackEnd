@@ -38,3 +38,17 @@ exports.editHabit=async function(userId,habitId,habitName, contents, emoge){
     }
 
 }
+
+exports.deleteHabit=async function(userId,habitId){
+    try{
+        const deleteHabitInfoParams = [userId,habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const deleteHabitResult = await habitDao.deleteHabit(connection,deleteHabitInfoParams);
+        connection.release();
+
+        return response(baseResponse.HABIT_DELETE_SUCCESS);
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}

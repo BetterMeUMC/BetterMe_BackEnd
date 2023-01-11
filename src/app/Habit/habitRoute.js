@@ -11,8 +11,10 @@ module.exports = function(app){
     app.get('/app/habits/:userIdx/:habitIdx',habit.getHabitById);
 
     //4. 습관 수정 API
-    app.patch('/app/habits/:userIdx/:habitIdx',habit.patchHabit);
+    app.patch('/app/habits/changeH/:userIdx/:habitIdx',habit.patchHabit);
 
+    //5. 습관 삭제 API
+    app.patch('/app/habits/:userIdx/:habitIdx',habit.deleteHabit);
 
 
 };

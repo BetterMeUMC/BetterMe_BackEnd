@@ -108,3 +108,17 @@ exports.patchHabit = async function (req, res){
     const editHabitInfo = await habitService.editHabit(userId,habitId,habitName, contents, emoge);
     return res.send(editHabitInfo);
 }
+/**
+ * API No. 5
+ * API Name : 습관 삭제 API
+ * [PATCH] /app/habits/:userIdx/:habitIdx
+ */
+
+exports.deleteHabit = async function (req, res){
+
+    const userId = req.params.userIdx;
+    const habitId = req.params.habitIdx;
+
+    const deleteHabit = await habitService.deleteHabit(userId,habitId);
+    return res.send(deleteHabit);
+}

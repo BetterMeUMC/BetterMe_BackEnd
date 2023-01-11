@@ -85,6 +85,7 @@ exports.getHabitById = async function(req,res){
 
 exports.patchHabit = async function (req, res){
 
+    const userId = req.params.userIdx;
     const habitId = req.params.habitIdx;
     const {habitName, contents, emoge} = req.body;
     //빈 값 체크
@@ -104,6 +105,6 @@ exports.patchHabit = async function (req, res){
     if(contents.length>50)
         return res.send(response(baseResponse.HABIT_CONTENTS_LENGTH));
 
-    const editHabitInfo = await habitService.editHabit(habitId,habitName, contents, emoge);
+    const editHabitInfo = await habitService.editHabit(userId,habitId,habitName, contents, emoge);
     return res.send(editHabitInfo);
 }

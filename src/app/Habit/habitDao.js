@@ -34,8 +34,20 @@ async function selectHabitId(connection,habitId){
     const [habitRow] = await connection.query(selectHabitIdQuery, habitId);
     return habitRow;
 }
+
+async function updateHabit(connection,userId,habitId,habitName, contents, emoge){
+    const updateHabitQuery= `
+    UPDATE habit
+    SET habitName = ?, contents = ?, emoge = ?
+    WHERE userIdx = ? and habitIdx = ?;`;
+
+    const updateHabitRow = await connection.query(updateHabitQuery,[habitName,contents,emoge,userId,habitId]);
+    return updateHabitRow;
+
+}
 module.exports= {
     insertHabit,
     selectHabit,
     selectHabitId,
+    updateHabit,
 };

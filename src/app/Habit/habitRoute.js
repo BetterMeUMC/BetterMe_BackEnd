@@ -11,7 +11,7 @@ module.exports = function(app){
     app.get('/app/habits/:userIdx/:habitIdx',habit.getHabitById);
 
     //4. 습관 수정 API
-    app.patch('/app/habits/:habitId',habit.patchHabit);
+    app.patch('/app/habits/:userIdx/:habitId',habit.patchHabit);
 
 
 

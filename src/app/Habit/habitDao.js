@@ -35,13 +35,13 @@ async function selectHabitId(connection,habitId){
     return habitRow;
 }
 
-async function updateHabit(connection,userId,habitId,habitName, contents, emoge){
+async function updateHabit(connection,updateHabitTBLParams){
     const updateHabitQuery= `
     UPDATE habit
     SET habitName = ?, contents = ?, emoge = ?
     WHERE userIdx = ? and habitIdx = ?;`;
 
-    const updateHabitRow = await connection.query(updateHabitQuery,[habitName,contents,emoge,userId,habitId]);
+    const updateHabitRow = await connection.query(updateHabitQuery,updateHabitTBLParams);
     return updateHabitRow;
 
 }

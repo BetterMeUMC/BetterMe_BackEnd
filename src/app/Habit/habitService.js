@@ -26,11 +26,12 @@ exports.createHabit = async function(userIdx, habitName, contents, goodOrBad, em
 
 exports.editHabit=async function(userId,habitId,habitName, contents, emoge){
     try{
+        const updateHabitInfoParams = [habitName,contents,emoge,userId,habitId];
         const connection = await pool.getConnection(async (conn) => conn);
-        const editHabitResult = await habitDao.updateHabit(connection,userId,habitId,habitName, contents, emoge);
+        const editHabitResult = await habitDao.updateHabit(connection,updateHabitInfoParams);
         connection.release();
 
-        return response(baseResponse.SUCCESS);
+        return response(baseResponse.HABIT_UPDATE_SUCCESS);
     }catch(err){
         logger.error(`App - editUser Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);

@@ -16,3 +16,16 @@ exports.getAllFollow = async function(req, res) {
 
     return res.send(response(baseResponse.SUCCESS, followList));
 }
+
+/**
+ * API No. 2
+ * API Name : 친구 상세 조회 API
+ * [GET] /app/follow/detail/:followee
+ */
+
+ exports.getFollowDetail = async function(req, res) {
+    const userIdx = req.params.userIdx;
+    const followDetail = await followProvider.retrieveFollowDetailList(userIdx);
+
+    return res.send(response(baseResponse.SUCCESS, followDetail));
+}

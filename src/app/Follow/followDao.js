@@ -24,8 +24,37 @@
     return followStarRows;
  }
 
+  // 2. 친구 상세 조회
+  async function selectFollowDetailInfo(connection, userIdx) {
+    const selectFollowDetailInfoQuery = `
+        SELECT userIdx, nickName, photo, promise
+        FROM UserTBL
+        WHERE userIdx = ?;
+    `;
+    
+    const [followDetailInfoRows] = await connection.query(selectFollowDetailInfoQuery, userIdx);
+
+    return followDetailInfoRows;
+ }
+
+ async function selectFollowDetailAwards(connection, userIdx) {
+    const selectFollowDetailAwardsQuery = `
+        SELECT habitName, contents, goodOrBad, emoge, createdAt
+        FROM habit
+        WHERE isAchieved = 1
+            AND userIdx = ?;    
+    `;
+    
+    const [followDetailAwardRows] = await connection.query(selectFollowDetailAwardsQuery, userIdx);
+
+    return followDetailAwardRows;
+ }
+
+
 
  module.exports = {
     selectAllFollowInfo,
     selectAllFollowStars,
+    selectFollowDetailInfo,
+    selectFollowDetailAwards,
  };

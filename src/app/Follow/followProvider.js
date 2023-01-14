@@ -18,3 +18,17 @@ exports.retrieveFollowList = async function(follower) {
 
     return followInfoResult;
 }
+
+// 친구 상세 조회
+exports.retrieveFollowDetailList = async function(userIdx) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const followDetailInfoResult = await followDao.selectFollowDetailInfo(connection, userIdx);
+    const followIdx = followDetailInfoResult[0]['userIdx'];
+    const followDetailAwardResults = await followDao.selectFollowDetailAwards(connection, followIdx);
+    
+    followDetailInfoResult[0]['awards'] = followDetailAwardResults;
+
+    connection.release();
+
+    return followDetailInfoResult;
+}

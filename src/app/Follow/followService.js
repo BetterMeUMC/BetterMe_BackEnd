@@ -22,11 +22,27 @@ exports.requestFollow = async function(userIdx, followee) {
 }
 
 // 친구 신청 수락
-exports.acceptFollowRequest = async function(followeeIdx) {
+exports.acceptFollowRequest = async function(followIdx) {
     try {
         const connection = await pool.getConnection(async (conn) => conn);
     
-        await followDao.updateAcceptStatus(connection, followeeIdx);
+        await followDao.updateAcceptStatus(connection, followIdx);
+        connection.release();
+
+        return response(baseResponse.SUCCESS);
+    } 
+    catch (err) {
+        logger.error(`[ERROR] ${err.message}`);   
+        return errResponse(baseResponse.DB_ERROR); 
+    }
+}
+
+// 친구 신청 거절 or 친구 신청
+exports.deleteFollowsOrRequest = async function(followIdx) {
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+    
+        await followDao.deleteFollows(connection, followIdx);
         connection.release();
 
         return response(baseResponse.SUCCESS);

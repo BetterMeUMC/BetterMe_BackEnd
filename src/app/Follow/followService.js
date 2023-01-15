@@ -7,10 +7,16 @@ const {logger} = require("../../../config/winston");
 
 // 친구 신청
 exports.requestFollow = async function(userIdx, followee) {
-    const connection = await pool.getConnection(async (conn) => conn);
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
     
-    await followDao.insertFollow(connection, userIdx, followee);
-    connection.release();
+        await followDao.insertFollow(connection, userIdx, followee);
+        connection.release();
 
-    return response(baseResponse.SUCCESS);
+        return response(baseResponse.SUCCESS);
+    } 
+    catch (err) {
+        logger.error(`ERROR ${err.message}`);   
+        return errResponse(baseResponse.DB_ERROR); 
+    }
 }

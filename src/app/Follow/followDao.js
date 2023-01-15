@@ -1,7 +1,7 @@
  // 1. 친구 전체 조회 
  async function selectAllFollowInfo(connection, follower) {
     const selectAllFollowInfoQuery = `
-        SELECT follow.followee, UserTBL.nickName, UserTBL.photo
+        SELECT follow.followIdx, follow.followee, UserTBL.nickName, UserTBL.photo
         FROM UserTBL, follow
         WHERE UserTBL.userIdx = follow.followee
             AND follow.follower = ?;
@@ -97,10 +97,10 @@
  // 6. 친구 신청 목록 조회
  async function selectFollowRequest(connection, follower) {
     const selectFollowRequestQuery = `
-        SELECT UserTBL.userIdx, UserTBL.nickName, UserTBL.photo
+        SELECT follow.followIdx, UserTBL.userIdx, UserTBL.nickName, UserTBL.photo
         FROM UserTBl, follow
         WHERE UserTBL.userIdx = follow.followee
-            AND follow.follower = ?
+            AND follow.follower = 5
             AND follow.acceptStatus = 0;
     `;
     

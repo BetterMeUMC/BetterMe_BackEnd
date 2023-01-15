@@ -18,4 +18,7 @@ module.exports = function(app) {
 
     // 6. 친구 신청 목록 조회
     app.get('/app/follow/request/:follower', follow.getRequestFollows);
+
+    // 7. 친구 신청 수락
+    app.patch('/app/follow/accept/:followIdx', follow.patchAcceptStatus);
 }

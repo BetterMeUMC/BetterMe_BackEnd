@@ -16,7 +16,23 @@ exports.requestFollow = async function(userIdx, followee) {
         return response(baseResponse.SUCCESS);
     } 
     catch (err) {
-        logger.error(`ERROR ${err.message}`);   
+        logger.error(`[ERROR] ${err.message}`);   
+        return errResponse(baseResponse.DB_ERROR); 
+    }
+}
+
+// 친구 신청 수락
+exports.acceptFollowRequest = async function(followeeIdx) {
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+    
+        await followDao.updateAcceptStatus(connection, followeeIdx);
+        connection.release();
+
+        return response(baseResponse.SUCCESS);
+    } 
+    catch (err) {
+        logger.error(`[ERROR] ${err.message}`);   
         return errResponse(baseResponse.DB_ERROR); 
     }
 }

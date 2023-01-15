@@ -81,6 +81,19 @@
     return followStarRows;
  }
 
+ // 5. 친구 신청
+ async function insertFollow(connection, userIdx, followee) {
+    const insertFollowParams = [userIdx, followee];
+    const insertFollowQuery = `
+        INSERT INTO follow(follower, followee) VALUES (?, ?);
+    `;
+
+    const insertFollowRow = await connection.query(insertFollowQuery, insertFollowParams);
+
+    return insertFollowRow;
+ }
+
+
  module.exports = {
     selectAllFollowInfo,
     selectAllFollowStars,
@@ -88,4 +101,5 @@
     selectFollowDetailAwards,
     selectSearchedFollows,
     selectSearchedFollowEmail,
+    insertFollow,
  };

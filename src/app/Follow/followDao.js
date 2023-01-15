@@ -109,6 +109,18 @@
     return followRequestRows;
  }
 
+ // 7. 친구 신청 수락
+ async function updateAcceptStatus(connection, followIdx) {
+    const updateAcceptStatusQuery = `
+        UPDATE follow SET acceptStatus = 1
+        WHERE followIdx = ?;
+    `;
+    
+    const followRequestRow = await connection.query(updateAcceptStatusQuery, followIdx);
+
+    return followRequestRow;
+ }
+
 
  module.exports = {
     selectAllFollowInfo,
@@ -119,4 +131,5 @@
     selectSearchedFollowEmail,
     insertFollow,
     selectFollowRequest,
+    updateAcceptStatus,
  };

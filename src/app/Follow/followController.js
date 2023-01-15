@@ -87,3 +87,17 @@ exports.postFollow = async function(req, res) {
 
     return res.send(response(baseResponse.SUCCESS, followRequestList));
 }
+
+
+/**
+ * API No. 7
+ * API Name : 친구 신청 수락 API
+ * [PATCH] /app/follow/accept/:followIdx
+ */
+
+ exports.patchAcceptStatus = async function(req, res) {
+    const followIdx = req.params.followIdx;
+    const acceptFollowRequestResponse = await followService.acceptFollowRequest(followIdx);
+
+    return res.send(acceptFollowRequestResponse);
+}

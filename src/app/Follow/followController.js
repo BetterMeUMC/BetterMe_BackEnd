@@ -66,6 +66,10 @@ exports.getAllFollow = async function(req, res) {
 exports.postFollow = async function(req, res) {
     const userIdx = req.params.userIdx;
     const followee = req.params.followee;
+
+    if(userIdx === followee) 
+        return res.send(response(baseResponse.FOLLOW_SELF_REQUEST));
+
     const followResponse = await followService.requestFollow(userIdx, followee);
 
     return res.send(response(followResponse));

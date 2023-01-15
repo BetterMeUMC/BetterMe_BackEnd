@@ -12,4 +12,7 @@ module.exports = function(app) {
 
     // 4. 추가할 친구 이메일 검색
     app.get('/app/follow/search/:email', follow.searchFollowEmail);
+
+    // 5. 친구 신청
+    app.post('/app/follow/request/:userIdx/:followee', follow.postFollow);
 }

@@ -56,3 +56,21 @@ exports.getAllFollow = async function(req, res) {
     
     return res.send(response(baseResponse.SUCCESS, searchedFollow));
 }
+
+/**
+ * API No. 5
+ * API Name : 친구 신청 API
+ * [GET] /app/follow/request/:userIdx/:followee
+ */
+
+exports.postFollow = async function(req, res) {
+    const userIdx = req.params.userIdx;
+    const followee = req.params.followee;
+
+    if(userIdx === followee) 
+        return res.send(response(baseResponse.FOLLOW_SELF_REQUEST));
+
+    const followResponse = await followService.requestFollow(userIdx, followee);
+
+    return res.send(response(followResponse));
+}

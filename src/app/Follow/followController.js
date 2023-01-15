@@ -20,7 +20,7 @@ exports.getAllFollow = async function(req, res) {
 /**
  * API No. 2
  * API Name : 친구 상세 조회 API
- * [GET] /app/follow/detail/:followee
+ * [GET] /app/follow/detail/:userIdx
  */
 
  exports.getFollowDetail = async function(req, res) {
@@ -28,4 +28,18 @@ exports.getAllFollow = async function(req, res) {
     const followDetail = await followProvider.retrieveFollowDetailList(userIdx);
 
     return res.send(response(baseResponse.SUCCESS, followDetail));
+}
+
+/**
+ * API No. 3
+ * API Name : 친구 검색 API
+ * [GET] /app/follow/search/:follower/:nickName
+ */
+
+ exports.searchFollows = async function(req, res) {
+    const follower = req.params.follower;
+    const nickName = req.params.nickName;
+    const searchedFollowList = await followProvider.searchFollowList(follower, nickName);
+    
+    return res.send(response(baseResponse.SUCCESS, searchedFollowList));
 }

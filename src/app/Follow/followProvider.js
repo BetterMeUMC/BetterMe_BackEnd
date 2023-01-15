@@ -32,3 +32,20 @@ exports.retrieveFollowDetailList = async function(userIdx) {
 
     return followDetailInfoResult;
 }
+
+// 친구 검색
+exports.searchFollowList = async function(follower, nickName) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const searchResults = await followDao.selectSearchedFollows(connection, follower, nickName);
+
+    for(let i = 0; i < searchResults.length; i++) {
+        const userIdx = searchResults[i]['followee'];
+        const followStarResult = await followDao.selectAllFollowStars(connection, userIdx);
+        
+        searchResults[i]['stars'] = followStarResult[0]['stars'];
+    }
+
+    connection.release();
+
+    return searchResults;
+}

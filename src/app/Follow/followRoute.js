@@ -6,4 +6,7 @@ module.exports = function(app) {
 
     // 2. 친구 상세 조회
     app.get('/app/follow/detail/:userIdx', follow.getFollowDetail);
+
+    // 3. 친구 검색
+    app.get('/app/follow/search/:follower/:nickName', follow.searchFollows);
 }

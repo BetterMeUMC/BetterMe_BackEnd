@@ -94,6 +94,22 @@
  }
 
 
+ // 6. 친구 신청 목록 조회
+ async function selectFollowRequest(connection, follower) {
+    const selectFollowRequestQuery = `
+        SELECT UserTBL.userIdx, UserTBL.nickName, UserTBL.photo
+        FROM UserTBl, follow
+        WHERE UserTBL.userIdx = follow.followee
+            AND follow.follower = ?
+            AND follow.acceptStatus = 0;
+    `;
+    
+    const [followRequestRows] = await connection.query(selectFollowRequestQuery, follower);
+
+    return followRequestRows;
+ }
+
+
  module.exports = {
     selectAllFollowInfo,
     selectAllFollowStars,
@@ -102,4 +118,5 @@
     selectSearchedFollows,
     selectSearchedFollowEmail,
     insertFollow,
+    selectFollowRequest,
  };

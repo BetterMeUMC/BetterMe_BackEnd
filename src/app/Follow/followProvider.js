@@ -63,3 +63,13 @@ exports.retrieveFollowEmail = async function(email) {
 
     return searchedFollowInfoResult;
 }
+
+// 친구 신청 목록 조회
+exports.retrieveFollowRequest = async function(follower) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const followRequestResults = await followDao.selectFollowRequest(connection, follower);
+   
+    connection.release();
+
+    return followRequestResults;
+}

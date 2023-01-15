@@ -15,4 +15,7 @@ module.exports = function(app) {
 
     // 5. 친구 신청
     app.post('/app/follow/request/:userIdx/:followee', follow.postFollow);
+
+    // 6. 친구 신청 목록 조회
+    app.get('/app/follow/request/:follower', follow.getRequestFollows);
 }

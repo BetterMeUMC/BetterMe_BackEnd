@@ -60,7 +60,7 @@ exports.getAllFollow = async function(req, res) {
 /**
  * API No. 5
  * API Name : 친구 신청 API
- * [GET] /app/follow/request/:userIdx/:followee
+ * [POST] /app/follow/request/:userIdx/:followee
  */
 
 exports.postFollow = async function(req, res) {
@@ -73,4 +73,17 @@ exports.postFollow = async function(req, res) {
     const followResponse = await followService.requestFollow(userIdx, followee);
 
     return res.send(response(followResponse));
+}
+
+/**
+ * API No. 6
+ * API Name : 친구 신청 API
+ * [GET] /app/follow/request/:follower
+ */
+
+ exports.getRequestFollows = async function(req, res) {
+    const follower = req.params.follower;
+    const followRequestList = await followProvider.retrieveFollowRequest(follower);
+
+    return res.send(response(baseResponse.SUCCESS, followRequestList));
 }

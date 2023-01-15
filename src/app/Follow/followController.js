@@ -77,7 +77,7 @@ exports.postFollow = async function(req, res) {
 
 /**
  * API No. 6
- * API Name : 친구 신청 API
+ * API Name : 친구 신청 목록 조회 API
  * [GET] /app/follow/request/:follower
  */
 

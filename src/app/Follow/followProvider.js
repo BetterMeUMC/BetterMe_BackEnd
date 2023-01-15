@@ -49,3 +49,17 @@ exports.searchFollowList = async function(follower, nickName) {
 
     return searchResults;
 }
+
+// 추가할 친구 이메일 검색
+exports.retrieveFollowEmail = async function(email) {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const searchedFollowInfoResult = await followDao.selectSearchedFollowEmail(connection, email);
+    const userIdx = searchedFollowInfoResult[0]['userIdx'];
+    const followStarsResult = await followDao.selectAllFollowStars(connection, userIdx);
+    
+    searchedFollowInfoResult[0]['stars'] = followStarsResult[0]['stars'];
+
+    connection.release();
+
+    return searchedFollowInfoResult;
+}

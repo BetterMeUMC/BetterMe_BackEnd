@@ -40,6 +40,19 @@ exports.getAllFollow = async function(req, res) {
     const follower = req.params.follower;
     const nickName = req.params.nickName;
     const searchedFollowList = await followProvider.searchFollowList(follower, nickName);
-    
+
     return res.send(response(baseResponse.SUCCESS, searchedFollowList));
+}
+
+/**
+ * API No. 4
+ * API Name : 추가할 친구 이메일 검색 API
+ * [GET] /app/follow/search/:email
+ */
+
+ exports.searchFollowEmail = async function(req, res) {
+    const email = req.params.email;
+    const searchedFollow = await followProvider.retrieveFollowEmail(email);
+    
+    return res.send(response(baseResponse.SUCCESS, searchedFollow));
 }

@@ -55,6 +55,19 @@
     return searchedFollowRows;
  }
 
+  // 4. 추가할 친구 이메일 검색
+  async function selectSearchedFollowEmail(connection, email) {
+    const selectSearchedFollowEmailQuery = `
+        SELECT userIdx, nickName, photo
+        FROM UserTBL
+        WHERE UserTBL.email = ?;
+    `;
+    
+    const [followEmailRow] = await connection.query(selectSearchedFollowEmailQuery, email);
+
+    return followEmailRow;
+ }
+
  // 별 개수 조회
  async function selectAllFollowStars(connection, userIdx) {
     const selectAllFollowStarsQuery = `
@@ -74,4 +87,5 @@
     selectFollowDetailInfo,
     selectFollowDetailAwards,
     selectSearchedFollows,
+    selectSearchedFollowEmail,
  };

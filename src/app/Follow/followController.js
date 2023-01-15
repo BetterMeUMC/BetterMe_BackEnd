@@ -101,3 +101,16 @@ exports.postFollow = async function(req, res) {
 
     return res.send(acceptFollowRequestResponse);
 }
+
+/**
+ * API No. 8
+ * API Name : 친구 신청 거절 or 친구 삭제 API
+ * [DELETE] /app/follow/delete/:followIdx
+ */
+
+ exports.deleteFollows = async function(req, res) {
+    const followIdx = req.params.followIdx;
+    const deleteFollowResponse = await followService.deleteFollowsOrRequest(followIdx);
+
+    return res.send(deleteFollowResponse);
+}

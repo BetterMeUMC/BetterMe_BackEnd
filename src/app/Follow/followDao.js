@@ -121,6 +121,18 @@
     return followRequestRow;
  }
 
+ // 8. 친구 신청 거절 or 친구 삭제
+ async function deleteFollows(connection, followIdx) {
+    const deleteFollowsQuery = `
+        DELETE FROM follow
+        WHERE followIdx = ?;
+    `;
+    
+    const [deletedFollowsRows] = await connection.query(deleteFollowsQuery, followIdx);
+
+    return deletedFollowsRows;
+ }
+
 
  module.exports = {
     selectAllFollowInfo,
@@ -132,4 +144,5 @@
     insertFollow,
     selectFollowRequest,
     updateAcceptStatus,
+    deleteFollows,
  };

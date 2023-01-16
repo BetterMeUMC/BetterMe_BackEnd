@@ -68,6 +68,20 @@
     return followEmailRow;
  }
 
+ async function selectAcceptStatusEmail(connection, follower, followee) {
+    const acceptStatusParams = [follower, followee];
+    const selectAcceptStatusEmailQuery = `
+        SELECT acceptStatus
+        FROM follow
+        WHERE follower = ?
+            AND followee = ?;
+    `;
+    
+    const [acceptStatusEmailRow] = await connection.query(selectAcceptStatusEmailQuery, acceptStatusParams);
+
+    return acceptStatusEmailRow;
+ }
+
  // 별 개수 조회
  async function selectAllFollowStars(connection, userIdx) {
     const selectAllFollowStarsQuery = `
@@ -100,7 +114,7 @@
         SELECT follow.followIdx, UserTBL.userIdx, UserTBL.nickName, UserTBL.photo
         FROM UserTBl, follow
         WHERE UserTBL.userIdx = follow.followee
-            AND follow.follower = 5
+            AND follow.follower = ?
             AND follow.acceptStatus = 0;
     `;
     
@@ -141,6 +155,7 @@
     selectFollowDetailAwards,
     selectSearchedFollows,
     selectSearchedFollowEmail,
+    selectAcceptStatusEmail,
     insertFollow,
     selectFollowRequest,
     updateAcceptStatus,

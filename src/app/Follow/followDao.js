@@ -100,7 +100,7 @@
         SELECT follow.followIdx, UserTBL.userIdx, UserTBL.nickName, UserTBL.photo
         FROM UserTBl, follow
         WHERE UserTBL.userIdx = follow.followee
-            AND follow.follower = 5
+            AND follow.follower = ?
             AND follow.acceptStatus = 0;
     `;
     

@@ -33,7 +33,7 @@ exports.getAllFollow = async function(req, res) {
 /**
  * API No. 3
  * API Name : 친구 검색 API
- * [GET] /app/follow/search/:follower/:nickName
+ * [GET] /app/follow/searchN/:follower/:nickName
  */
 
  exports.searchFollows = async function(req, res) {
@@ -47,12 +47,13 @@ exports.getAllFollow = async function(req, res) {
 /**
  * API No. 4
  * API Name : 추가할 친구 이메일 검색 API
- * [GET] /app/follow/search/:email
+ * [GET] /app/follow/searchE/:follower/:email
  */
 
  exports.searchFollowEmail = async function(req, res) {
+    const follower = req.params.follower;
     const email = req.params.email;
-    const searchedFollow = await followProvider.retrieveFollowEmail(email);
+    const searchedFollow = await followProvider.retrieveFollowEmail(follower, email);
     
     return res.send(response(baseResponse.SUCCESS, searchedFollow));
 }

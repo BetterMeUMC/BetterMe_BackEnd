@@ -54,7 +54,10 @@ exports.getAllFollow = async function(req, res) {
     const follower = req.params.follower;
     const email = req.params.email;
     const searchedFollow = await followProvider.retrieveFollowEmail(follower, email);
-    
+
+    if(searchedFollow.includes('ERROR'))
+        return res.send(response(baseResponse.FOLLOW_EMAIL_NOT_EXIST));
+
     return res.send(response(baseResponse.SUCCESS, searchedFollow));
 }
 
@@ -88,7 +91,6 @@ exports.postFollow = async function(req, res) {
 
     return res.send(response(baseResponse.SUCCESS, followRequestList));
 }
-
 
 /**
  * API No. 7

@@ -54,12 +54,19 @@ exports.searchFollowList = async function(follower, nickName) {
 exports.retrieveFollowEmail = async function(follower, email) {
     const connection = await pool.getConnection(async (conn) => conn);
     const searchedFollowInfoResult = await followDao.selectSearchedFollowEmail(connection, email);
+
+    // 검색한 이메일이 없을 때
+    if(!searchedFollowInfoResult[0]) {
+        return `[ERROR] FOLLOW_EMAIL_NOT_EXIST`;
+    }
+
     const userIdx = searchedFollowInfoResult[0]['userIdx'];
     const followStarsResult = await followDao.selectAllFollowStars(connection, userIdx);
     const acceptStatusResult = await followDao.selectAcceptStatusEmail(connection, follower, userIdx);
 
     searchedFollowInfoResult[0]['stars'] = followStarsResult[0]['stars'];
 
+    // 친구 요청을 보낸 이력이 없을 때
     if(!acceptStatusResult[0]) {
         searchedFollowInfoResult[0]['acceptStatus'] = null;
     } else {

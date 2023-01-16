@@ -58,6 +58,8 @@ module.exports = {
     HABIT_CONTENTS_LENGTH : {"isSuccess" : false, "code" : 2036, "message" : "길이는 50 이하로 설정해해주세요"},
 
     FOLLOW_SELF_REQUEST: {"isSuccess": false, "code": 3037, "message":"본인에게 친구 신청을 할 수 없습니다." },
+    FOLLOW_EMAIL_NOT_EXIST: {"isSuccess": false, "code": 3038, "message":"이메일 검색 결과가 없습니다." },
+
 
     // Response error
     SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 3001, "message":"중복된 이메일입니다." },

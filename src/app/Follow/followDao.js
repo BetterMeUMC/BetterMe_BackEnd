@@ -4,7 +4,8 @@
         SELECT follow.followIdx, follow.followee, UserTBL.nickName, UserTBL.photo
         FROM UserTBL, follow
         WHERE UserTBL.userIdx = follow.followee
-            AND follow.follower = ?;
+            AND follow.follower = ?
+            AND follow.acceptStatus = 2;
         `;
     
     const [followInfoRows] = await connection.query(selectAllFollowInfoQuery, follower);
@@ -46,6 +47,7 @@
         SELECT follow.followee, UserTBL.nickName, UserTBL.photo
         FROM UserTBL, follow
         WHERE UserTBL.userIdx = follow.followee
+            AND follow.acceptStatus = 2
             AND follow.follower = ?
             AND UserTBL.nickName LIKE ?;
     `;
@@ -68,7 +70,7 @@
     return followEmailRow;
  }
 
- async function selectAcceptStatusEmail(connection, follower, followee) {
+ async function selectAcceptStatus(connection, follower, followee) {
     const acceptStatusParams = [follower, followee];
     const selectAcceptStatusEmailQuery = `
         SELECT acceptStatus
@@ -96,17 +98,16 @@
  }
 
  // 5. 친구 신청
- async function insertFollow(connection, userIdx, followee) {
-    const insertFollowParams = [userIdx, followee];
+ async function insertFollow(connection, userIdx, followee, acceptStatus) {
+    const insertFollowParams = [userIdx, followee, acceptStatus];
     const insertFollowQuery = `
-        INSERT INTO follow(follower, followee) VALUES (?, ?);
+        INSERT INTO follow(follower, followee, acceptStatus) VALUES (?, ?, ?);
     `;
 
     const insertFollowRow = await connection.query(insertFollowQuery, insertFollowParams);
 
     return insertFollowRow;
  }
-
 
  // 6. 친구 신청 목록 조회
  async function selectFollowRequest(connection, follower) {
@@ -115,7 +116,7 @@
         FROM UserTBl, follow
         WHERE UserTBL.userIdx = follow.followee
             AND follow.follower = ?
-            AND follow.acceptStatus = 0;
+            AND follow.acceptStatus = 1;
     `;
     
     const [followRequestRows] = await connection.query(selectFollowRequestQuery, follower);
@@ -124,25 +125,29 @@
  }
 
  // 7. 친구 신청 수락
- async function updateAcceptStatus(connection, followIdx) {
+ async function updateAcceptStatus(connection, follower, followee) {
+    const updateAcceptStatusParams = [follower, followee];
     const updateAcceptStatusQuery = `
-        UPDATE follow SET acceptStatus = 1
-        WHERE followIdx = ?;
+        UPDATE follow SET acceptStatus = 2
+        WHERE follower = ?
+            AND followee = ?;
     `;
     
-    const followRequestRow = await connection.query(updateAcceptStatusQuery, followIdx);
+    const followRequestRow = await connection.query(updateAcceptStatusQuery, updateAcceptStatusParams);
 
     return followRequestRow;
  }
 
  // 8. 친구 신청 거절 or 친구 삭제
- async function deleteFollows(connection, followIdx) {
+ async function deleteFollows(connection, follower, followee) {
+    const deleteFollowsParams = [follower, followee];
     const deleteFollowsQuery = `
         DELETE FROM follow
-        WHERE followIdx = ?;
+        WHERE follower = ?
+            AND followee = ?;
     `;
     
-    const [deletedFollowsRows] = await connection.query(deleteFollowsQuery, followIdx);
+    const [deletedFollowsRows] = await connection.query(deleteFollowsQuery, deleteFollowsParams);
 
     return deletedFollowsRows;
  }
@@ -155,7 +160,7 @@
     selectFollowDetailAwards,
     selectSearchedFollows,
     selectSearchedFollowEmail,
-    selectAcceptStatusEmail,
+    selectAcceptStatus,
     insertFollow,
     selectFollowRequest,
     updateAcceptStatus,

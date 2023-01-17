@@ -58,7 +58,10 @@ module.exports = {
     HABIT_CONTENTS_LENGTH : {"isSuccess" : false, "code" : 2036, "message" : "길이는 50 이하로 설정해해주세요"},
 
     FOLLOW_SELF_REQUEST: {"isSuccess": false, "code": 3037, "message":"본인에게 친구 신청을 할 수 없습니다." },
-    FOLLOW_EMAIL_NOT_EXIST: {"isSuccess": false, "code": 3038, "message":"이메일 검색 결과가 없습니다." },
+    FOLLOW_USER_NOT_EXIST: {"isSuccess": false, "code": 3038, "message":"검색 결과가 없습니다." },
+    FOLLOW_EMAIL_NOT_EXIST: {"isSuccess": false, "code": 3039, "message":"이메일 검색 결과가 없습니다." },
+    FOLLOW_REQUEST_NOT_EXIST: {"isSuccess": false, "code": 3040, "message":"친구 신청 이력이 없습니다." },
+    FOLLOW_WRONG_REQUEST: {"isSuccess": false, "code": 3041, "message":"잘못된 요청 값입니다." },
 
 
     // Response error

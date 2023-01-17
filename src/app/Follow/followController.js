@@ -41,6 +41,9 @@ exports.getAllFollow = async function(req, res) {
     const nickName = req.params.nickName;
     const searchedFollowList = await followProvider.searchFollowList(follower, nickName);
 
+    if(searchedFollowList.includes('ERROR'))
+        return res.send(response(baseResponse.FOLLOW_USER_NOT_EXIST));
+
     return res.send(response(baseResponse.SUCCESS, searchedFollowList));
 }
 
@@ -95,12 +98,13 @@ exports.postFollow = async function(req, res) {
 /**
  * API No. 7
  * API Name : 친구 신청 수락 API
- * [PATCH] /app/follow/accept/:followIdx
+ * [PATCH] /app/follow/accept/:follower/:followee
  */
 
  exports.patchAcceptStatus = async function(req, res) {
-    const followIdx = req.params.followIdx;
-    const acceptFollowRequestResponse = await followService.acceptFollowRequest(followIdx);
+    const follower = req.params.follower;
+    const followee = req.params.followee;
+    const acceptFollowRequestResponse = await followService.acceptFollowRequest(follower, followee);
 
     return res.send(acceptFollowRequestResponse);
 }
@@ -108,12 +112,13 @@ exports.postFollow = async function(req, res) {
 /**
  * API No. 8
  * API Name : 친구 신청 거절 or 친구 삭제 API
- * [DELETE] /app/follow/delete/:followIdx
+ * [DELETE] /app/follow/delete/:follower/:followee
  */
 
  exports.deleteFollows = async function(req, res) {
-    const followIdx = req.params.followIdx;
-    const deleteFollowResponse = await followService.deleteFollowsOrRequest(followIdx);
+    const follower = req.params.follower;
+    const followee = req.params.followee;
+    const deleteFollowResponse = await followService.deleteFollowsOrRequest(follower, followee);
 
     return res.send(deleteFollowResponse);
 }

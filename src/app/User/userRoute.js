@@ -17,12 +17,12 @@ module.exports = function(app){
 
     // TODO: After 로그인 인증 방법 (JWT)
     // 로그인 하기 API (JWT 생성)
-    app.post('/app/user/login', user.login);
+    app.post('/app/auth/login', user.login);
 
     // 회원 정보 수정 API (JWT 검증 및 Validation - 메소드 체이닝 방식으로 jwtMiddleware 사용)
-    app.patch('/app/users/changeN/:userId', jwtMiddleware, user.patchUsers);
+    app.patch('/app/users/changeN/:userIdx', jwtMiddleware, user.patchUsers);
 
-    app.patch('/app/users/changePw/:userId', jwtMiddleware, user.patchUsersP);
+    app.patch('/app/users/changePw/:userIdx', jwtMiddleware, user.patchUsersP);
 
     // 자동로그인 API (JWT 검증 및 Payload 내뱉기)
     // JWT 검증 API

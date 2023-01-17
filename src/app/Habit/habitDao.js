@@ -56,10 +56,81 @@ async function deleteHabit(connection,deleteHabitTBLParams){
     return deleteHabitRow;
 
 }
+
+//습관 초대
+async function inviteHabit(connection,inviteHabitTBLParams){
+    const inviteHabitTBLQuery= `
+    INSERT INTO habit_invite(habitIdx, senderIdx, receiverIdx)
+    VALUES(?, ?, ?);
+    `;
+    
+    const insertInviteHabitTBLRow = await connection.query(
+        inviteHabitTBLQuery,
+        inviteHabitTBLParams
+    )
+
+    return insertInviteHabitTBLRow;
+}
+
+//습관 초대 조회
+async function selectHabitInvite(connection, userIdx){
+
+    const selectHabitInviteQuery = `
+    SELECT senderIdx, receiverIdx, habit.habitIdx, habitName, contents, emoge
+    FROM habit_invite
+    INNER JOIN habit ON habit_invite.habitIdx=habit.habitIdx
+    WHERE receiverIdx= ? ;`;
+    const [habitRows] = await connection.query(selectHabitInviteQuery, userIdx);
+
+    return habitRows;
+}
+
+//습관 초대 응답 - 수락
+async function acceptHabitInvite(connection, inviteHabitResponseParams){
+
+    const acceptHabitInviteQuery = `
+    UPDATE habit_invite
+    SET status = 'A'
+    WHERE receiverIdx = ? AND habitIdx = ?;`;
+    const [habitRows] = await connection.query(acceptHabitInviteQuery, inviteHabitResponseParams);
+
+    return habitRows;
+}
+
+
+//습관 초대 응답 - 거절
+async function rejectHabitInvite(connection, inviteHabitResponseParams){
+
+    const rejectHabitInviteQuery = `
+    UPDATE habit_invite
+    SET status = 'R'
+    WHERE receiverIdx = ? AND habitIdx = ?;`;
+    const [habitRows] = await connection.query(rejectHabitInviteQuery, inviteHabitResponseParams);
+
+    return habitRows;
+}
+
+//습관 초대 응답 조회
+async function selectHabitInviteResponse(connection, userIdx){
+
+    const HabitInviteResponseQuery = `
+    SELECT habitIdx, receiverIdx, status
+    FROM habit_invite
+    WHERE senderIdx= ? ;`;
+    const [habitRows] = await connection.query(HabitInviteResponseQuery, userIdx);
+
+    return habitRows;
+}
+
 module.exports= {
     insertHabit,
     selectHabit,
     selectHabitId,
     updateHabit,
     deleteHabit,
+    inviteHabit,
+    selectHabitInvite,
+    acceptHabitInvite,
+    rejectHabitInvite,
+    selectHabitInviteResponse
 };

@@ -122,3 +122,102 @@ exports.deleteHabit = async function (req, res){
     const deleteHabit = await habitService.deleteHabit(userId,habitId);
     return res.send(deleteHabit);
 }
+
+
+/**
+ * API No. 6
+ * API Name : 습관 초대 API
+ * [POST] /app/invite
+ */
+
+exports.postHabitInvite = async function(req, res) {
+
+    const senderIdx = req.params.userIdx;
+    const {habitIdx, receiverIdx} = req.body;
+
+    //빈 값 체크
+    if(!receiverIdx)
+        return res.send(response(baseResponse.USER_USERID_EMPTY));
+    if(!senderIdx)
+        return res.send(response(baseResponse.USER_USERID_EMPTY));
+    if(!habitIdx)
+        return res.send(response(baseResponse.HABIT_ID_EMPTY));
+
+    const habitInviteResponse = await habitService.inviteHabit(
+        habitIdx, 
+        senderIdx, 
+        receiverIdx
+    );
+    console.log(habitInviteResponse);
+
+    return res.send(habitInviteResponse);
+}
+
+/**
+ * API No. 7
+ * API Name : 받은 습관 초대 조회 API
+ * [GET] /app/invite/:userIdx
+ */
+
+exports.getHabitInvite = async function(req,res){
+
+    const userIdx = req.params.userIdx;
+
+    const habitInviteByUserIdx = await habitProvider.retrieveHabitInvite(userIdx);
+    return res.send(response(baseResponse.SUCCESS, habitInviteByUserIdx));
+}
+
+/**
+ * API No. 8
+ * API Name : 받은 습관 초대 응답 - 수락 API
+ * [PATCH] /app/invite/accept/:userIdx/:habitIdx
+ */
+
+exports.patchtHabitInviteAccept = async function(req,res){
+    const userIdx = req.params.userIdx;
+    const habitIdx = req.params.habitIdx;
+
+    const habitInviteResponse = await habitService.acceptInviteHabit(userIdx, habitIdx);
+
+    // 습관 추가
+    const habitByHabitId = await habitProvider.retrieveHabit(habitIdx);
+    
+    const habitResponse = await habitService.createHabit(
+        userIdx,
+        habitByHabitId[0].habitName,
+        habitByHabitId[0].contents,
+        habitByHabitId[0].goodOrBad,
+        habitByHabitId[0].emoge
+    );
+    
+    return res.send(habitInviteResponse);
+}
+
+/**
+ * API No. 9
+ * API Name : 받은 습관 초대 응답 - 거절 API
+ * [PATCH] /app/invite/reject/:userIdx/:habitIdx
+ */
+
+exports.patchtHabitInviteReject = async function(req,res){
+    const userIdx = req.params.userIdx;
+    const habitIdx = req.params.habitIdx;
+
+    const habitInviteResponse = await habitService.rejectInviteHabit(userIdx, habitIdx);
+    return res.send(habitInviteResponse);
+}
+
+/*
+    의논할 것
+    -> 습관 초대에 응답한 이후 언제 삭제하지?
+    -> 응답에 수락한 경우에는 습관 초대를 수락했음을 알리기 위해 남겨두고
+       응답을 거절한 경우에만 삭제할까?
+*/
+
+
+exports.getHabitInviteResponse = async function(req, res){
+    const userIdx = req.params.userIdx;
+
+    const habitInviteResponse = await habitProvider.retrieveHabitInviteResponse(userIdx);
+    return res.send(response(baseResponse.SUCCESS, habitInviteResponse));
+}

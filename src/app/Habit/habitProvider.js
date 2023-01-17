@@ -21,3 +21,23 @@ exports.retrieveHabit = async function(habitId){
 
     return habitResult;
 }
+
+exports.retrieveHabitInvite = async function(userIdx){
+
+    const connection = await pool.getConnection(async (conn) => conn);
+    const habitInviteResult = await habitDao.selectHabitInvite(connection, userIdx);
+
+    connection.release();
+
+    return habitInviteResult;
+}
+
+exports.retrieveHabitInviteResponse = async function(userIdx){
+
+    const connection = await pool.getConnection(async (conn) => conn);
+    const habitInviteResult = await habitDao.selectHabitInviteResponse(connection, userIdx);
+
+    connection.release();
+
+    return habitInviteResult;
+}

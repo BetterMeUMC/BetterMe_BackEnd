@@ -20,8 +20,8 @@ module.exports = function(app) {
     app.get('/app/follow/request/:follower', follow.getRequestFollows);
 
     // 7. 친구 신청 수락
-    app.patch('/app/follow/accept/:followIdx', follow.patchAcceptStatus);
+    app.patch('/app/follow/accept/:follower/:followee', follow.patchAcceptStatus);
 
-    // 7. 친구 신청 거절 / 친구 삭제
-    app.delete('/app/follow/delete/:followIdx', follow.deleteFollows);
+    // 8. 친구 신청 거절 / 친구 삭제
+    app.delete('/app/follow/delete/:follower/:followee', follow.deleteFollows);
 }

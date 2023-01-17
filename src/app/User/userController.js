@@ -26,26 +26,30 @@ exports.postUsers = async function (req, res) {
     /**
      * Body: email, password, nickname
      */
-    const {email, password, name, phone} = req.body;
+    const {email, password, nickName, promise} = req.body;
+
+    console.log("??\n");
 
     // 빈 값 체크
     if (!email)
         return res.send(response(baseResponse.SIGNUP_EMAIL_EMPTY));
     if (!password)
         return res.send(response(baseResponse.SIGNUP_PASSWORD_EMPTY));
-    if (!name)
-        return res.send(response(baseResponse.SIGNUP_NAME_EMPTY));
-    if (!phone)
-        return res.send(response(baseResponse.SIGNUP_PHONE_EMPTY));
+    if (!nickName)
+        return res.send(response(baseResponse.SIGNUP_NICKNAME_EMPTY));
+    if (!promise)
+        return res.send(response(baseResponse.SIGNUP_PROMISE_EMPTY));
 
     // 길이 체크
-    if (email.length > 30)
+    if (email.length > 50)
         return res.send(response(baseResponse.SIGNUP_EMAIL_LENGTH));
     if ((password.length < 6)||(password.length > 20))
         return res.send(response(baseResponse.SIGNUP_PASSWORD_LENGTH));
-    if (name.length > 20)
+    if (nickName.length > 10)
         return res.send(response(baseResponse.SIGNUP_NICKNAME_LENGTH));
-
+    if (promise.length > 30)
+        return res.send(response(baseResponse.SIGNUP_PROMISE_LENGTH));
+       
     // 형식 체크 (by 정규표현식)
     if (!regexEmail.test(email))
         return res.send(response(baseResponse.SIGNUP_EMAIL_ERROR_TYPE));
@@ -56,10 +60,9 @@ exports.postUsers = async function (req, res) {
     const signUpResponse = await userService.createUser(
         email,
         password,
-        name,
-        phone
+        nickName,
+        promise
     );
-
     return res.send(signUpResponse);
 };
 

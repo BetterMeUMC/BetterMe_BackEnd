@@ -34,8 +34,8 @@ async function selectUserId(connection, userId) {
 async function insertUser(connection, insertUserTBLParams) {
   
   const insertUserTBLQuery = `
-        INSERT INTO UserTBL(email, pw, nickName)
-        VALUES (?, ?, ?);
+        INSERT INTO UserTBL(email, pw, nickName, promise)
+        VALUES (?, ?, ?, ?);
     `;
   const insertUserTBLRow = await connection.query(
     insertUserTBLQuery,

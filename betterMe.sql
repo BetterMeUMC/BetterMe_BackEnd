@@ -23,7 +23,7 @@ CREATE TABLE `habit` (
 DROP TABLE IF EXISTS `habit_invite`;
 
 CREATE TABLE `habit_invite` (
-	`inviteIdx`	BIGINT	NOT NULL	COMMENT 'auto increase',
+	`inviteIdx`	BIGINT	NOT NULL 	COMMENT 'auto increase',
 	`habitIdx`	BIGINT	NOT NULL,
 	`senderIdx`	BIGINT	NOT NULL,
 	`receiverIdx`	BIGINT	NOT NULL,
@@ -35,9 +35,9 @@ R : 초대 거절 상태'
 DROP TABLE IF EXISTS `UserTBL`;
 
 CREATE TABLE `UserTBL` (
-	`userIdx`	BIGINT	NOT NULL	COMMENT 'auto increase',
+	`userIdx`	BIGINT	NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	`email`	text	NOT NULL,
-	`pw`	varchar(20)	NOT NULL,
+	`pw`	varchar(300)	NOT NULL,
 	`nickName`	varchar(10)	NOT NULL,
 	`promise`	varchar(30)	NOT NULL,
 	`token`	text	NULL	COMMENT '로그인시 사용',
@@ -63,10 +63,6 @@ ALTER TABLE `habit` ADD CONSTRAINT `PK_HABIT` PRIMARY KEY (
 
 ALTER TABLE `habit_invite` ADD CONSTRAINT `PK_HABIT_INVITE` PRIMARY KEY (
 	`inviteIdx`
-);
-
-ALTER TABLE `UserTBL` ADD CONSTRAINT `PK_USERTBL` PRIMARY KEY (
-	`userIdx`
 );
 
 ALTER TABLE `follow` ADD CONSTRAINT `PK_FOLLOW` PRIMARY KEY (

@@ -13,8 +13,9 @@ const {connect} = require("http2");
 
 // Service: Create, Update, Delete 비즈니스 로직 처리
 
-exports.createUser = async function (email, password, nickname) {
+exports.createUser = async function (email, password, nickName, promise) {
     try {
+
         // 이메일 중복 확인
         const emailRows = await userProvider.emailCheck(email);
         if (emailRows.length > 0)
@@ -26,7 +27,7 @@ exports.createUser = async function (email, password, nickname) {
             .update(password)
             .digest("hex");
 
-        const insertUserInfoParams = [email, hashedPassword, nickname];
+        const insertUserInfoParams = [email, hashedPassword, nickName, promise];
 
         const connection = await pool.getConnection(async (conn) => conn);
 

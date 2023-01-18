@@ -147,10 +147,10 @@ exports.patchUsers = async function (req, res) {
 
     // jwt - userId, path variable :userId
 
-    const userIdFromJWT = req.verifiedToken.userId;
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
-    const userId = req.params.userId;
-    const nickname = req.body.nickname;
+    const userId = req.params.userIdx;
+    const nickname = req.body.nickName;
 
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
@@ -166,9 +166,9 @@ exports.patchUsersP = async function (req, res) {
 
     // jwt - userId, path variable :userId
 
-    const userIdFromJWT = req.verifiedToken.userId;
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
-    const userId = req.params.userId;
+    const userId = req.params.userIdx;
     const password = req.body.password;
 
     if (userIdFromJWT != userId) {
@@ -181,6 +181,24 @@ exports.patchUsersP = async function (req, res) {
     }
 };
 
+exports.patchUsersPm = async function (req, res) {
+
+    // jwt - userId, path variable :userId
+
+    const userIdFromJWT = req.verifiedToken.userIdx;
+
+    const userId = req.params.userIdx;
+    const promise = req.body.promise;
+
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    } else {
+        if (!password) return res.send(errResponse(baseResponse.SIGNUP_PROMISE_EMPTY));
+
+        const editUserInfoPm = await userService.editUserPm(userId, password)
+        return res.send(editUserInfoPm);
+    }
+};
 
 exports.unregisterUsers = async function (req, res) {
 

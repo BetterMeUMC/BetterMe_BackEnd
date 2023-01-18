@@ -38,15 +38,6 @@ module.exports = {
     USER_NICKNAME_EMPTY : { "isSuccess": false, "code": 2017, "message": "변경할 닉네임 값을 입력해주세요" },
     USER_PASSWORD_EMPTY : { "isSuccess": false, "code": 2018, "message": "변경할 비밀번호 값을 입력해주세요" },
 
-    VIDEO_THUMBPIC_EMPTY : {"isSuccess": false, "code": 2019, "message":"썸네일을 입력해주세요" },
-    VIDEO_NAME_EMPTY : {"isSuccess": false, "code": 2020, "message":"비디오 이름을 입력해주세요" },
-    VIDEO_ISSTREAMING_EMPTY : {"isSuccess": false, "code": 2021, "message":"실시간 여부를 입력해주세요" },
-    VIDEO_DSCRP_EMPTY : {"isSuccess": false, "code": 2022, "message":"비디오 상세정보를 입력해주세요" },
-    VIDEO_URL_EMPTY : {"isSuccess": false, "code": 2023, "message":"비디오 URL을 입력해주세요" },
-    VIDEO_PRIVATE_EMPTY : {"isSuccess": false, "code": 2024, "message":"비공개여부를 입력해주세요" },
-    VIDEO_RUNTIME_EMPTY : {"isSuccess": false, "code": 2025, "message":"동영상 길이를 입력해주세요" },
-    VIDEO_ID_EMPTY : {"isSuccess": false, "code": 2026, "message":"비디오 ID를 입력해주세요" },
-
     USER_STATUS_EMPTY : { "isSuccess": false, "code": 2027, "message": "회원 상태값을 입력해주세요" },
 
     COMM_ISPARENT_EMPTY : {"isSuccess": false, "code": 2028, "message":"대댓글 여부를 입력해주세요" },

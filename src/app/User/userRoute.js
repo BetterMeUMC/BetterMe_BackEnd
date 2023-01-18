@@ -24,6 +24,8 @@ module.exports = function(app){
 
     app.patch('/app/users/changePw/:userIdx', jwtMiddleware, user.patchUsersP);
 
+    app.patch('/app/users/changePm/:userIdx', jwtMiddleware, user.patchUsersPm);
+
     // 자동로그인 API (JWT 검증 및 Payload 내뱉기)
     // JWT 검증 API
     app.get('/app/auth/auto-login', jwtMiddleware, user.check);

@@ -55,7 +55,18 @@ module.exports = {
 
     HABIT_EMOGE_LENGTH:{"isSuccess" : false, "code" : 2034, "message" : "이모지는 한개만 선택해주세요"},
     HABIT_NAME_LENGTH : {"isSuccess" : false, "code" : 2035, "message" : "길이는 20 이하로 설정해주세요"},
+
     HABIT_CONTENTS_LENGTH : {"isSuccess" : false, "code" : 2036, "message" : "길이는 50 이하로 설정해주세요"},
+
+
+    FOLLOW_SELF_REQUEST: {"isSuccess": false, "code": 3037, "message":"본인에게 친구 신청을 할 수 없습니다." },
+    FOLLOW_USER_NOT_EXIST: {"isSuccess": false, "code": 3038, "message":"검색 결과가 없습니다." },
+    FOLLOW_EMAIL_NOT_EXIST: {"isSuccess": false, "code": 3039, "message":"이메일 검색 결과가 없습니다." },
+    FOLLOW_REQUEST_NOT_EXIST: {"isSuccess": false, "code": 3040, "message":"친구 신청 이력이 없습니다." },
+    FOLLOW_WRONG_REQUEST: {"isSuccess": false, "code": 3041, "message":"잘못된 요청 값입니다." },
+
+
+
     // Response error
     SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 3001, "message":"중복된 이메일입니다." },
     SIGNUP_REDUNDANT_NICKNAME : { "isSuccess": false, "code": 3002, "message":"중복된 닉네임입니다." },

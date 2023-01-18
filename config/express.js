@@ -23,6 +23,7 @@ module.exports = function () {
     require('../src/app/Comm/commRoute')(app);
     // require('../src/app/Board/boardRoute')(app);
     require('../src/app/Habit/habitRoute')(app);
+    require('../src/app/Follow/followRoute')(app);
 
     return app;
 };

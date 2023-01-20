@@ -52,3 +52,30 @@ exports.deleteHabit=async function(userId,habitId){
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.checkHabit = async function(userId,habitId){
+    try{
+        const checkHabitInfoParams = [userId,habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const checkHabitResult = await habitDao.checkHabit(connection,checkHabitInfoParams);
+        connection.release();
+
+
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.noCheckHabit = async function(userId,habitId){
+    try{
+        const noCheckHabitInfoParams = [userId,habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const noCheckHabitResult = await habitDao.noCheckHabit(connection,noCheckHabitInfoParams);
+        connection.release();
+
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}

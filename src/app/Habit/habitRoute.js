@@ -16,5 +16,7 @@ module.exports = function(app){
     //5. 습관 삭제 API
     app.patch('/app/habits/:userIdx/:habitIdx',habit.deleteHabit);
 
+    //6. 습관 체크 API
+    app.patch('/app/habits/check/:userIdx/:habitIdx',habit.checkHabit);
 
 };

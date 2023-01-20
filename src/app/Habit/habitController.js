@@ -1,6 +1,7 @@
 const jwtMiddleware = require("../../../config/jwtMiddleware");
 const habitProvider = require("./habitProvider");
 const habitService = require("./habitService");
+const habitDao = require("./habitDao");
 const baseResponse = require("../../../config/baseResponseStatus");
 const {response, errResponse} = require("../../../config/response");
 
@@ -55,8 +56,12 @@ exports.postHabits = async function(req, res){
 
 exports.getHabits = async function(req, res){
 
+    const userId = req.params.userIdx;
     //습관 전체 조회
-    const habitListResult = await habitProvider.retrieveHabitList();
+    const habitListResult = await habitProvider.retrieveHabitList(userId);
+    if(!habitListResult)
+        return res.send(response(baseResponse.HABIT_CONTENT_NULL));
+
     return res.send(response(baseResponse.SUCCESS,habitListResult));
 
 }
@@ -70,9 +75,13 @@ exports.getHabits = async function(req, res){
 exports.getHabitById = async function(req,res){
 
     const habitId = req.params.habitIdx;
+    const userId = req.params.userIdx;
 
-    const habitByHabitId = await habitProvider.retrieveHabit(habitId);
-    return res.send(response(baseResponse.SUCCESS, habitByHabitId))
+    const habitByHabitId = await habitProvider.retrieveHabit(userId,habitId);
+    if(!habitByHabitId)
+        return res.send(response(baseResponse.HABIT_CONTENT_NULL));
+
+    return res.send(response(baseResponse.SUCCESS, habitByHabitId));
 
 
 }
@@ -80,7 +89,7 @@ exports.getHabitById = async function(req,res){
 /**
  * API No. 4
  * API Name : 습관 수정 API
- * [PATCH] /app/habits/:userIdx/:habitIdx
+ * [PATCH] /app/changeH/habits/:userIdx/:habitIdx
  */
 
 exports.patchHabit = async function (req, res){
@@ -121,4 +130,29 @@ exports.deleteHabit = async function (req, res){
 
     const deleteHabit = await habitService.deleteHabit(userId,habitId);
     return res.send(deleteHabit);
+}
+
+/**
+ * API No. 6
+ * API Name : 습관 체크 API
+ * [PATCH] /app/habits/check/:userIdx/:habitIdx
+ */
+
+exports.checkHabit = async function (req, res){
+
+    const check = req.body;
+    const userId = req.params.userIdx;
+    const habitId = req.params.habitIdx;
+
+    if(check){
+        const checkHabit = await habitService.checkHabit(userId,habitId);
+        return res.send(checkHabit);
+    }else{
+        const noCheckHabit = await habitService.noCheckHabit(userId,habitId);
+        return res.send(noCheckHabit);
+    }
+    const habitDay = await habitProvider.getHabitDay(userId,habitId);
+    if(!habitDay){
+
+    }
 }

@@ -144,15 +144,18 @@ exports.checkHabit = async function (req, res){
     const userId = req.params.userIdx;
     const habitId = req.params.habitIdx;
 
-    if(check){
+    const habitDay = await habitProvider.getHabitDay(userId,habitId);
+
+    if(habitDay[0][0].habitDay<=0){
+        return res.send(response(baseResponse.HABIT_ACHIEVEMENT_SUCCESS));
+    }
+
+    if(check.check){
         const checkHabit = await habitService.checkHabit(userId,habitId);
         return res.send(checkHabit);
     }else{
         const noCheckHabit = await habitService.noCheckHabit(userId,habitId);
         return res.send(noCheckHabit);
     }
-    const habitDay = await habitProvider.getHabitDay(userId,habitId);
-    if(!habitDay){
 
-    }
 }

@@ -5,6 +5,9 @@ module.exports = {
     HABIT_CREATE_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 생성 성공"},
     HABIT_UPDATE_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 변경 성공"},
     HABIT_DELETE_SUCCESS : {"isSuccess" :true, "code" : 201, "message" : "습관 삭제 성공"},
+    HABIT_CHECK_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 체크 성공"},
+    HABIT_NOCHECK_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 체크x 성공"},
+    HABIT_ACHIEVEMENT_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 성취 성공"},
 
     // Common
     TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },

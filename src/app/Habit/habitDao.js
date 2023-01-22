@@ -60,18 +60,37 @@ async function deleteHabit(connection,deleteHabitTBLParams){
 async function checkHabit(connection,checkHabitTBLParams){
     const checkHabitQuery = `
     UPDATE habit
-    SET  
+    SET habitDay = habitDay-1
+    WHERE userIdx = ? AND habitIdx = ?; 
     `;
 
+    const checkHabitRow = await connection.query(checkHabitQuery,checkHabitTBLParams);
+    return checkHabitRow;
 }
 
 async function noCheckHabit(connection, noCheckHabitTBLParams){
 
-    const noCheckHabitQuery = ``;
+    const noCheckHabitQuery = `
+    UPDATE habit
+    SET life = life - 1
+    WHERE userIdx = ? AND habitIdx = ?;
+    `;
+
+    const noCheckHabitRow = await connection.query(noCheckHabitQuery,noCheckHabitTBLParams);
+    return noCheckHabitRow;
 }
 
-async function getHabitDay(){
+async function getHabitDay(connection,getHabitDayTBLParams){
 
+    const getHabitDayQuery = `
+    SELECT habitDay
+    FROM habit 
+    WHERE userIdx = ? AND habitIdx = ? ;
+    `;
+
+    const getHabitDayRow = await connection.query(getHabitDayQuery,getHabitDayTBLParams);
+
+    return getHabitDayRow;
 }
 module.exports= {
     insertHabit,

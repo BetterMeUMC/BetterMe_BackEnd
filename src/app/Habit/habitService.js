@@ -60,6 +60,7 @@ exports.checkHabit = async function(userId,habitId){
         const checkHabitResult = await habitDao.checkHabit(connection,checkHabitInfoParams);
         connection.release();
 
+        return response(baseResponse.HABIT_CHECK_SUCCESS);
 
     }catch(err){
         logger.error(`App - editUser Service error\n: ${err.message}`);
@@ -73,6 +74,8 @@ exports.noCheckHabit = async function(userId,habitId){
         const connection = await pool.getConnection(async (conn) => conn);
         const noCheckHabitResult = await habitDao.noCheckHabit(connection,noCheckHabitInfoParams);
         connection.release();
+
+        return response(baseResponse.HABIT_NOCHECK_SUCCESS);
 
     }catch(err){
         logger.error(`App - editUser Service error\n: ${err.message}`);

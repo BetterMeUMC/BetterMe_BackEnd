@@ -2,25 +2,54 @@ const { pool } = require("../../../config/database");
 const { logger } = require("../../../config/winston");
 
 const habitDao = require("./habitDao");
+const {errResponse} = require("../../../config/response");
+const baseResponse = require("../../../config/baseResponseStatus");
 
 exports.retrieveHabitList = async function (userId){
+    try{
 
-    const connection = await pool.getConnection(async (conn) => conn);
-    const habitListResult = await habitDao.selectHabit(connection,userId);
-    connection.release();
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitListResult = await habitDao.selectHabit(connection,userId);
+        connection.release();
 
-    return habitListResult;
+        return habitListResult;
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
 }
 
 exports.retrieveHabit = async function(userId,habitId){
 
-    const selectHabitInfoParams = [userId,habitId];
-    const connection = await pool.getConnection(async (conn) => conn);
-    const habitResult = await habitDao.selectHabitId(connection,selectHabitInfoParams);
+    try {
+        const selectHabitInfoParams = [userId, habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitResult = await habitDao.selectHabitId(connection, selectHabitInfoParams);
 
-    connection.release();
+        connection.release();
 
-    return habitResult;
+        return habitResult;
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+
 }
 
-//exports.retrieveHabitDay = async function()
+
+
+exports.getHabitDay = async function(userId,habitId){
+
+    try {
+        const getHabitDayInfoParams = [userId, habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitDayResult = await habitDao.getHabitDay(connection, getHabitDayInfoParams);
+
+        connection.release();
+
+        return habitDayResult;
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}

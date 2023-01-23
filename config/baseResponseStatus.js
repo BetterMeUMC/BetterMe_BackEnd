@@ -24,7 +24,11 @@ module.exports = {
     SIGNIN_EMAIL_LENGTH : { "isSuccess": false, "code": 2009, "message":"이메일은 30자리 미만으로 입력해주세요." },
     SIGNIN_EMAIL_ERROR_TYPE : { "isSuccess": false, "code": 2010, "message":"이메일을 형식을 정확하게 입력해주세요." },
     SIGNIN_PASSWORD_EMPTY : { "isSuccess": false, "code": 2011, "message": "비밀번호를 입력 해주세요." },
+    SIGNIN_PASSWORD_LENGTH : { "isSuccess": false, "code": 2012, "message":"비밀번호는 6~20자리를 입력해주세요." },
 
+    SIGNUP_PROMISE_EMPTY: { "isSuccess": false,"code": 2037,"message":"한줄다짐을 입력해주세요." },
+    SIGNUP_PROMISE_LENGTH: { "isSuccess": false,"code": 2038,"message":"한줄다짐은 30자 이내로 입력해주세요." },
+    
     USER_USERID_EMPTY : { "isSuccess": false, "code": 2012, "message": "userId를 입력해주세요." },
     USER_USERID_NOT_EXIST : { "isSuccess": false, "code": 2013, "message": "해당 회원이 존재하지 않습니다." },
 
@@ -33,15 +37,6 @@ module.exports = {
     USER_ID_NOT_MATCH : { "isSuccess": false, "code": 2016, "message": "유저 아이디 값을 확인해주세요" },
     USER_NICKNAME_EMPTY : { "isSuccess": false, "code": 2017, "message": "변경할 닉네임 값을 입력해주세요" },
     USER_PASSWORD_EMPTY : { "isSuccess": false, "code": 2018, "message": "변경할 비밀번호 값을 입력해주세요" },
-
-    VIDEO_THUMBPIC_EMPTY : {"isSuccess": false, "code": 2019, "message":"썸네일을 입력해주세요" },
-    VIDEO_NAME_EMPTY : {"isSuccess": false, "code": 2020, "message":"비디오 이름을 입력해주세요" },
-    VIDEO_ISSTREAMING_EMPTY : {"isSuccess": false, "code": 2021, "message":"실시간 여부를 입력해주세요" },
-    VIDEO_DSCRP_EMPTY : {"isSuccess": false, "code": 2022, "message":"비디오 상세정보를 입력해주세요" },
-    VIDEO_URL_EMPTY : {"isSuccess": false, "code": 2023, "message":"비디오 URL을 입력해주세요" },
-    VIDEO_PRIVATE_EMPTY : {"isSuccess": false, "code": 2024, "message":"비공개여부를 입력해주세요" },
-    VIDEO_RUNTIME_EMPTY : {"isSuccess": false, "code": 2025, "message":"동영상 길이를 입력해주세요" },
-    VIDEO_ID_EMPTY : {"isSuccess": false, "code": 2026, "message":"비디오 ID를 입력해주세요" },
 
     USER_STATUS_EMPTY : { "isSuccess": false, "code": 2027, "message": "회원 상태값을 입력해주세요" },
 

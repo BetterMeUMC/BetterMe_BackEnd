@@ -193,9 +193,9 @@ exports.patchUsersPm = async function (req, res) {
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
     } else {
-        if (!password) return res.send(errResponse(baseResponse.SIGNUP_PROMISE_EMPTY));
+        if (!promise) return res.send(errResponse(baseResponse.SIGNUP_PROMISE_EMPTY));
 
-        const editUserInfoPm = await userService.editUserPm(userId, password)
+        const editUserInfoPm = await userService.editUserPm(userId, promise)
         return res.send(editUserInfoPm);
     }
 };
@@ -204,8 +204,8 @@ exports.unregisterUsers = async function (req, res) {
 
     // jwt - userId, path variable :userId
 
-    const userIdFromJWT = req.verifiedToken.userId;
-    const userId = req.params.userId;
+    const userIdFromJWT = req.verifiedToken.userIdx;
+    const userId = req.params.userIdx;
 
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
@@ -228,7 +228,7 @@ exports.unregisterUsers = async function (req, res) {
  * [GET] /app/auto-login
  */
 exports.check = async function (req, res) {
-    const userIdResult = req.verifiedToken.userId;
+    const userIdResult = req.verifiedToken.userIdx;
     console.log(userIdResult);
     return res.send(response(baseResponse.TOKEN_VERIFICATION_SUCCESS));
 };

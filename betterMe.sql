@@ -43,8 +43,7 @@ CREATE TABLE `UserTBL` (
 	`token`	text	NULL	COMMENT '로그인시 사용',
 	`photo`	text	NULL,
 	`createdAt`	timestamp	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-	`updatedAt`	timestamp	NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-	`stat`	varchar(2)	NOT NULL	DEFAULT 'A'	COMMENT '활성 : A, 탈퇴 : D'
+	`updatedAt`	timestamp	NOT NULL	DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS `follow`;
@@ -68,3 +67,7 @@ ALTER TABLE `habit_invite` ADD CONSTRAINT `PK_HABIT_INVITE` PRIMARY KEY (
 ALTER TABLE `follow` ADD CONSTRAINT `PK_FOLLOW` PRIMARY KEY (
 	`followIdx`
 );
+
+
+-- 회원정보 입력
+INSERT INTO UserTBL(email, pw, nickName, promise) VALUES ('mimi@gmail.com', 'f7151aa2440939ce606b0ea0eaa7b4b043a9b2e911fe435251b88ab33cee43ab56903628e2e66594f1a857a0dd918ef65b005f602d584b4d37752c18df72cd0b', '미미', '난 할 수 있서.');

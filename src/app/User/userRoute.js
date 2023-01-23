@@ -31,6 +31,6 @@ module.exports = function(app){
     app.get('/app/auth/auto-login', jwtMiddleware, user.check);
 
     // TODO: 탈퇴하기 API (JWT 검증 및 Validation - 메소드 체이닝 방식으로 jwtMiddleware 사용)
-    app.patch('/app/auth/unregister/:userId', jwtMiddleware, user.unregisterUsers);
+    app.delete('/app/auth/unregister/:userIdx', jwtMiddleware, user.unregisterUsers);
 
 };

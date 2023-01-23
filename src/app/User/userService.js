@@ -135,6 +135,24 @@ exports.editUserP = async function (id, password) {
     }
 }
 
+exports.editUserPm = async function (id, promise) {
+    try {
+        console.log(id)
+        
+        const connection = await pool.getConnection(async (conn) => conn);
+
+
+        const editUserPmResult = await userDao.updateUserPm(connection, id, promise)
+        connection.release();
+
+        return response(baseResponse.SUCCESS);
+
+    } catch (err) {
+        logger.error(`App - editUserPm Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
 exports.unregisterUser = async function (id) {
     try {
         console.log(id)

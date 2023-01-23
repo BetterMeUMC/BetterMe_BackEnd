@@ -28,8 +28,6 @@ exports.postUsers = async function (req, res) {
      */
     const {email, password, nickName, promise} = req.body;
 
-    console.log("??\n");
-
     // 빈 값 체크
     if (!email)
         return res.send(response(baseResponse.SIGNUP_EMAIL_EMPTY));

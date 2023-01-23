@@ -19,6 +19,17 @@ async function selectUserEmail(connection, email) {
   return emailRows;
 }
 
+// 닉네임 중복조회
+async function selectUserNName(connection, nickname) {
+  const selectUserNNameQuery = `
+                SELECT count(*) as num
+                FROM UserTBL 
+                WHERE nickName = ?;
+                `;
+  const [nicknameRows] = await connection.query(selectUserNNameQuery, nickname);
+  return nicknameRows;
+}
+
 // userId 회원 조회
 async function selectUserId(connection, userId) {
   const selectUserIdQuery = `
@@ -62,7 +73,7 @@ async function selectUserPassword(connection, selectUserPasswordParams) {
 // 유저 계정 상태 체크 (jwt 생성 위해 id 값도 가져온다.)
 async function selectUserAccount(connection, email) {
   const selectUserAccountQuery = `
-        SELECT stat, userIdx
+        SELECT userIdx
         FROM UserTBL 
         WHERE email = ?;`;
   const selectUserAccountRow = await connection.query(
@@ -116,6 +127,7 @@ module.exports = {
   selectUserPassword,
   selectUserAccount,
   updateUser,
+  selectUserNName,
   updateUserP,
   updateUserPm,
   unregisterUser

@@ -105,6 +105,33 @@ exports.getUserById = async function (req, res) {
     return res.send(response(baseResponse.SUCCESS, userByUserId));
 };
 
+exports.getUserByEmail = async function (req, res) {
+
+    /**
+     * query params: email
+     */
+    const userEm = req.query.email;
+
+    if (!userEm) return res.send(errResponse(baseResponse.USER_USEREMAIL_EMPTY));
+
+    const userByUserEm = await userProvider.emailCheck(userEm);
+    if (userByUserEm == undefined)return res.send(response(baseResponse.SIGNUP_EMAIL_CHECK_SUCCESS));
+    else return res.send(response(baseResponse.SIGNUP_REDUNDANT_EMAIL));
+};
+
+exports.getUserByNname = async function (req, res) {
+
+    /**
+     * query params: nickName
+     */
+    const userNN = req.query.nickName;
+
+    if (!userNN) return res.send(errResponse(baseResponse.SIGNUP_NICKNAME_EMPTY));
+
+    const userByUserNN = await userProvider.nickNameCheck(userNN);
+    if (userByUserNN.num == 0)return res.send(response(baseResponse.SIGNUP_NICKNAME_CHECK_SUCCESS));
+    else return res.send(response(baseResponse.SIGNUP_REDUNDANT_NICKNAME));
+};
 
 // TODO: After 로그인 인증 방법 (JWT)
 /**
@@ -121,7 +148,7 @@ exports.login = async function (req, res) {
     if (!email)
         return res.send(response(baseResponse.SIGNIN_EMAIL_EMPTY));
     if (!password)
-        return res.send(response(baseResponse.SIGNIN_EMAIL_EMPTY));
+        return res.send(response(baseResponse.SIGNIN_PASSWORD_EMPTY));
     
     if (email.length > 30)
         return res.send(response(baseResponse.SIGNIN_EMAIL_LENGTH));

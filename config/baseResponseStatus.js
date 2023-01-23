@@ -60,10 +60,12 @@ module.exports = {
 
 
     // Response error
-    SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 3001, "message":"중복된 이메일입니다." },
+    SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 3001, "message":"이미 등록된 이메일입니다." },
     SIGNUP_REDUNDANT_NICKNAME : { "isSuccess": false, "code": 3002, "message":"중복된 닉네임입니다." },
+    SIGNUP_EMAIL_CHECK_SUCCESS : { "isSuccess": true, "code": 3007, "message":"등록가능한 이메일입니다." },
+    SIGNUP_NICKNAME_CHECK_SUCCESS : { "isSuccess": true, "code": 3008, "message":"사용가능한 닉네임입니다." },
 
-    SIGNIN_EMAIL_WRONG : { "isSuccess": false, "code": 3003, "message": "아이디가 잘못 되었습니다." },
+    SIGNIN_EMAIL_WRONG : { "isSuccess": false, "code": 3003, "message": "등록되지않은 이메일입니다." },
     SIGNIN_PASSWORD_WRONG : { "isSuccess": false, "code": 3004, "message": "비밀번호가 잘못 되었습니다." },
     SIGNIN_INACTIVE_ACCOUNT : { "isSuccess": false, "code": 3005, "message": "비활성화 된 계정입니다. 고객센터에 문의해주세요." },
     SIGNIN_WITHDRAWAL_ACCOUNT : { "isSuccess": false, "code": 3006, "message": "탈퇴 된 계정입니다. 고객센터에 문의해주세요." },

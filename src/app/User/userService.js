@@ -69,12 +69,6 @@ exports.postSignIn = async function (email, password) {
         // 계정 상태 확인
         const userInfoRows = await userProvider.accountCheck(email);
 
-        if (userInfoRows[0].stat === "I") {
-            return errResponse(baseResponse.SIGNIN_INACTIVE_ACCOUNT);
-        } else if (userInfoRows[0].stat === "D") {
-            return errResponse(baseResponse.SIGNIN_WITHDRAWAL_ACCOUNT);
-        }
-
         console.log(userInfoRows[0].userIdx) // DB의 userId
 
         //토큰 생성 Service

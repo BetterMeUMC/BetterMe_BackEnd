@@ -8,6 +8,9 @@ module.exports = function(app){
     // 1. 유저 생성 (회원가입) API
     app.post('/app/auth/register', user.postUsers);
 
+    app.get('/app/users/checkEmail', user.getUserByEmail);
+    app.get('/app/users/checkNName', user.getUserByNname);
+
     // 2. 유저 조회 API (+ 검색)
     app.get('/app/users',user.getUsers); 
 

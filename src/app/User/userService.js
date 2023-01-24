@@ -18,7 +18,7 @@ exports.createUser = async function (email, password, nickName, promise) {
 
         // 이메일 중복 확인
         const emailRows = await userProvider.emailCheck(email);
-        if (emailRows.length > 0)
+        if (emailRows != undefined)
             return errResponse(baseResponse.SIGNUP_REDUNDANT_EMAIL);
 
         // 비밀번호 암호화
@@ -49,9 +49,10 @@ exports.postSignIn = async function (email, password) {
     try {
         // 이메일 여부 확인
         const emailRows = await userProvider.emailCheck(email);
-        if (emailRows.length < 1) return errResponse(baseResponse.SIGNIN_EMAIL_WRONG);
+        
+        if (emailRows == undefined) return errResponse(baseResponse.SIGNIN_EMAIL_WRONG);
 
-        const selectEmail = emailRows[0].email
+        const selectEmail = emailRows.email
 
         // 비밀번호 확인
         const hashedPassword = await crypto

@@ -82,3 +82,17 @@ exports.noCheckHabit = async function(userId,habitId){
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.achieveHabit = async function(userId,habitId){
+    try{
+        const achieveHabitInfoParams = [userId,habitId];
+        const connection = await pool.getConnection(async (conn) =>conn);
+        const achieveHabitResult = await habitDao.achieveHabit(connection,achieveHabitInfoParams);
+        connection.release();
+
+        return response(baseResponse.HABIT_ACHIEVEMENT_SUCCESS);
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}

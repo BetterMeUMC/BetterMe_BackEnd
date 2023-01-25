@@ -53,3 +53,21 @@ exports.getHabitDay = async function(userId,habitId){
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.getHabitLife = async function(userId,habitId){
+
+    try{
+        const getHabitLifeInfoParams = [userId, habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitLifeResult = await habitDao.getHabitLife(connection, getHabitLifeInfoParams);
+
+        connection.release();
+
+        return habitLifeResult;
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+
+
+}

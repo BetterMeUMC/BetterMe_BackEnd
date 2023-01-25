@@ -92,6 +92,27 @@ async function getHabitDay(connection,getHabitDayTBLParams){
 
     return getHabitDayRow;
 }
+async function achieveHabit(connection,achieveHabitTBLParams){
+    const achieveHabitQuery = `
+    UPDATE habit
+    SET isachieved = 1
+    WHERE userIdx = ? AND habitIdx = ?;`;
+
+    const achieveHabitRow = await connection.query(achieveHabitQuery,achieveHabitTBLParams);
+
+    return achieveHabitRow;
+}
+async function getHabitLife(connection,getHabitLifeTBLParams){
+
+    const getHabitLifeQuery = `
+    SELECT life
+    FROM habit
+    WHERE userIdx = ? AND habitIdx = ?;`;
+
+    const getHabitLifeRow = await connection.query(getHabitLifeQuery,getHabitLifeTBLParams);
+
+    return getHabitLifeRow;
+}
 module.exports= {
     insertHabit,
     selectHabit,
@@ -101,4 +122,6 @@ module.exports= {
     checkHabit,
     noCheckHabit,
     getHabitDay,
+    getHabitLife,
+    achieveHabit,
 };

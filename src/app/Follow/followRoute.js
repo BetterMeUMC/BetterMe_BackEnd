@@ -23,5 +23,5 @@ module.exports = function(app) {
     app.patch('/app/follow/accept/:follower/:followee', follow.patchAcceptStatus);
 
     // 8. 친구 신청 거절 / 친구 삭제
-    app.delete('/app/follow/delete/:follower/:followee', follow.deleteFollows);
+    app.delete('/app/follow/delete/:follower', follow.deleteFollows);
 }

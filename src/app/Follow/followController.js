@@ -117,7 +117,8 @@ exports.postFollow = async function(req, res) {
 
  exports.deleteFollows = async function(req, res) {
     const follower = req.params.follower;
-    const followee = req.params.followee;
+    const followee = req.body.followee;
+    console.log(followee);
     const deleteFollowResponse = await followService.deleteFollowsOrRequest(follower, followee);
 
     return res.send(deleteFollowResponse);

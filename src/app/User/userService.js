@@ -148,3 +148,19 @@ exports.unregisterUser = async function (id) {
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.editUserPhoto = async function(userId,photo){
+
+    try{
+
+        const connection = await pool.getConnection(async (conn) => conn);
+        const editUserPhotoResult = await userDao.updateUserPhoto(connection,userId,photo);
+        connection.release();
+
+        return response(baseResponse.SUCCESS);
+
+    } catch (err) {
+        logger.error(`App - unregisterUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}

@@ -194,7 +194,20 @@ exports.unregisterUsers = async function (req, res) {
     }
 };
 
+exports.patchPhoto = async function (req, res) {
+    // jwt - userId, path variable :userId
 
+    const userIdFromJWT = req.verifiedToken.userId;
+    const userId = req.params.userId;
+    const photo = req.body;
+
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    } else {
+        const editUserPhoto = await userService.editUserPhoto(userId,photo);
+        return res.send(editUserPhoto);
+    }
+}
 
 
 

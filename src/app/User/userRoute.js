@@ -31,4 +31,7 @@ module.exports = function(app){
     // TODO: 탈퇴하기 API (JWT 검증 및 Validation - 메소드 체이닝 방식으로 jwtMiddleware 사용)
     app.patch('/app/auth/unregister/:userId', jwtMiddleware, user.unregisterUsers);
 
+    //회원 프로필 사진 변경
+    app.patch('/app/users/changePic/:userIdx',jwtMiddleware, user.patchPhoto);
+
 };

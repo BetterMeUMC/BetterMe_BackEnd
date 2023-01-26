@@ -99,6 +99,17 @@ async function unregisterUser(connection, id) {
   return unregisterUserRow[0];
 }
 
+async function updateUserPhoto(connection,userId,Photo){
+  const editUserPhotoQuery = `
+  UPDATE UserTBL
+  SET photo = ?
+  WHERE userIdx = ?;
+  `;
+
+  const updateUserPhotoRow = await connection.query(editUserPhotoQuery,[userId,Photo]);
+
+  return updateUserPhotoRow[0];
+}
 
 module.exports = {
   selectUser,
@@ -109,5 +120,6 @@ module.exports = {
   selectUserAccount,
   updateUser,
   updateUserP,
-  unregisterUser
+  unregisterUser,
+  updateUserPhoto,
 };

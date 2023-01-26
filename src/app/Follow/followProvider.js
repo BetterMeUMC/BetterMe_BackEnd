@@ -23,6 +23,11 @@ exports.retrieveFollowList = async function(follower) {
 exports.retrieveFollowDetailList = async function(userIdx) {
     const connection = await pool.getConnection(async (conn) => conn);
     const followDetailInfoResult = await followDao.selectFollowDetailInfo(connection, userIdx);
+
+    if(!followDetailInfoResult[0]) {
+        return `[ERROR] FOLLOW_WRONG_REQUEST`
+    };
+
     const followIdx = followDetailInfoResult[0]['userIdx'];
     const followDetailAwardResults = await followDao.selectFollowDetailAwards(connection, followIdx);
     

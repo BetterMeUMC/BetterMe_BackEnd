@@ -45,7 +45,7 @@ exports.acceptFollowRequest = async function(follower, followee) {
     }
 }
 
-// 친구 신청 거절 or 친구 신청
+// 친구 신청 거절 or 친구 삭제
 exports.deleteFollowsOrRequest = async function(follower, followee) {
     try {
         const connection = await pool.getConnection(async (conn) => conn);

@@ -60,3 +60,7 @@ CREATE TABLE `follow` (
 
 -- 회원정보 입력
 INSERT INTO UserTBL(email, pw, nickName, promise) VALUES ('mimi@gmail.com', 'f7151aa2440939ce606b0ea0eaa7b4b043a9b2e911fe435251b88ab33cee43ab56903628e2e66594f1a857a0dd918ef65b005f602d584b4d37752c18df72cd0b', '미미', '난 할 수 있서.'); -- pw : mimimimi
+INSERT INTO UserTBL(email, pw, nickName, promise) VALUES ('cindy@gmail.com', 'ab42a55ab18fdc1abc1f6f6d91c1f0f76d31dc29a5f53967c19b05aee6769197a7e71a8330294b046f5a9ee0f77ce7bd95c8e8a594802594889da52b19af466b', '신디', '강신디 파이팅!'); -- pw : cindycindy
+INSERT INTO UserTBL(email, pw, nickName, promise) VALUES ('hyunni@gmail.com', '1ac48b07c121d14a801498655014e9af2953439a5986bf19820d91b0d6d38c4d2bb8fef8dd5bfeb7bbf17d0a183a98580258f9a93024fd3434196e37b763b7f5', '혀니', '전혀니 파이팅!'); -- pw : hyunnihyunni
+INSERT INTO UserTBL(email, pw, nickName, promise) VALUES ('poddy@gmail.com', 'f35d50b982323d6aabe6c72457ee3e12ead44d220c47169349787a3bdb7cd240e757773869838aafe0cda4901f8cc837555df1c56fb123c9cc735f76625ba6ea', '포디', '정포디 파이팅!'); -- pw : poddypoddy
+INSERT INTO UserTBL(email, pw, nickName, promise) VALUES ('junni@gmail.com', '69316ac12502d8ac8d75a20cf952ef8fdf66af650ee7babc7972e52b974bceb5572ecfe24f4a5bcd4d7a17fbf558f07da74d7c5400396a2349d6028a4309b829', '주니', '김주니 파이팅!'); -- pw : junnijunni

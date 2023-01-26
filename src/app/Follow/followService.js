@@ -49,15 +49,18 @@ exports.acceptFollowRequest = async function(follower, followee) {
 exports.deleteFollowsOrRequest = async function(follower, followee) {
     try {
         const connection = await pool.getConnection(async (conn) => conn);
-        const acceptStatusResult = await followDao.selectAcceptStatus(connection, follower, followee);
-        const acceptStatus = acceptStatusResult[0]['acceptStatus'];
 
-        if(acceptStatus != 1 && acceptStatus != 2 ) {
-            return errResponse(baseResponse.FOLLOW_WRONG_REQUEST);
+        for(let i = 0; i < followee.length; i++) {
+            const acceptStatusResult = await followDao.selectAcceptStatus(connection, follower, followee[i]);
+            const acceptStatus = acceptStatusResult[0]['acceptStatus'];
+            console.log(followee[i])
+            if(acceptStatus != 1 && acceptStatus != 2 ) {
+                return errResponse(baseResponse.FOLLOW_WRONG_REQUEST);
+            }
+
+            await followDao.deleteFollows(connection, follower, followee[i]);
+            await followDao.deleteFollows(connection, followee[i], follower);
         }
-
-        await followDao.deleteFollows(connection, follower, followee);
-        await followDao.deleteFollows(connection, followee, follower);
         connection.release();
 
         return response(baseResponse.SUCCESS);

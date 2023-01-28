@@ -28,9 +28,7 @@ CREATE TABLE `habit_invite` (
 	`habitIdx` BIGINT NOT NULL,
 	`senderIdx` BIGINT NOT NULL,
 	`receiverIdx` BIGINT NOT NULL,
-	`status` VARCHAR(2) NOT NULL DEFAULT 'W' COMMENT 'W : 초대 요청 대기 상태
-A  :  초대 승낙 상태
-R : 초대 거절 상태'
+	`status` VARCHAR(2) NOT NULL DEFAULT 'W'
 );
 
 DROP TABLE IF EXISTS `UserTBL`;
@@ -58,7 +56,7 @@ CREATE TABLE `follow` (
 	`acceptedAt` TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
---foreign key 추가
+-- foreign key 추가
 ALTER TABLE `habit` ADD CONSTRAINT `FK_UserTBL_TO_habit_1` FOREIGN KEY (`userIdx`) REFERENCES `UserTBL` (`userIdx`);
 
 ALTER TABLE `habit_invite` ADD CONSTRAINT `FK_habit_TO_habit_invite_1` FOREIGN KEY (`habitIdx`)
@@ -84,9 +82,20 @@ INSERT INTO UserTBL(email, pw, nickName, promise) VALUES ('poddy@gmail.com', 'f3
 INSERT INTO UserTBL(email, pw, nickName, promise) VALUES ('junni@gmail.com', '69316ac12502d8ac8d75a20cf952ef8fdf66af650ee7babc7972e52b974bceb5572ecfe24f4a5bcd4d7a17fbf558f07da74d7c5400396a2349d6028a4309b829', '주니', '김주니 파이팅!'); -- pw : junnijunni
 
 
---습관 데이터 입력
+-- 습관 데이터 입력
 INSERT INTO `habit` VALUES (1,1,'자전거','한강 다녀오기',1,0,'good',1,'g','2023-01-10 08:47:45','2023-01-10 08:47:45',1),
                            (2,1,'책읽기','하루 30분',3,30,'good',0,'g','2023-01-10 08:48:01','2023-01-10 08:48:01',1),
                            (3,1,'명상','하루 5분',0,25,'good',0,'m','2023-01-10 08:48:12','2023-01-10 08:48:12',0),
                            (4,1,'시간낭비 하지 않기','스마트폰 1시간 이상 사용 X',3,30,'bad',0,'b','2023-01-10 08:49:28','2023-01-10 08:49:28',1),
                            (5,1,'영어공부','토익',3,30,'good',0,'b','2023-01-11 05:00:02','2023-01-11 05:00:02',1);
+			   
+-- 습관 초대 입력
+INSERT INTO habit_invite(habitIdx, senderIdx, receiverIdx)
+	VALUES 	(1, 1, 2),
+		(2, 1, 3),
+		(3, 1, 2),
+		(4, 1, 5),
+		(4, 1, 3),
+		(5, 1, 4);
+		
+

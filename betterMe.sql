@@ -98,4 +98,20 @@ INSERT INTO habit_invite(habitIdx, senderIdx, receiverIdx)
 		(4, 1, 3),
 		(5, 1, 4);
 		
+-- 7일이상 수락하지 않은 초대 삭제
+DELIMITER $$
+CREATE PROCEDURE select_timediff_invite()
+BEGIN
+	delete from habit_invite where DATE_ADD(createdAt, INTERVAL 7 DAY) < CURRENT_DATE  and status = 'W';
+END $$
+DELIMITER ;
+
+CREATE EVENT IF NOT EXISTS rejectWaitedInvites
+    ON SCHEDULE
+		EVERY 1 DAY
+    ON COMPLETION PRESERVE
+    ENABLE
+    COMMENT '7일 이상 수락하지 않은 초대를 삭제합니다.'
+    DO 
+    CALL select_timediff_invite();
 

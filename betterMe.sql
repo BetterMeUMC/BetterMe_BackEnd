@@ -70,9 +70,6 @@ REFERENCES `UserTBL` (`userIdx`);
 ALTER TABLE `habit_invite` ADD CONSTRAINT `FK_UserTBL_TO_habit_invite_2` FOREIGN KEY (`receiverIdx`)
 REFERENCES `UserTBL` (`userIdx`);
 
-ALTER TABLE `habit_invite` ADD CONSTRAINT `FK_UserTBL_TO_habit_invite_3` FOREIGN KEY (`userIdx`)
-REFERENCES `UserTBL` (`userIdx`);
-
 ALTER TABLE `follow` ADD CONSTRAINT `FK_UserTBL_TO_follow_1` FOREIGN KEY (`follower`)
  REFERENCES `UserTBL` (`userIdx`);
 

@@ -55,9 +55,16 @@ exports.deleteHabit=async function(userId,habitId){
 
 exports.inviteHabit=async function(habitIdx, senderIdx, receiverIdx){
     try{
+        const checkRedundantInviteParams = [habitIdx, receiverIdx];
         const inviteHabitParams = [habitIdx, senderIdx, receiverIdx];
 
         const connection = await pool.getConnection(async (conn) => conn);
+
+        // 중복 초대 확인
+        const getinviteHabitResult = await habitDao.selectSendHabitInvite(connection, checkRedundantInviteParams);
+        if( getinviteHabitResult.length > 1){
+            return errResponse(baseResponse.HABIT_REDUNDANT_INVITE);
+        }
 
         const inviteHabitResult = await habitDao.inviteHabit(connection, inviteHabitParams);
 

@@ -3,6 +3,7 @@ const habitProvider = require("./habitProvider");
 const habitService = require("./habitService");
 const baseResponse = require("../../../config/baseResponseStatus");
 const {response, errResponse} = require("../../../config/response");
+const { DailyRotateFile } = require("winston/lib/winston/transports");
 
 /**
  * API No. 1
@@ -162,8 +163,9 @@ exports.postHabitInvite = async function(req, res) {
 exports.getHabitInvite = async function(req,res){
 
     const userIdx = req.params.userIdx;
-
+    
     const habitInviteByUserIdx = await habitProvider.retrieveHabitInvite(userIdx);
+
     return res.send(response(baseResponse.SUCCESS, habitInviteByUserIdx));
 }
 
@@ -207,13 +209,11 @@ exports.patchtHabitInviteReject = async function(req,res){
     return res.send(habitInviteResponse);
 }
 
-/*
-    의논할 것
-    -> 습관 초대에 응답한 이후 언제 삭제하지?
-    -> 응답에 수락한 경우에는 습관 초대를 수락했음을 알리기 위해 남겨두고
-       응답을 거절한 경우에만 삭제할까?
-*/
-
+/**
+ * API No. 10
+ * API Name : 받은 습관 초대 응답 조회 api
+ * [GET] /app/invite/response/:userIdx
+ */
 
 exports.getHabitInviteResponse = async function(req, res){
     const userIdx = req.params.userIdx;
@@ -221,3 +221,4 @@ exports.getHabitInviteResponse = async function(req, res){
     const habitInviteResponse = await habitProvider.retrieveHabitInviteResponse(userIdx);
     return res.send(response(baseResponse.SUCCESS, habitInviteResponse));
 }
+

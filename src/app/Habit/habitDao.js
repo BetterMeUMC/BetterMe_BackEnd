@@ -72,7 +72,18 @@ async function inviteHabit(connection,inviteHabitTBLParams){
     return insertInviteHabitTBLRow;
 }
 
-//습관 초대 조회
+// 보낸 습관 초대 조회
+async function selectSendHabitInvite(connection, inviteHabitResponseParams){
+    const selectHabitInviteQuery = `
+    SELECT *
+    FROM habit_invite
+    WHERE habitIdx = ? and receiverIdx = ?`;
+    const [habitRows] = await connection.query(selectHabitInviteQuery, inviteHabitResponseParams);
+
+    return habitRows;
+}
+
+//받은 습관 초대 조회
 async function selectHabitInvite(connection, userIdx){
 
     const selectHabitInviteQuery = `
@@ -102,9 +113,8 @@ async function acceptHabitInvite(connection, inviteHabitResponseParams){
 async function rejectHabitInvite(connection, inviteHabitResponseParams){
 
     const rejectHabitInviteQuery = `
-    UPDATE habit_invite
-    SET status = 'R'
-    WHERE receiverIdx = ? AND habitIdx = ?;`;
+    DELETE FROM habit_invite
+    where receiverIdx = ? AND habitIdx = ?;`;
     const [habitRows] = await connection.query(rejectHabitInviteQuery, inviteHabitResponseParams);
 
     return habitRows;
@@ -122,6 +132,7 @@ async function selectHabitInviteResponse(connection, userIdx){
     return habitRows;
 }
 
+
 module.exports= {
     insertHabit,
     selectHabit,
@@ -129,6 +140,7 @@ module.exports= {
     updateHabit,
     deleteHabit,
     inviteHabit,
+    selectSendHabitInvite,
     selectHabitInvite,
     acceptHabitInvite,
     rejectHabitInvite,

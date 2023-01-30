@@ -54,16 +54,19 @@ exports.postSignIn = async function (email, password) {
 
         const selectEmail = emailRows.email
 
+    
+
         // 비밀번호 확인
         const hashedPassword = await crypto
             .createHash("sha512")
             .update(password)
             .digest("hex");
-
+        
         const selectUserPasswordParams = [selectEmail, hashedPassword];
         const passwordRows = await userProvider.passwordCheck(selectUserPasswordParams);
+       
 
-        if (passwordRows[0].pw !== hashedPassword) {
+        if (passwordRows[0] == undefined) {
             return errResponse(baseResponse.SIGNIN_PASSWORD_WRONG);
         }
 

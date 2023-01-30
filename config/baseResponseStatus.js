@@ -57,6 +57,7 @@ module.exports = {
     FOLLOW_EMAIL_NOT_EXIST: {"isSuccess": false, "code": 2041, "message":"이메일 검색 결과가 없습니다." },
     FOLLOW_REQUEST_NOT_EXIST: {"isSuccess": false, "code": 2042, "message":"친구 신청 이력이 없습니다." },
 
+    BASIC_PHRASE: {"isSuccess": false, "code": 7000, "message":"DB에 등록된 명언문구가 없어 기본 문구를 return합니다." },
 
     // Response error
     SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 3001, "message":"이미 등록된 이메일입니다." },

@@ -56,6 +56,13 @@ CREATE TABLE `follow` (
 	`acceptedAt` TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS `PhraseTBL`;
+CREATE TABLE `PhraseTBL`
+(
+    `phraseIdx` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+    `content` VARCHAR(100) NOT NULL
+);
+
 -- foreign key 추가
 ALTER TABLE `habit` ADD CONSTRAINT `FK_UserTBL_TO_habit_1` FOREIGN KEY (`userIdx`) REFERENCES `UserTBL` (`userIdx`);
 
@@ -97,6 +104,15 @@ INSERT INTO habit_invite(habitIdx, senderIdx, receiverIdx)
 		(4, 1, 5),
 		(4, 1, 3),
 		(5, 1, 4);
+
+
+-- 명언 입력
+INSERT INTO PhraseTBL (content) VALUES ('노력을 중단하는 것보다 더 위험한 것은 없다. 습관은 버리기는 쉽지만, 다시 들이기는 어렵다. -빅토르 마리 위고 ');
+INSERT INTO PhraseTBL (content) VALUES ('습관이란 인간으로 하여금 어떤 일이든지 하게 만든다. -도스토예프스키 ');
+INSERT INTO PhraseTBL (content) VALUES ('처음에는 사람이 습관을 만들지만 나중에는 습관이 사람을 만든다. - 아리스토 텔레스');
+INSERT INTO PhraseTBL (content) VALUES ('일상을 바꾸기 전에는 삶을 변화시킬 수 없다. 성공의 비밀은 자기 일상에 있다. - 존 맥스웰');
+INSERT INTO PhraseTBL (content) VALUES ("승자가 즐겨쓰는 말은 '다시 한번 해보자'이고 패자가 즐겨쓰는 말은 '해봐야 별 수 없다'이다. - 탈무드");
+
 		
 -- 7일이상 수락하지 않은 초대 삭제
 DELIMITER $$
@@ -114,4 +130,6 @@ CREATE EVENT IF NOT EXISTS rejectWaitedInvites
     COMMENT '7일 이상 수락하지 않은 초대를 삭제합니다.'
     DO 
     CALL select_timediff_invite();
+
+
 

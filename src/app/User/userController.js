@@ -177,11 +177,17 @@ exports.patchUsers = async function (req, res) {
     const userId = req.params.userIdx;
     const nickname = req.body.nickName;
 
+
+    if (!nickname)
+        return res.send(response(baseResponse.USER_NICKNAME_EMPTY));
+
+    // 길이 체크
+    if (nickname.length > 10)
+        return res.send(response(baseResponse.SIGNUP_NICKNAME_LENGTH));
+
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
     } else {
-        if (!nickname) return res.send(errResponse(baseResponse.USER_NICKNAME_EMPTY));
-
         const editUserInfo = await userService.editUser(userId, nickname)
         return res.send(editUserInfo);
     }
@@ -196,11 +202,15 @@ exports.patchUsersP = async function (req, res) {
     const userId = req.params.userIdx;
     const password = req.body.password;
 
+    if (!password)
+        return res.send(response(baseResponse.USER_PASSWORD_EMPTY));
+    
+    if ((password.length < 6)||(password.length > 20))
+        return res.send(response(baseResponse.SIGNUP_PASSWORD_LENGTH));
+
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
     } else {
-        if (!password) return res.send(errResponse(baseResponse.USER_PASSWORD_EMPTY));
-
         const editUserInfoP = await userService.editUserP(userId, password)
         return res.send(editUserInfoP);
     }
@@ -215,11 +225,15 @@ exports.patchUsersPm = async function (req, res) {
     const userId = req.params.userIdx;
     const promise = req.body.promise;
 
+    if (!promise)
+        return res.send(response(baseResponse.SIGNUP_PROMISE_EMPTY));
+
+    if (promise.length > 30)
+        return res.send(response(baseResponse.SIGNUP_PROMISE_LENGTH));
+
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
     } else {
-        if (!promise) return res.send(errResponse(baseResponse.SIGNUP_PROMISE_EMPTY));
-
         const editUserInfoPm = await userService.editUserPm(userId, promise)
         return res.send(editUserInfoPm);
     }

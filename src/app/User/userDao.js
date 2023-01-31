@@ -19,6 +19,17 @@ async function selectUserEmail(connection, email) {
   return emailRows;
 }
 
+// 닉네임 중복조회
+async function selectUserNName(connection, nickname) {
+  const selectUserNNameQuery = `
+                SELECT count(*) as num
+                FROM UserTBL 
+                WHERE nickName = ?;
+                `;
+  const [nicknameRows] = await connection.query(selectUserNNameQuery, nickname);
+  return nicknameRows;
+}
+
 // userId 회원 조회
 async function selectUserId(connection, userId) {
   const selectUserIdQuery = `
@@ -34,8 +45,8 @@ async function selectUserId(connection, userId) {
 async function insertUser(connection, insertUserTBLParams) {
   
   const insertUserTBLQuery = `
-        INSERT INTO UserTBL(email, pw, nickName)
-        VALUES (?, ?, ?);
+        INSERT INTO UserTBL(email, pw, nickName, promise)
+        VALUES (?, ?, ?, ?);
     `;
   const insertUserTBLRow = await connection.query(
     insertUserTBLQuery,
@@ -62,7 +73,7 @@ async function selectUserPassword(connection, selectUserPasswordParams) {
 // 유저 계정 상태 체크 (jwt 생성 위해 id 값도 가져온다.)
 async function selectUserAccount(connection, email) {
   const selectUserAccountQuery = `
-        SELECT stat, userIdx
+        SELECT userIdx
         FROM UserTBL 
         WHERE email = ?;`;
   const selectUserAccountRow = await connection.query(
@@ -90,10 +101,18 @@ async function updateUserP(connection, id, hashedPassword) {
   return updateUserPRow[0];
 }
 
+async function updateUserPm(connection, id, promise) {
+  const updateUserPmQuery = `
+  UPDATE UserTBL 
+  SET promise = ?
+  WHERE userIdx = ?;`;
+  const updateUserPmRow = await connection.query(updateUserPmQuery, [promise, id]);
+  return updateUserPmRow[0];
+}
+
 async function unregisterUser(connection, id) {
   const unregisterUserQuery = `
-  UPDATE UserTBL 
-  SET stat = 'D'
+  DELETE from UserTBL 
   WHERE userIdx = ?;`;
   const unregisterUserRow = await connection.query(unregisterUserQuery, [id]);
   return unregisterUserRow[0];
@@ -108,6 +127,8 @@ module.exports = {
   selectUserPassword,
   selectUserAccount,
   updateUser,
+  selectUserNName,
   updateUserP,
+  updateUserPm,
   unregisterUser
 };

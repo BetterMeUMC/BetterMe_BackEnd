@@ -113,7 +113,7 @@
  async function selectFollowRequest(connection, follower) {
     const selectFollowRequestQuery = `
         SELECT UserTBL.userIdx, UserTBL.nickName, UserTBL.photo
-        FROM UserTBl, follow
+        FROM UserTBL, follow
         WHERE UserTBL.userIdx = follow.followee
             AND follow.follower = ?
             AND follow.acceptStatus = 1;

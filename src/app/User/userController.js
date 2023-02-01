@@ -133,6 +133,22 @@ exports.getUserByNname = async function (req, res) {
     else return res.send(response(baseResponse.SIGNUP_REDUNDANT_NICKNAME));
 };
 
+exports.getUserInfoByEmail = async function (req, res) {
+
+    /**
+     * query params: email
+     */
+    const userEm = req.params.userEmail;
+
+    if (!userEm) return res.send(errResponse(baseResponse.USER_USEREMAIL_EMPTY));
+
+    const userByUserEm = await userProvider.emailCheck(userEm);
+    return res.send(response(baseResponse.SUCCESS, userByUserEm));
+
+};
+
+
+
 // TODO: After 로그인 인증 방법 (JWT)
 /**
  * API No. 4

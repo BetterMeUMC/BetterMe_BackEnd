@@ -11,7 +11,7 @@ async function selectUser(connection) {
 // 이메일로 회원 조회
 async function selectUserEmail(connection, email) {
   const selectUserEmailQuery = `
-                SELECT email, nickName 
+                SELECT userIdx, email, nickName 
                 FROM UserTBL 
                 WHERE email = ?;
                 `;

@@ -2,4 +2,5 @@
 // TODO: .gitignore에 추가하는거 앚지 마세요!
 module.exports = {
     'jwtsecret' :  'softsquared_jwt_secret_key_07040014087',
+    'sendgridKey' :  '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',
 };

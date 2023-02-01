@@ -5,6 +5,9 @@ module.exports = {
     HABIT_CREATE_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 생성 성공"},
     HABIT_UPDATE_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 변경 성공"},
     HABIT_DELETE_SUCCESS : {"isSuccess" :true, "code" : 201, "message" : "습관 삭제 성공"},
+    HABIT_INVITE_SUCCESS: {"isSuccess" :true, "code" : 201, "message" : "습관 초대 성공"},
+    HABIT_INVITE_ACCEPT_SUCCESS: {"isSuccess" :true, "code" : 201, "message" : "습관 초대 수락 성공"},
+    HABIT_INVITE_REJECT_SUCCESS: {"isSuccess" :true, "code" : 201, "message" : "습관 초대 거절 성공"},
 
     // Common
     TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },
@@ -52,12 +55,15 @@ module.exports = {
     HABIT_NAME_LENGTH : {"isSuccess" : false, "code" : 2035, "message" : "길이는 20 이하로 설정해주세요"},
     HABIT_CONTENTS_LENGTH : {"isSuccess" : false, "code" : 2036, "message" : "길이는 50 이하로 설정해해주세요"},
 
+    FOLLOW_SELF_REQUEST: {"isSuccess": false, "code": 3037, "message":"본인에게 친구 신청을 할 수 없습니다." },
     FOLLOW_WRONG_REQUEST: {"isSuccess": false, "code": 2039, "message":"잘못된 요청 값입니다." },
     FOLLOW_USER_NOT_EXIST: {"isSuccess": false, "code": 2040, "message":"검색 결과가 없습니다." },
     FOLLOW_EMAIL_NOT_EXIST: {"isSuccess": false, "code": 2041, "message":"이메일 검색 결과가 없습니다." },
     FOLLOW_REQUEST_NOT_EXIST: {"isSuccess": false, "code": 2042, "message":"친구 신청 이력이 없습니다." },
+    HABIT_ID_EMPTY :  {"isSuccess" : false, "code" : 2043, "message" : "습관 ID를 입력해주세요"},
 
     BASIC_PHRASE: {"isSuccess": false, "code": 7000, "message":"DB에 등록된 명언문구가 없어 기본 문구를 return합니다." },
+    
 
     // Response error
     SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 3001, "message":"이미 등록된 이메일입니다." },
@@ -69,6 +75,8 @@ module.exports = {
     SIGNIN_PASSWORD_WRONG : { "isSuccess": false, "code": 3004, "message": "비밀번호가 잘못 되었습니다." },
     SIGNIN_INACTIVE_ACCOUNT : { "isSuccess": false, "code": 3005, "message": "비활성화 된 계정입니다. 고객센터에 문의해주세요." },
     SIGNIN_WITHDRAWAL_ACCOUNT : { "isSuccess": false, "code": 3006, "message": "탈퇴 된 계정입니다. 고객센터에 문의해주세요." },
+
+    HABIT_REDUNDANT_INVITE : { "isSuccess": false, "code": 3007, "message":"이미 초대된 습관입니다." },
 
     //Connection, Transaction 등의 서버 오류
     DB_ERROR : { "isSuccess": false, "code": 4000, "message": "데이터 베이스 에러"},

@@ -17,4 +17,18 @@ module.exports = function(app){
     app.patch('/app/habits/:userIdx/:habitIdx',habit.deleteHabit);
 
 
+    //6. 습관 초대 API
+    app.post('/app/invite/:userIdx',habit.postHabitInvite);
+
+    //7. 습관 초대 조회 API
+    app.get('/app/invite/:userIdx',habit.getHabitInvite);
+
+    //8. 습관 초대 응답 - 수락 API
+    app.patch('/app/invite/accept/:userIdx/:habitIdx',habit.patchtHabitInviteAccept);
+
+    //9. 습관 초대 응답 - 거절 API
+    app.patch('/app/invite/reject/:userIdx/:habitIdx',habit.patchtHabitInviteReject);
+
+    //10. 습관 초대 응답 조회 API
+    app.get('/app/invite/response/:userIdx', habit.getHabitInviteResponse);
 };

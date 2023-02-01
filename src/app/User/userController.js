@@ -198,8 +198,8 @@ exports.patchPhoto = async function (req, res) {
     // jwt - userId, path variable :userId
 
     const userIdFromJWT = req.verifiedToken.userId;
-    const userId = req.params.userId;
-    const photo = req.body;
+    const userId = req.params.userIdx;
+    const photo = req.body.photo;
 
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
@@ -207,7 +207,7 @@ exports.patchPhoto = async function (req, res) {
         const editUserPhoto = await userService.editUserPhoto(userId,photo);
         return res.send(editUserPhoto);
     }
-}
+};
 
 
 

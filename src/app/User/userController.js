@@ -216,7 +216,7 @@ exports.unregisterUsers = async function (req, res) {
 exports.patchPhoto = async function (req, res) {
     // jwt - userId, path variable :userId
 
-    const userIdFromJWT = req.verifiedToken.userId;
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const userId = req.params.userIdx;
     const photo = req.body.photo;
 

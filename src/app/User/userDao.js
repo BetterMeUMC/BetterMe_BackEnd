@@ -107,14 +107,14 @@ async function unregisterUser(connection, id) {
   return unregisterUserRow[0];
 }
 
-async function updateUserPhoto(connection,userId,Photo){
+async function updateUserPhoto(connection,userId,photo){
   const editUserPhotoQuery = `
   UPDATE UserTBL
   SET photo = ?
   WHERE userIdx = ?;
   `;
 
-  const updateUserPhotoRow = await connection.query(editUserPhotoQuery,[userId,Photo]);
+  const updateUserPhotoRow = await connection.query(editUserPhotoQuery,[photo,userId]);
 
   return updateUserPhotoRow[0];
 }

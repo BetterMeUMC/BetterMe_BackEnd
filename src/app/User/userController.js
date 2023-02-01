@@ -254,10 +254,16 @@ exports.unregisterUsers = async function (req, res) {
     }
 };
 
+exports.issuePw = async function (req, res) {
 
+    const userId = req.params.userIdx;
+    const userEmail = req.body.userEmail;
 
+    const editTemporaryP = await userService.sendEmail(userId, userEmail)
 
+    return res.send(editTemporaryP);
 
+};
 
 
 

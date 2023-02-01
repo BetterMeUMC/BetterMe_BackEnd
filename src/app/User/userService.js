@@ -13,8 +13,9 @@ const {connect} = require("http2");
 
 // Service: Create, Update, Delete 비즈니스 로직 처리
 
-exports.createUser = async function (email, password, nickname) {
+exports.createUser = async function (email, password, nickName, promise) {
     try {
+
         // 이메일 중복 확인
         const emailRows = await userProvider.emailCheck(email);
         if (emailRows.length > 0)
@@ -26,7 +27,7 @@ exports.createUser = async function (email, password, nickname) {
             .update(password)
             .digest("hex");
 
-        const insertUserInfoParams = [email, hashedPassword, nickname];
+        const insertUserInfoParams = [email, hashedPassword, nickName, promise];
 
         const connection = await pool.getConnection(async (conn) => conn);
 
@@ -79,7 +80,7 @@ exports.postSignIn = async function (email, password) {
         //토큰 생성 Service
         let token = await jwt.sign(
             {
-                userId: userInfoRows[0].userIdx,
+                userIdx: userInfoRows[0].userIdx,
             }, // 토큰의 내용(payload)
             secret_config.jwtsecret, // 비밀키
             {
@@ -130,6 +131,24 @@ exports.editUserP = async function (id, password) {
 
     } catch (err) {
         logger.error(`App - editUserP Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.editUserPm = async function (id, promise) {
+    try {
+        console.log(id)
+        
+        const connection = await pool.getConnection(async (conn) => conn);
+
+
+        const editUserPmResult = await userDao.updateUserPm(connection, id, promise)
+        connection.release();
+
+        return response(baseResponse.SUCCESS);
+
+    } catch (err) {
+        logger.error(`App - editUserPm Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }

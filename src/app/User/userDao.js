@@ -34,8 +34,8 @@ async function selectUserId(connection, userId) {
 async function insertUser(connection, insertUserTBLParams) {
   
   const insertUserTBLQuery = `
-        INSERT INTO UserTBL(email, pw, nickName)
-        VALUES (?, ?, ?);
+        INSERT INTO UserTBL(email, pw, nickName, promise)
+        VALUES (?, ?, ?, ?);
     `;
   const insertUserTBLRow = await connection.query(
     insertUserTBLQuery,
@@ -90,10 +90,18 @@ async function updateUserP(connection, id, hashedPassword) {
   return updateUserPRow[0];
 }
 
+async function updateUserPm(connection, id, promise) {
+  const updateUserPmQuery = `
+  UPDATE UserTBL 
+  SET promise = ?
+  WHERE userIdx = ?;`;
+  const updateUserPmRow = await connection.query(updateUserPmQuery, [promise, id]);
+  return updateUserPmRow[0];
+}
+
 async function unregisterUser(connection, id) {
   const unregisterUserQuery = `
-  UPDATE UserTBL 
-  SET stat = 'D'
+  DELETE from UserTBL 
   WHERE userIdx = ?;`;
   const unregisterUserRow = await connection.query(unregisterUserQuery, [id]);
   return unregisterUserRow[0];
@@ -122,4 +130,6 @@ module.exports = {
   updateUserP,
   unregisterUser,
   updateUserPhoto,
+  updateUserPm,
+
 };

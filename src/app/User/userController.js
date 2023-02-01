@@ -26,26 +26,28 @@ exports.postUsers = async function (req, res) {
     /**
      * Body: email, password, nickname
      */
-    const {email, password, name, phone} = req.body;
+    const {email, password, nickName, promise} = req.body;
 
     // 빈 값 체크
     if (!email)
         return res.send(response(baseResponse.SIGNUP_EMAIL_EMPTY));
     if (!password)
         return res.send(response(baseResponse.SIGNUP_PASSWORD_EMPTY));
-    if (!name)
-        return res.send(response(baseResponse.SIGNUP_NAME_EMPTY));
-    if (!phone)
-        return res.send(response(baseResponse.SIGNUP_PHONE_EMPTY));
+    if (!nickName)
+        return res.send(response(baseResponse.SIGNUP_NICKNAME_EMPTY));
+    if (!promise)
+        return res.send(response(baseResponse.SIGNUP_PROMISE_EMPTY));
 
     // 길이 체크
-    if (email.length > 30)
+    if (email.length > 50)
         return res.send(response(baseResponse.SIGNUP_EMAIL_LENGTH));
     if ((password.length < 6)||(password.length > 20))
         return res.send(response(baseResponse.SIGNUP_PASSWORD_LENGTH));
-    if (name.length > 20)
+    if (nickName.length > 10)
         return res.send(response(baseResponse.SIGNUP_NICKNAME_LENGTH));
-
+    if (promise.length > 30)
+        return res.send(response(baseResponse.SIGNUP_PROMISE_LENGTH));
+       
     // 형식 체크 (by 정규표현식)
     if (!regexEmail.test(email))
         return res.send(response(baseResponse.SIGNUP_EMAIL_ERROR_TYPE));
@@ -56,10 +58,9 @@ exports.postUsers = async function (req, res) {
     const signUpResponse = await userService.createUser(
         email,
         password,
-        name,
-        phone
+        nickName,
+        promise
     );
-
     return res.send(signUpResponse);
 };
 
@@ -144,10 +145,10 @@ exports.patchUsers = async function (req, res) {
 
     // jwt - userId, path variable :userId
 
-    const userIdFromJWT = req.verifiedToken.userId;
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
-    const userId = req.params.userId;
-    const nickname = req.body.nickname;
+    const userId = req.params.userIdx;
+    const nickname = req.body.nickName;
 
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
@@ -163,9 +164,9 @@ exports.patchUsersP = async function (req, res) {
 
     // jwt - userId, path variable :userId
 
-    const userIdFromJWT = req.verifiedToken.userId;
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
-    const userId = req.params.userId;
+    const userId = req.params.userIdx;
     const password = req.body.password;
 
     if (userIdFromJWT != userId) {
@@ -178,13 +179,31 @@ exports.patchUsersP = async function (req, res) {
     }
 };
 
+exports.patchUsersPm = async function (req, res) {
+
+    // jwt - userId, path variable :userId
+
+    const userIdFromJWT = req.verifiedToken.userIdx;
+
+    const userId = req.params.userIdx;
+    const promise = req.body.promise;
+
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    } else {
+        if (!promise) return res.send(errResponse(baseResponse.SIGNUP_PROMISE_EMPTY));
+
+        const editUserInfoPm = await userService.editUserPm(userId, promise)
+        return res.send(editUserInfoPm);
+    }
+};
 
 exports.unregisterUsers = async function (req, res) {
 
     // jwt - userId, path variable :userId
 
-    const userIdFromJWT = req.verifiedToken.userId;
-    const userId = req.params.userId;
+    const userIdFromJWT = req.verifiedToken.userIdx;
+    const userId = req.params.userIdx;
 
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
@@ -220,7 +239,7 @@ exports.patchPhoto = async function (req, res) {
  * [GET] /app/auto-login
  */
 exports.check = async function (req, res) {
-    const userIdResult = req.verifiedToken.userId;
+    const userIdResult = req.verifiedToken.userIdx;
     console.log(userIdResult);
     return res.send(response(baseResponse.TOKEN_VERIFICATION_SUCCESS));
 };

@@ -55,12 +55,13 @@ module.exports = {
     HABIT_NAME_LENGTH : {"isSuccess" : false, "code" : 2035, "message" : "길이는 20 이하로 설정해주세요"},
     HABIT_CONTENTS_LENGTH : {"isSuccess" : false, "code" : 2036, "message" : "길이는 50 이하로 설정해해주세요"},
 
-    FOLLOW_SELF_REQUEST: {"isSuccess": false, "code": 3037, "message":"본인에게 친구 신청을 할 수 없습니다." },
     FOLLOW_WRONG_REQUEST: {"isSuccess": false, "code": 2039, "message":"잘못된 요청 값입니다." },
     FOLLOW_USER_NOT_EXIST: {"isSuccess": false, "code": 2040, "message":"검색 결과가 없습니다." },
     FOLLOW_EMAIL_NOT_EXIST: {"isSuccess": false, "code": 2041, "message":"이메일 검색 결과가 없습니다." },
     FOLLOW_REQUEST_NOT_EXIST: {"isSuccess": false, "code": 2042, "message":"친구 신청 이력이 없습니다." },
     HABIT_ID_EMPTY :  {"isSuccess" : false, "code" : 2043, "message" : "습관 ID를 입력해주세요"},
+    FOLLOW_NICKNAME_EMPTY: {"isSuccess": false, "code": 2044, "message":"검색할 닉네임을 입력해주세요." },
+    FOLLOW_EMAIL_EMPTY: {"isSuccess": false, "code": 2045, "message":"검색할 이메일을 입력해주세요." },
 
     BASIC_PHRASE: {"isSuccess": false, "code": 7000, "message":"DB에 등록된 명언문구가 없어 기본 문구를 return합니다." },
     

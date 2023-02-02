@@ -11,7 +11,7 @@ module.exports = function(app) {
     app.get('/app/follow/searchN/:follower', follow.searchFollows);
 
     // 4. 추가할 친구 이메일 검색
-    app.get('/app/follow/searchE/:follower/:email', follow.searchFollowEmail);
+    app.get('/app/follow/searchE/:follower', follow.searchFollowEmail);
 
     // 5. 친구 신청
     app.post('/app/follow/request/:userIdx/:followee', follow.postFollow);

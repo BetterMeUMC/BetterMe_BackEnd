@@ -188,10 +188,13 @@ exports.unregisterUser = async function (id) {
                     to: email,
                     from: "TEAM.betterMe.habit@gmail.com",
                     subject: "BetterMe 임시 비밀번호를 전송드립니다.",
-                    text:
-                    `안녕하세요. BetterMe 서비스를 이용해주셔서 감사합니다.
+                    text:`안녕하세요.
+                    BetterMe 서비스를 이용해주셔서 감사합니다.
                     BetterMe 임시 비밀번호를 전송드립니다.
-                    ${temporaryPw}`,
+                    임시 비밀번호 : ${temporaryPw}
+                    
+                    감사합니다.`
+                    ,
                 });
               }
 

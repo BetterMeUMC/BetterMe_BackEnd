@@ -32,7 +32,7 @@ module.exports = function(app){
     app.patch('/app/users/changePm/:userIdx', jwtMiddleware, user.patchUsersPm);
 
     // 임시 비밀번호 발급 API
-    app.patch('/app/users/issuedPw/:userIdx', jwtMiddleware, user.issuePw)
+    app.patch('/app/users/issuedPw/:userIdx', user.issuePw)
 
 
     // 자동로그인 API (JWT 검증 및 Payload 내뱉기)

@@ -27,7 +27,7 @@ exports.getAllFollow = async function(req, res) {
     const userIdx = req.params.userIdx;
     const followDetail = await followProvider.retrieveFollowDetailList(userIdx);
 
-    if(followDetail.includes('ERROR'))
+    if(followDetail === baseResponse.FOLLOW_WRONG_REQUEST.message)
         return res.send(response(baseResponse.FOLLOW_WRONG_REQUEST));
 
     return res.send(response(baseResponse.SUCCESS, followDetail));
@@ -47,7 +47,7 @@ exports.getAllFollow = async function(req, res) {
     if(!nickName) 
         return res.send(response(baseResponse.FOLLOW_NICKNAME_EMPTY));
 
-    if(searchedFollowList.includes('ERROR'))
+    if(searchedFollowList === baseResponse.FOLLOW_USER_NOT_EXIST.message)
         return res.send(response(baseResponse.FOLLOW_USER_NOT_EXIST));
 
     return res.send(response(baseResponse.SUCCESS, searchedFollowList));
@@ -67,7 +67,7 @@ exports.getAllFollow = async function(req, res) {
     if(!email)
         return res.send(response(baseResponse.FOLLOW_EMAIL_EMPTY));
 
-    if(searchedFollow.includes('ERROR'))
+    if(searchedFollow === baseResponse.FOLLOW_EMAIL_NOT_EXIST.message)
         return res.send(response(baseResponse.FOLLOW_EMAIL_NOT_EXIST));
 
     return res.send(response(baseResponse.SUCCESS, searchedFollow));

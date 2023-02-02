@@ -16,8 +16,8 @@ module.exports = function(app){
     app.get('/app/users',user.getUsers); 
 
     // 3. 특정 유저 조회 API
-    app.get('/app/users/:userId', user.getUserById);
-    app.get('/app/users/get/:userEmail', user.getUserInfoByEmail);
+    app.get('/app/users/get_id/:userId', user.getUserById);
+    app.get('/app/users/get_email/:userEmail', user.getUserInfoByEmail);
 
 
     // TODO: After 로그인 인증 방법 (JWT)

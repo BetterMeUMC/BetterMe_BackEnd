@@ -107,16 +107,18 @@ exports.getUserById = async function (req, res) {
 
 exports.getUserByEmail = async function (req, res) {
 
-    /**
-     * query params: email
-     */
     const userEm = req.query.email;
 
     if (!userEm) return res.send(errResponse(baseResponse.USER_USEREMAIL_EMPTY));
 
     const userByUserEm = await userProvider.emailCheck(userEm);
-    if (userByUserEm == undefined)return res.send(response(baseResponse.SIGNUP_EMAIL_CHECK_SUCCESS));
-    else return res.send(response(baseResponse.SIGNUP_REDUNDANT_EMAIL));
+
+    if (userByUserEm == undefined) {
+        return res.send(response(baseResponse.SIGNUP_EMAIL_CHECK_SUCCESS));
+    }
+    else{
+        return res.send(response(baseResponse.SIGNUP_REDUNDANT_EMAIL));
+    }
 };
 
 exports.getUserByNname = async function (req, res) {
@@ -137,10 +139,7 @@ exports.getUserInfoByEmail = async function (req, res) {
 
     const userEm = req.params.userEmail;
 
-    if (!userEm) return res.send(errResponse(baseResponse.USER_USEREMAIL_EMPTY));
-
     const userByUserEm = await userProvider.emailCheck(userEm);
-    
     if (!userByUserEm) return res.send(errResponse(baseResponse.USER_USERID_NOT_EXIST));
     return res.send(response(baseResponse.SUCCESS, userByUserEm));
 
@@ -273,9 +272,8 @@ exports.issuePw = async function (req, res) {
 
     const userId = req.params.userIdx;
     const userEmail = req.body.userEmail;
-
-    const editTemporaryP = await userService.sendEmail(userId, userEmail)
-
+    
+    const editTemporaryP = await userService.sendEmail(userId, userEmail);
     return res.send(editTemporaryP);
 
 };

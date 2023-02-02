@@ -135,14 +135,13 @@ exports.getUserByNname = async function (req, res) {
 
 exports.getUserInfoByEmail = async function (req, res) {
 
-    /**
-     * query params: email
-     */
     const userEm = req.params.userEmail;
 
     if (!userEm) return res.send(errResponse(baseResponse.USER_USEREMAIL_EMPTY));
 
     const userByUserEm = await userProvider.emailCheck(userEm);
+    
+    if (!userByUserEm) return res.send(errResponse(baseResponse.USER_USERID_NOT_EXIST));
     return res.send(response(baseResponse.SUCCESS, userByUserEm));
 
 };

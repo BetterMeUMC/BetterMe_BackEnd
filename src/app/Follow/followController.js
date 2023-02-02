@@ -36,7 +36,7 @@ exports.getAllFollow = async function(req, res) {
 /**
  * API No. 3
  * API Name : 친구 검색 API
- * [GET] /app/follow/searchN/:follower/:nickName
+ * [GET] /app/follow/searchN/:follower
  */
 
  exports.searchFollows = async function(req, res) {
@@ -56,7 +56,7 @@ exports.getAllFollow = async function(req, res) {
 /**
  * API No. 4
  * API Name : 추가할 친구 이메일 검색 API
- * [GET] /app/follow/searchE/:follower/:email
+ * [GET] /app/follow/searchE/:follower
  */
 
  exports.searchFollowEmail = async function(req, res) {
@@ -121,7 +121,7 @@ exports.postFollow = async function(req, res) {
 /**
  * API No. 8
  * API Name : 친구 신청 거절 or 친구 삭제 API
- * [DELETE] /app/follow/delete/:follower/:followee
+ * [DELETE] /app/follow/delete/:follower
  */
 
  exports.deleteFollows = async function(req, res) {

@@ -41,8 +41,11 @@ exports.getAllFollow = async function(req, res) {
 
  exports.searchFollows = async function(req, res) {
     const follower = req.params.follower;
-    const nickName = req.params.nickName;
+    const nickName = req.body.nickName;
     const searchedFollowList = await followProvider.searchFollowList(follower, nickName);
+
+    if(!nickName) 
+        return res.send(response(baseResponse.SIGNUP_NICKNAME_EMPTY));
 
     if(searchedFollowList.includes('ERROR'))
         return res.send(response(baseResponse.FOLLOW_USER_NOT_EXIST));

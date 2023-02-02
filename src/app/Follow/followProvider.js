@@ -25,7 +25,7 @@ exports.retrieveFollowDetailList = async function(userIdx) {
     const followDetailInfoResult = await followDao.selectFollowDetailInfo(connection, userIdx);
 
     if(!followDetailInfoResult[0]) {
-        return `[ERROR] FOLLOW_WRONG_REQUEST`
+        return `잘못된 요청 값입니다.`
     };
 
     const followIdx = followDetailInfoResult[0]['userIdx'];
@@ -45,7 +45,7 @@ exports.searchFollowList = async function(follower, nickName) {
 
     // 검색한 유저가 없을 때
     if(!searchResults[0]) {
-        return `[ERROR] FOLLOW_USER_NOT_EXIST`
+        return `검색 결과가 없습니다.`
     };
 
     for(let i = 0; i < searchResults.length; i++) {
@@ -67,7 +67,7 @@ exports.retrieveFollowEmail = async function(follower, email) {
 
     // 검색한 이메일이 없을 때
     if(!searchedFollowInfoResult[0]) {
-        return `[ERROR] FOLLOW_EMAIL_NOT_EXIST`;
+        return `이메일 검색 결과가 없습니다.`;
     }
 
     const userIdx = searchedFollowInfoResult[0]['userIdx'];

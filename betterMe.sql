@@ -63,6 +63,14 @@ CREATE TABLE `PhraseTBL`
     `content` VARCHAR(100) NOT NULL
 );
 
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE `feedback` (
+	`feedbackIdx` BIGINT PRIMARY KEY AUTO_INCREMENT,
+	`title` VARCHAR(100) NOT NULL,
+	`content` TEXT NOT NULL
+);
+
+
 -- foreign key 추가
 ALTER TABLE `habit` ADD CONSTRAINT `FK_UserTBL_TO_habit_1` FOREIGN KEY (`userIdx`) REFERENCES `UserTBL` (`userIdx`);
 
@@ -121,7 +129,17 @@ INSERT INTO follow(follower, followee, acceptStatus, followedAt, acceptedAt)	VAL
 																						(4, 1, 2, '2023-01-27 21:58:28', '2023-01-27 22:38:08'),
 																						(3, 5, 2, '2023-01-31 03:20:06', '2023-02-01 06:03:22'),
 																						(5, 3, 2, '2023-01-31 03:20:06', '2023-02-01 06:03:22');
-		
+
+																						
+																						
+-- 피드백 입력
+INSERT INTO feedback (title, content) VALUES ('구글 플레이스토어 출시 문의', '안녕하세요. 안드로이드 유저도 사용하고 싶습니다. 구글플레이스토어에도 런칭해주시면 좋겠어요.');
+INSERT INTO feedback (title, content) VALUES ('습관 초대 에러 고쳐주세요', '습관 초대 버튼을 눌렀는데 친구에게 초대 요청이 오지 않았다고 합니다. 확인 부탁드립니다.');
+INSERT INTO feedback (title, content) VALUES ('게시판이 있으면 좋겠어요', 'Better Me 잘 사용하고 있습니다. 추가되면 좋을 것 같은 기능 제안드립니다. 전체 유저를 대상으로 습관을 검색할 수 있는 기능이 있으면 나와 비슷한 습관을 가진 사용자들을 만나볼 수 있어서 좋을 것 같습니다. 감사합니다.');
+INSERT INTO feedback (title, content) VALUES ('상장 실물 출력 관련', '안녕하세요. 혹시 Better Me에서 얻은 상장을 실물로 출력해서 배포해도 괜찮나요?');
+INSERT INTO feedback (title, content) VALUES ('실수로 습관을 삭제했어요', '잘 기록하던 습관을 실수로 삭제했는데 복구할 방법 없을까요? ㅠㅠ');
+
+
 -- 7일이상 수락하지 않은 초대 삭제
 DELIMITER $$
 CREATE PROCEDURE select_timediff_invite()

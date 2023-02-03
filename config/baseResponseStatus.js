@@ -63,7 +63,11 @@ module.exports = {
     FOLLOW_NICKNAME_EMPTY: {"isSuccess": false, "code": 2044, "message":"검색할 닉네임을 입력해주세요." },
     FOLLOW_EMAIL_EMPTY: {"isSuccess": false, "code": 2045, "message":"검색할 이메일을 입력해주세요." },
 
+    FEEDBACK_NO_TITLE : {"isSuccess" : false, "code" : 2044, "message" : "제목을 입력해주세요."},
+    FEEDBACK_NO_CONTENT : {"isSuccess" : false, "code" : 2045, "message" : "내용을 입력해주세요."},
+
     BASIC_PHRASE: {"isSuccess": false, "code": 7000, "message":"DB에 등록된 명언문구가 없어 기본 문구를 return합니다." },
+
     
 
     // Response error

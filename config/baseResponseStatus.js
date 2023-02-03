@@ -62,7 +62,11 @@ module.exports = {
     FOLLOW_REQUEST_NOT_EXIST: {"isSuccess": false, "code": 2042, "message":"친구 신청 이력이 없습니다." },
     HABIT_ID_EMPTY :  {"isSuccess" : false, "code" : 2043, "message" : "습관 ID를 입력해주세요"},
 
+    FEEDBACK_NO_TITLE : {"isSuccess" : false, "code" : 2044, "message" : "제목을 입력해주세요."},
+    FEEDBACK_NO_CONTENT : {"isSuccess" : false, "code" : 2045, "message" : "내용을 입력해주세요."},
+
     BASIC_PHRASE: {"isSuccess": false, "code": 7000, "message":"DB에 등록된 명언문구가 없어 기본 문구를 return합니다." },
+
     
 
     // Response error

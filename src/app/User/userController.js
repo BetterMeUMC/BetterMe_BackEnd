@@ -2,8 +2,10 @@ const jwtMiddleware = require("../../../config/jwtMiddleware");
 const userProvider = require("../../app/User/userProvider");
 const userService = require("../../app/User/userService");
 const baseResponse = require("../../../config/baseResponseStatus");
+const secret_config = require("../../../config/secret");
 const {response, errResponse} = require("../../../config/response");
 
+const sendgrid = require('@sendgrid/mail');
 const regexEmail = require("regex-email");
 const {emit} = require("nodemon");
 
@@ -270,10 +272,40 @@ exports.unregisterUsers = async function (req, res) {
 
 exports.issuePw = async function (req, res) {
 
+    sendgrid.setApiKey(process.env.SENDGRID_API_KEY || secret_config.betterme_sendgrid);
+
     const userId = req.params.userIdx;
     const userEmail = req.body.userEmail;
+
+    const temporaryPw = Math.random().toString(36).slice(2);
+
+    const editTemporaryP = await userService.sendEmail(userId, temporaryPw);
+
+    async function sendTemporaryPw() {
+        try { 
+            
+            await sendgrid.send({
+            to: userEmail,
+            from: "TEAM.betterMe.habit@gmail.com",
+            subject: "BetterMe 임시 비밀번호를 전송드립니다.",
+            text:`
+            안녕하세요.
+            BetterMe 서비스를 이용해주셔서 감사합니다.
+            BetterMe 임시 비밀번호를 전송드립니다.
+            임시 비밀번호 : ${temporaryPw}
+            
+            감사합니다.`,
+            });
+
+        } catch(err) {
+            logger.error(`App - sendEmail Controller error\n: ${err.message}`);
+            return errResponse(baseResponse.SENDGRID_ERROR);
+        }
+       
+    }
     
-    const editTemporaryP = await userService.sendEmail(userId, userEmail);
+    sendTemporaryPw();
+
     return res.send(editTemporaryP);
 
 };

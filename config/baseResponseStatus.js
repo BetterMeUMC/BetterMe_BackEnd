@@ -40,6 +40,7 @@ module.exports = {
     USER_ID_NOT_MATCH : { "isSuccess": false, "code": 2016, "message": "유저 아이디 값을 확인해주세요" },
     USER_NICKNAME_EMPTY : { "isSuccess": false, "code": 2017, "message": "변경할 닉네임 값을 입력해주세요" },
     USER_PASSWORD_EMPTY : { "isSuccess": false, "code": 2018, "message": "변경할 비밀번호 값을 입력해주세요" },
+    USER_IDX_EMPTY : { "isSuccess": false, "code": 2030, "message": "유저 인덱스를 입력해주세요" },
 
     USER_STATUS_EMPTY : { "isSuccess": false, "code": 2027, "message": "회원 상태값을 입력해주세요" },
 

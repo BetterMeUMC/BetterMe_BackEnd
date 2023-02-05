@@ -194,6 +194,8 @@ exports.patchUsers = async function (req, res) {
     const nickname = req.body.nickName;
 
 
+    if (!userId)
+        return res.send(response(baseResponse.USER_IDX_EMPTY));
     if (!nickname)
         return res.send(response(baseResponse.USER_NICKNAME_EMPTY));
 
@@ -218,6 +220,8 @@ exports.patchUsersP = async function (req, res) {
     const userId = req.params.userIdx;
     const password = req.body.password;
 
+    if (!userId)
+        return res.send(response(baseResponse.USER_IDX_EMPTY));
     if (!password)
         return res.send(response(baseResponse.USER_PASSWORD_EMPTY));
     
@@ -240,7 +244,8 @@ exports.patchUsersPm = async function (req, res) {
 
     const userId = req.params.userIdx;
     const promise = req.body.promise;
-
+    if (!userId)
+        return res.send(response(baseResponse.USER_IDX_EMPTY));
     if (!promise)
         return res.send(response(baseResponse.SIGNUP_PROMISE_EMPTY));
 
@@ -252,6 +257,26 @@ exports.patchUsersPm = async function (req, res) {
     } else {
         const editUserInfoPm = await userService.editUserPm(userId, promise)
         return res.send(editUserInfoPm);
+    }
+};
+
+exports.getUserMyPageInfo = async function (req, res) {
+
+    // jwt - userId, path variable :userId
+
+    const userIdFromJWT = req.verifiedToken.userIdx;
+
+    const userId = req.params.userIdx;
+    const promise = req.body.promise;
+
+    if (!userId)
+        return res.send(response(baseResponse.USER_IDX_EMPTY));
+
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    } else {
+        const getUserMyPage = await userProvider.getUserMyPage(userId);
+        return res.send(response(baseResponse.SUCCESS, getUserMyPage));
     }
 };
 

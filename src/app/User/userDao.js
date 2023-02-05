@@ -41,6 +41,16 @@ async function selectUserId(connection, userId) {
   return userRow;
 }
 
+async function getUserMyPageInfo(connection, userId) {
+  const getUserMyPageInfoQuery = `
+                 SELECT userIdx, nickName, photo, promise 
+                 FROM UserTBL 
+                 WHERE userIdx = ?;
+                 `;
+  const [userRow] = await connection.query(getUserMyPageInfoQuery, userId);
+  return userRow;
+}
+
 // 유저 생성
 async function insertUser(connection, insertUserTBLParams) {
   
@@ -130,5 +140,6 @@ module.exports = {
   selectUserNName,
   updateUserP,
   updateUserPm,
-  unregisterUser
+  unregisterUser,
+  getUserMyPageInfo
 };

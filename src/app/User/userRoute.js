@@ -31,6 +31,9 @@ module.exports = function(app){
 
     app.patch('/app/users/changePm/:userIdx', jwtMiddleware, user.patchUsersPm);
 
+    // 마이페이지 회원정보 불러오기
+    app.get('/app/users/getMyPage/:userIdx', jwtMiddleware, user.getUserMyPageInfo);
+
     // 임시 비밀번호 발급 API
     app.patch('/app/users/issuedPw/:userIdx', jwtMiddleware, user.issuePw)
 

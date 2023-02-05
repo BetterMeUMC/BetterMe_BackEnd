@@ -213,20 +213,23 @@ exports.unregisterUsers = async function (req, res) {
     }
 };
 
-exports.patchPhoto = async function (req, res) {
-    // jwt - userId, path variable :userId
+exports.updatePhoto = async function (req,res){
 
     const userIdFromJWT = req.verifiedToken.userIdx;
     const userId = req.params.userIdx;
-    const photo = req.body.photo;
+    const profile = `Better_Me/images/${req.file.originalname}`;
+
 
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
-    } else {
-        const editUserPhoto = await userService.editUserPhoto(userId,photo);
-        return res.send(editUserPhoto);
     }
-};
+    else{
+        const updateUserPhoto = await userService.updateUserPhoto(userId,profile);
+        return res.send(updateUserPhoto);
+    }
+
+}
+
 
 
 

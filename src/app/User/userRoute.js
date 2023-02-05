@@ -1,6 +1,8 @@
 module.exports = function(app){
     const user = require('./userController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
+    const  multer  = require('../../../config/multer');
+
 
     // 0. 테스트 API
     //app.get('/app/test', user.getTest)
@@ -33,7 +35,7 @@ module.exports = function(app){
     // TODO: 탈퇴하기 API (JWT 검증 및 Validation - 메소드 체이닝 방식으로 jwtMiddleware 사용)
     app.delete('/app/auth/unregister/:userIdx', jwtMiddleware, user.unregisterUsers);
 
-    //회원 프로필 사진 변경
-    app.patch('/app/users/changePic/:userIdx',jwtMiddleware, user.patchPhoto);
+    //이미지 업로드
+    app.patch('/app/users/upload/:userIdx',jwtMiddleware,multer.single('profile'), user.updatePhoto);
 
 };

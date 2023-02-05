@@ -77,6 +77,7 @@ module.exports = {
     HABIT_CONTENT_NULL : {"isSuccess" : false, "code" : 3007, "message" : "조회되는 습관이 없습니다."},
 
 
+
     //Connection, Transaction 등의 서버 오류
     DB_ERROR : { "isSuccess": false, "code": 4000, "message": "데이터 베이스 에러"},
     SERVER_ERROR : { "isSuccess": false, "code": 4001, "message": "서버 에러"},

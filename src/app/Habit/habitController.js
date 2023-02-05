@@ -145,8 +145,8 @@ exports.postHabitInvite = async function(req, res) {
         return res.send(response(baseResponse.HABIT_ID_EMPTY));
 
     const habitInviteResponse = await habitService.inviteHabit(
-        habitIdx, 
-        senderIdx, 
+        habitIdx,
+        senderIdx,
         receiverIdx
     );
     console.log(habitInviteResponse);
@@ -163,7 +163,7 @@ exports.postHabitInvite = async function(req, res) {
 exports.getHabitInvite = async function(req,res){
 
     const userIdx = req.params.userIdx;
-    
+
     const habitInviteByUserIdx = await habitProvider.retrieveHabitInvite(userIdx);
 
     return res.send(response(baseResponse.SUCCESS, habitInviteByUserIdx));
@@ -183,7 +183,7 @@ exports.patchtHabitInviteAccept = async function(req,res){
 
     // 습관 추가
     const habitByHabitId = await habitProvider.retrieveHabit(habitIdx);
-    
+
     const habitResponse = await habitService.createHabit(
         userIdx,
         habitByHabitId[0].habitName,
@@ -191,7 +191,7 @@ exports.patchtHabitInviteAccept = async function(req,res){
         habitByHabitId[0].goodOrBad,
         habitByHabitId[0].emoge
     );
-    
+
     return res.send(habitInviteResponse);
 }
 
@@ -221,4 +221,3 @@ exports.getHabitInviteResponse = async function(req, res){
     const habitInviteResponse = await habitProvider.retrieveHabitInviteResponse(userIdx);
     return res.send(response(baseResponse.SUCCESS, habitInviteResponse));
 }
-

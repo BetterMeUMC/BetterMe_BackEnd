@@ -1,5 +1,3 @@
-
-
 const {stringify} = require("nodemon/lib/utils");
 //습관생성
 async function insertHabit(connection, insertHabitTBLParams){
@@ -63,7 +61,7 @@ async function inviteHabit(connection,inviteHabitTBLParams){
     INSERT INTO habit_invite(habitIdx, senderIdx, receiverIdx)
     VALUES(?, ?, ?);
     `;
-    
+
     const insertInviteHabitTBLRow = await connection.query(
         inviteHabitTBLQuery,
         inviteHabitTBLParams

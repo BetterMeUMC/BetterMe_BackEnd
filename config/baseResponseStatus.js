@@ -5,9 +5,15 @@ module.exports = {
     HABIT_CREATE_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 생성 성공"},
     HABIT_UPDATE_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 변경 성공"},
     HABIT_DELETE_SUCCESS : {"isSuccess" :true, "code" : 201, "message" : "습관 삭제 성공"},
+
     HABIT_INVITE_SUCCESS: {"isSuccess" :true, "code" : 201, "message" : "습관 초대 성공"},
     HABIT_INVITE_ACCEPT_SUCCESS: {"isSuccess" :true, "code" : 201, "message" : "습관 초대 수락 성공"},
     HABIT_INVITE_REJECT_SUCCESS: {"isSuccess" :true, "code" : 201, "message" : "습관 초대 거절 성공"},
+
+    HABIT_CHECK_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 체크 성공"},
+    HABIT_NOCHECK_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 체크x 성공"},
+    HABIT_ACHIEVEMENT_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 성취 성공"},
+
 
     // Common
     TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },
@@ -54,7 +60,9 @@ module.exports = {
 
     HABIT_EMOGE_LENGTH:{"isSuccess" : false, "code" : 2034, "message" : "이모지는 한개만 선택해주세요"},
     HABIT_NAME_LENGTH : {"isSuccess" : false, "code" : 2035, "message" : "길이는 20 이하로 설정해주세요"},
-    HABIT_CONTENTS_LENGTH : {"isSuccess" : false, "code" : 2036, "message" : "길이는 50 이하로 설정해해주세요"},
+
+    HABIT_CONTENTS_LENGTH : {"isSuccess" : false, "code" : 2036, "message" : "길이는 50 이하로 설정해주세요"},
+
 
     FOLLOW_WRONG_REQUEST: {"isSuccess": false, "code": 2039, "message":"잘못된 요청 값입니다." },
     FOLLOW_USER_NOT_EXIST: {"isSuccess": false, "code": 2040, "message":"검색 결과가 없습니다." },
@@ -71,6 +79,7 @@ module.exports = {
 
     
 
+
     // Response error
     SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 3001, "message":"이미 등록된 이메일입니다." },
     SIGNUP_REDUNDANT_NICKNAME : { "isSuccess": false, "code": 3002, "message":"중복된 닉네임입니다." },
@@ -82,7 +91,11 @@ module.exports = {
     SIGNIN_INACTIVE_ACCOUNT : { "isSuccess": false, "code": 3005, "message": "비활성화 된 계정입니다. 고객센터에 문의해주세요." },
     SIGNIN_WITHDRAWAL_ACCOUNT : { "isSuccess": false, "code": 3006, "message": "탈퇴 된 계정입니다. 고객센터에 문의해주세요." },
 
+
     HABIT_REDUNDANT_INVITE : { "isSuccess": false, "code": 3007, "message":"이미 초대된 습관입니다." },
+    HABIT_CONTENT_NULL : {"isSuccess" : false, "code" : 3007, "message" : "조회되는 습관이 없습니다."},
+
+
 
     //Connection, Transaction 등의 서버 오류
     DB_ERROR : { "isSuccess": false, "code": 4000, "message": "데이터 베이스 에러"},

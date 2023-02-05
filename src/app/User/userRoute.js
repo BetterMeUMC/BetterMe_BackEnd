@@ -1,6 +1,8 @@
 module.exports = function(app){
     const user = require('./userController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
+    const  multer  = require('../../../config/multer');
+
 
     // 0. 테스트 API
     //app.get('/app/test', user.getTest)
@@ -46,5 +48,8 @@ module.exports = function(app){
     app.delete('/app/auth/unregister/:userIdx', user.unregisterUsers);
 
 
+
+    //이미지 업로드
+    app.patch('/app/users/upload/:userIdx',jwtMiddleware,multer.single('profile'), user.updatePhoto);
 
 };

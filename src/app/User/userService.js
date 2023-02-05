@@ -167,6 +167,7 @@ exports.unregisterUser = async function (id) {
     }
 }
 
+
     exports.sendEmail = async function (id, email) {
         try {
             sendgrid.setApiKey(process.env.SENDGRID_API_KEY || secret_config.betterme_sendgrid);
@@ -207,3 +208,20 @@ exports.unregisterUser = async function (id) {
             return errResponse(baseResponse.DB_ERROR);
         }
 }
+
+exports.updateUserPhoto = async function (userId,profile){
+
+    try{
+        const connection = await pool.getConnection(async (conn) => conn);
+        const updateUserPhotoResult = await userDao.updateUserPhoto(connection,userId,profile);
+        connection.release();
+
+        return response(baseResponse.SUCCESS);
+
+    }catch(err){
+        logger.error(`App - unregisterUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+

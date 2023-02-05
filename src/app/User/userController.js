@@ -293,6 +293,7 @@ exports.unregisterUsers = async function (req, res) {
     }
 };
 
+
 exports.issuePw = async function (req, res) {
 
     const userId = req.params.userIdx;
@@ -302,6 +303,23 @@ exports.issuePw = async function (req, res) {
     return res.send(editTemporaryP);
 
 };
+
+exports.updatePhoto = async function (req,res){
+
+    const userIdFromJWT = req.verifiedToken.userIdx;
+    const userId = req.params.userIdx;
+    const profile = `Better_Me/images/${req.file.originalname}`;
+
+
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    }
+    else{
+        const updateUserPhoto = await userService.updateUserPhoto(userId,profile);
+        return res.send(updateUserPhoto);
+    }
+
+}
 
 
 

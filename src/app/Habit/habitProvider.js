@@ -3,19 +3,19 @@ const { logger } = require("../../../config/winston");
 
 const habitDao = require("./habitDao");
 
-exports.retrieveHabitList = async function (){
+exports.retrieveHabitList = async function (userId){
 
     const connection = await pool.getConnection(async (conn) => conn);
-    const habitListResult = await habitDao.selectHabit(connection);
+    const habitListResult = await habitDao.selectHabit(connection,userId);
     connection.release();
 
     return habitListResult;
 }
 
-exports.retrieveHabit = async function(habitId){
+exports.retrieveHabit = async function(userId,habitId){
 
     const connection = await pool.getConnection(async (conn) => conn);
-    const habitResult = await habitDao.selectHabitId(connection, habitId);
+    const habitResult = await habitDao.selectHabitId(connection, userId,habitId);
 
     connection.release();
 

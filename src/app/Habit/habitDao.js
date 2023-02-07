@@ -13,23 +13,24 @@ async function insertHabit(connection, insertHabitTBLParams){
     return insertHabitTBLRow;
 }
 //습관 전체 조회
-async function selectHabit(connection){
+async function selectHabit(connection,userId){
 
     const selectHabitListQuery = `
     SELECT userIdx, habitName, contents, life, habitDay, goodOrBad, emoge
-    FROM habit;`;
-    const [habitRows] = await connection.query(selectHabitListQuery);
+    FROM habit
+    WHERE userIdx =?;`;
+    const [habitRows] = await connection.query(selectHabitListQuery,userId);
 
     return habitRows;
 }
 //특정 습관 조회
-async function selectHabitId(connection,habitId){
+async function selectHabitId(connection,userId,habitId){
     const selectHabitIdQuery = `
     SELECT userIdx, habitName, contents, life, habitDay, goodOrBad, emoge
     FROM habit
-    WHERE habitIdx = ?;
+    WHERE userIdx = ? AND habitIdx = ?;
 `;
-    const [habitRow] = await connection.query(selectHabitIdQuery, habitId);
+    const [habitRow] = await connection.query(selectHabitIdQuery, [userId,habitId]);
     return habitRow;
 }
 //습관 수정

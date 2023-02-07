@@ -56,8 +56,10 @@ exports.postHabits = async function(req, res){
 
 exports.getHabits = async function(req, res){
 
+    const userId = req.params.userIdx;
+
     //습관 전체 조회
-    const habitListResult = await habitProvider.retrieveHabitList();
+    const habitListResult = await habitProvider.retrieveHabitList(userId);
     return res.send(response(baseResponse.SUCCESS,habitListResult));
 
 }
@@ -70,9 +72,10 @@ exports.getHabits = async function(req, res){
 
 exports.getHabitById = async function(req,res){
 
+    const userId = req.params.userIdx;
     const habitId = req.params.habitIdx;
 
-    const habitByHabitId = await habitProvider.retrieveHabit(habitId);
+    const habitByHabitId = await habitProvider.retrieveHabit(userId,habitId);
     return res.send(response(baseResponse.SUCCESS, habitByHabitId))
 
 

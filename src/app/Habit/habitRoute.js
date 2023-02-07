@@ -1,3 +1,5 @@
+const jwtMiddleware = require("../../../config/jwtMiddleware");
+const habit = require("./habitController");
 module.exports = function(app){
     const habit = require('./habitController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
@@ -17,8 +19,6 @@ module.exports = function(app){
     //5. 습관 삭제 API
     app.patch('/app/habits/:userIdx/:habitIdx',jwtMiddleware,habit.deleteHabit);
 
-    //6. 습관 체크 API
-    app.patch('/app/habits/check/:userIdx/:habitIdx',jwtMiddleware,habit.checkHabit);
 
     //6. 습관 초대 API
     app.post('/app/invite/:userIdx',habit.postHabitInvite);
@@ -34,4 +34,7 @@ module.exports = function(app){
 
     //10. 습관 초대 응답 조회 API
     app.get('/app/invite/response/:userIdx', habit.getHabitInviteResponse);
+
+    //11. 습관 체크 API
+    app.patch('/app/habits/check/:userIdx/:habitIdx',jwtMiddleware,habit.checkHabit);
 };

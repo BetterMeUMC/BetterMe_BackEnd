@@ -113,3 +113,61 @@ exports.rejectInviteHabit=async function(userIdx, habitIdx){
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.deleteHabit=async function(userId,habitId){
+    try{
+        const deleteHabitInfoParams = [userId,habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const deleteHabitResult = await habitDao.deleteHabit(connection,deleteHabitInfoParams);
+        connection.release();
+
+        return response(baseResponse.HABIT_DELETE_SUCCESS);
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.checkHabit = async function(userId,habitId){
+    try{
+        const checkHabitInfoParams = [userId,habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const checkHabitResult = await habitDao.checkHabit(connection,checkHabitInfoParams);
+        connection.release();
+
+        return response(baseResponse.HABIT_CHECK_SUCCESS);
+
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.noCheckHabit = async function(userId,habitId){
+    try{
+        const noCheckHabitInfoParams = [userId,habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const noCheckHabitResult = await habitDao.noCheckHabit(connection,noCheckHabitInfoParams);
+        connection.release();
+
+        return response(baseResponse.HABIT_NOCHECK_SUCCESS);
+
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.achieveHabit = async function(userId,habitId){
+    try{
+        const achieveHabitInfoParams = [userId,habitId];
+        const connection = await pool.getConnection(async (conn) =>conn);
+        const achieveHabitResult = await habitDao.achieveHabit(connection,achieveHabitInfoParams);
+        connection.release();
+
+        return response(baseResponse.HABIT_ACHIEVEMENT_SUCCESS);
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}

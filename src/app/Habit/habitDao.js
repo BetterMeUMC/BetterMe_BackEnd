@@ -131,6 +131,64 @@ async function selectHabitInviteResponse(connection, userIdx){
 }
 
 
+async function checkHabit(connection,checkHabitTBLParams){
+    const checkHabitQuery = `
+    UPDATE habit
+    SET habitDay = habitDay-1
+    WHERE userIdx = ? AND habitIdx = ?; 
+    `;
+
+    const checkHabitRow = await connection.query(checkHabitQuery,checkHabitTBLParams);
+    return checkHabitRow;
+}
+
+async function noCheckHabit(connection, noCheckHabitTBLParams){
+
+    const noCheckHabitQuery = `
+    UPDATE habit
+    SET life = life - 1
+    WHERE userIdx = ? AND habitIdx = ?;
+    `;
+
+    const noCheckHabitRow = await connection.query(noCheckHabitQuery,noCheckHabitTBLParams);
+    return noCheckHabitRow;
+}
+
+async function getHabitDay(connection,getHabitDayTBLParams){
+
+    const getHabitDayQuery = `
+    SELECT habitDay
+    FROM habit 
+    WHERE userIdx = ? AND habitIdx = ? ;
+    `;
+
+    const getHabitDayRow = await connection.query(getHabitDayQuery,getHabitDayTBLParams);
+
+    return getHabitDayRow;
+}
+async function achieveHabit(connection,achieveHabitTBLParams){
+    const achieveHabitQuery = `
+    UPDATE habit
+    SET isachieved = 1
+    WHERE userIdx = ? AND habitIdx = ?;`;
+
+    const achieveHabitRow = await connection.query(achieveHabitQuery,achieveHabitTBLParams);
+
+    return achieveHabitRow;
+}
+async function getHabitLife(connection,getHabitLifeTBLParams){
+
+    const getHabitLifeQuery = `
+    SELECT life
+    FROM habit
+    WHERE userIdx = ? AND habitIdx = ?;`;
+
+    const getHabitLifeRow = await connection.query(getHabitLifeQuery,getHabitLifeTBLParams);
+
+    return getHabitLifeRow;
+}
+
+
 module.exports= {
     insertHabit,
     selectHabit,
@@ -142,5 +200,10 @@ module.exports= {
     selectHabitInvite,
     acceptHabitInvite,
     rejectHabitInvite,
-    selectHabitInviteResponse
+    selectHabitInviteResponse,
+    checkHabit,
+    noCheckHabit,
+    getHabitDay,
+    getHabitLife,
+    achieveHabit,
 };

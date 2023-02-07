@@ -14,6 +14,10 @@ module.exports = {
     HABIT_NOCHECK_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 체크x 성공"},
     HABIT_ACHIEVEMENT_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 성취 성공"},
 
+    ALL_ALARM_ON_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "전체 알람 ON 성공"},
+    ALL_ALARM_OFF_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "전체 알람 OFF 성공"},
+    HABIT_CHECK_ALARM_ON_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 체크 알람 ON 성공"},
+    HABIT_CHECK_ALARM_OFF_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 체크 알람 OFF 성공"},
 
     // Common
     TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },

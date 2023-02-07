@@ -73,12 +73,11 @@ DROP TABLE IF EXISTS `notification`;
 CREATE TABLE `notification` (
     `notificationIdx`	BIGINT	NOT NULL PRIMARY KEY COMMENT 'auto increase',
     `userIdx`	BIGINT	NOT NULL	COMMENT 'auto increase',
-    `all_alarm`	VARCHAR(4)	NOT NULL DEFAULT 'OFF' COMMENT '활성 : ON, 비활성: OFF',
     `habitCheck_alarm`	VARCHAR(4)	NOT NULL	DEFAULT 'OFF'	COMMENT '활성 : ON, 비활성: OFF',
     `habitInvite_alarm`	VARCHAR(4)	NOT NULL	DEFAULT 'OFF'	COMMENT '활성 : ON, 비활성: OFF',
     `friendRequest_alarm`	VARCHAR(4)	NOT NULL	DEFAULT 'OFF'	COMMENT '활성 : ON, 비활성: OFF',
     `friendAward_alarm`	VARCHAR(4)	NOT NULL	DEFAULT 'OFF'	COMMENT '활성 : ON, 비활성: OFF',
-    `habitCheck_time`	timestamp	NULL
+    `habitCheck_time`	TIMESTAMP	NULL
 );
 
 

@@ -17,8 +17,7 @@ module.exports = function(app){
     //5. 습관 삭제 API
     app.patch('/app/habits/:userIdx/:habitIdx',jwtMiddleware,habit.deleteHabit);
 
-    //6. 습관 체크 API
-    app.patch('/app/habits/check/:userIdx/:habitIdx',jwtMiddleware,habit.checkHabit);
+
 
     //6. 습관 초대 API
     app.post('/app/invite/:userIdx',habit.postHabitInvite);

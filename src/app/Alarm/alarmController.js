@@ -35,3 +35,35 @@ exports.habitCheckAlarmOff = async function(req, res){
     const habitCheckAlarmOff = await alarmService.habitCheckAlarmOff(userId);
     return res.send(response(baseResponse.SUCCESS));
 }
+
+exports.habitInviteAlarmOn = async function(req, res){
+
+    const userId = req.params.userIdx;
+
+    const habitInviteAlarmOn = await alarmService.habitInviteAlarmOn(userId);
+    return res.send(response(baseResponse.SUCCESS));
+}
+
+exports.habitInviteAlarmOff = async function(req, res){
+
+    const userId = req.params.userIdx;
+
+    const habitInviteAlarmOff = await alarmService.habitInviteAlarmOff(userId);
+    return res.send(response(baseResponse.SUCCESS));
+}
+
+exports.friendRequestAlarmOn = async function(req,res){
+
+    const userId = req.params.userIdx;
+
+    const friendRequestAlarmOn = await alarmService.friendRequestAlarmOn(userId);
+    return res.send(response(baseResponse.SUCCESS));
+}
+
+exports.friendRequestAlarmOff = async function(req,res){
+
+    const userId = req.params.userIdx;
+
+    const friendRequestAlarmOff = await alarmService.friendRequestAlarmOff(userId);
+    return res.send(response(baseResponse.SUCCESS));
+}

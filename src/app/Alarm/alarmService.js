@@ -73,3 +73,71 @@ exports.habitCheckAlarmOff = async function(userIdx){
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.habitInviteAlarmOn = async function(userIdx){
+
+    try{
+
+        const connection = await pool.getConnection(async (conn) => conn);
+
+        const habitInviteAlarmOnResponseResult = await alarmDao.habitInviteAlarmOn(connection, userIdx);
+
+        connection.release();
+        return response(baseResponse.HABIT_INVITE_ALARM_ON_SUCCESS);
+
+    }catch(err){
+        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.habitInviteAlarmOff = async function(userIdx){
+
+    try{
+
+        const connection = await pool.getConnection(async (conn) => conn);
+
+        const habitInviteAlarmOffResponseResult = await alarmDao.habitInviteAlarmOff(connection, userIdx);
+
+        connection.release();
+        return response(baseResponse.HABIT_INVITE_ALARM_OFF_SUCCESS);
+
+    }catch(err){
+        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.friendRequestAlarmOn = async function(userIdx){
+
+    try{
+
+        const connection = await pool.getConnection(async (conn) => conn);
+
+        const friendRequestAlarmOnResponseResult = await alarmDao.friendRequestAlarmOn(connection, userIdx);
+
+        connection.release();
+        return response(baseResponse.FRIEND_REQUEST_ON_SUCCESS);
+
+    }catch(err){
+        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.friendRequestAlarmOff = async function(userIdx){
+
+    try{
+
+        const connection = await pool.getConnection(async (conn) => conn);
+
+        const friendRequestAlarmOffResponseResult = await alarmDao.friendRequestAlarmOff(connection, userIdx);
+
+        connection.release();
+        return response(baseResponse.FRIEND_REQUEST_OFF_SUCCESS);
+
+    }catch(err){
+        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}

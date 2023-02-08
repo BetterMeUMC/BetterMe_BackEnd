@@ -42,9 +42,58 @@ async function habitCheckAlarmOff(connection,userId){
     return updateHabitCheckAlarmOff;
 }
 
+async function habitInviteAlarmOn(connection,userId){
+
+    const habitInviteAlarmOnQuery= `
+    UPDATE notification
+    SET habitInvite_alarm = 'ON'
+    WHERE userIdx = ?;`;
+
+    const updateHabitInviteAlarmOn = await connection.query(habitInviteAlarmOnQuery,userId);
+    return updateHabitInviteAlarmOn;
+}
+
+async function habitInviteAlarmOff(connection,userId){
+
+    const habitInviteAlarmOffQuery= `
+    UPDATE notification
+    SET habitInvite_alarm = 'OFF'
+    WHERE userIdx = ?;`;
+
+    const updateHabitInviteAlarmOff = await connection.query(habitInviteAlarmOffQuery,userId);
+    return updateHabitInviteAlarmOff;
+}
+
+async function friendRequestAlarmOn(connection,userId){
+
+    const friendRequestAlarmOnQuery= `
+    UPDATE notification
+    SET friendRequest_alarm = 'ON'
+    WHERE userIdx = ?;`;
+
+    const updateFriendRequestAlarmOn = await connection.query(friendRequestAlarmOnQuery,userId);
+    return updateFriendRequestAlarmOn;
+}
+
+async function friendRequestAlarmOff(connection,userId){
+
+    const friendRequestAlarmOffQuery= `
+    UPDATE notification
+    SET friendRequest_alarm = 'OFF'
+    WHERE userIdx = ?;`;
+
+    const updateFriendRequestAlarmOff = await connection.query(friendRequestAlarmOffQuery,userId);
+    return updateFriendRequestAlarmOff;
+}
+
+
 module.exports={
     allAlarmOn,
     allAlarmOff,
     habitCheckAlarmOn,
     habitCheckAlarmOff,
+    habitInviteAlarmOn,
+    habitInviteAlarmOff,
+    friendRequestAlarmOn,
+    friendRequestAlarmOff,
 };

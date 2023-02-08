@@ -25,7 +25,11 @@ exports.getAllFollow = async function(req, res) {
 
  exports.getFollowDetail = async function(req, res) {
     const userIdx = req.params.userIdx;
-    const followDetail = await followProvider.retrieveFollowDetailList(userIdx);
+    const followee = req.params.followee;
+    const followDetail = await followProvider.retrieveFollowDetailList(followee);
+
+    if(!userIdx || !followee)
+        return res.send(response(baseResponse.FOLLOW_WRONG_REQUEST));
 
     if(followDetail === baseResponse.FOLLOW_WRONG_REQUEST.message)
         return res.send(response(baseResponse.FOLLOW_WRONG_REQUEST));

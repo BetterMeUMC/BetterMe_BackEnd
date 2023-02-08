@@ -11,8 +11,12 @@ const {response, errResponse} = require("../../../config/response");
  */
 
 exports.getAllFollow = async function(req, res) {
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const follower = req.params.follower;
     const followList = await followProvider.retrieveFollowList(follower);
+
+    if (userIdFromJWT != follower)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     return res.send(response(baseResponse.SUCCESS, followList));
 }
@@ -24,9 +28,13 @@ exports.getAllFollow = async function(req, res) {
  */
 
  exports.getFollowDetail = async function(req, res) {
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const userIdx = req.params.userIdx;
     const followee = req.params.followee;
     const followDetail = await followProvider.retrieveFollowDetailList(followee);
+
+    if (userIdFromJWT != userIdx)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     if(!userIdx || !followee)
         return res.send(response(baseResponse.FOLLOW_WRONG_REQUEST));
@@ -44,9 +52,13 @@ exports.getAllFollow = async function(req, res) {
  */
 
  exports.searchFollows = async function(req, res) {
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const follower = req.params.follower;
     const nickName = req.body.nickName;
     const searchedFollowList = await followProvider.searchFollowList(follower, nickName);
+
+    if (userIdFromJWT != follower)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     if(!nickName) 
         return res.send(response(baseResponse.FOLLOW_NICKNAME_EMPTY));
@@ -64,9 +76,13 @@ exports.getAllFollow = async function(req, res) {
  */
 
  exports.searchFollowEmail = async function(req, res) {
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const follower = req.params.follower;
     const email = req.body.email;
     const searchedFollow = await followProvider.retrieveFollowEmail(follower, email);
+
+    if (userIdFromJWT != follower)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     if(!email)
         return res.send(response(baseResponse.FOLLOW_EMAIL_EMPTY));
@@ -84,8 +100,12 @@ exports.getAllFollow = async function(req, res) {
  */
 
 exports.postFollow = async function(req, res) {
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const userIdx = req.params.userIdx;
     const followee = req.params.followee;
+
+    if (userIdFromJWT != userIdx)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     if(userIdx === followee) 
         return res.send(response(baseResponse.FOLLOW_SELF_REQUEST));
@@ -102,8 +122,12 @@ exports.postFollow = async function(req, res) {
  */
 
  exports.getRequestFollows = async function(req, res) {
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const follower = req.params.follower;
     const followRequestList = await followProvider.retrieveFollowRequest(follower);
+
+    if (userIdFromJWT != follower)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     return res.send(response(baseResponse.SUCCESS, followRequestList));
 }
@@ -115,9 +139,13 @@ exports.postFollow = async function(req, res) {
  */
 
  exports.patchAcceptStatus = async function(req, res) {
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const follower = req.params.follower;
     const followee = req.params.followee;
     const acceptFollowRequestResponse = await followService.acceptFollowRequest(follower, followee);
+
+    if (userIdFromJWT != follower)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     return res.send(acceptFollowRequestResponse);
 }
@@ -129,10 +157,13 @@ exports.postFollow = async function(req, res) {
  */
 
  exports.deleteFollows = async function(req, res) {
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const follower = req.params.follower;
     const followee = req.body.followee;
-    console.log(followee);
     const deleteFollowResponse = await followService.deleteFollowsOrRequest(follower, followee);
+
+    if (userIdFromJWT != follower)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     return res.send(deleteFollowResponse);
 }

@@ -26,7 +26,7 @@
     return followDetailInfoRows;
  }
 
- async function selectFollowDetailAwards(connection, userIdx) {
+ async function selectFollowDetailAwards(connection, followee) {
     const selectFollowDetailAwardsQuery = `
         SELECT habitName, contents, goodOrBad, emoge, createdAt
         FROM habit
@@ -34,7 +34,7 @@
             AND userIdx = ?;    
     `;
     
-    const [followDetailAwardRows] = await connection.query(selectFollowDetailAwardsQuery, userIdx);
+    const [followDetailAwardRows] = await connection.query(selectFollowDetailAwardsQuery, followee);
 
     return followDetailAwardRows;
  }

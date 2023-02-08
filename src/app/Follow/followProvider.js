@@ -20,9 +20,9 @@ exports.retrieveFollowList = async function(follower) {
 }
 
 // 친구 상세 조회
-exports.retrieveFollowDetailList = async function(userIdx) {
+exports.retrieveFollowDetailList = async function(followee) {
     const connection = await pool.getConnection(async (conn) => conn);
-    const followDetailInfoResult = await followDao.selectFollowDetailInfo(connection, userIdx);
+    const followDetailInfoResult = await followDao.selectFollowDetailInfo(connection, followee);
 
     if(!followDetailInfoResult[0]) {
         return `잘못된 요청 값입니다.`

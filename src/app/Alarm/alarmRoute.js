@@ -19,4 +19,8 @@ module.exports = function(app){
     app.patch('/alarm/friendRequest/on/:userIdx',alarm.friendRequestAlarmOn);
 
     app.patch('/alarm/friendRequest/off/:userIdx',alarm.friendRequestAlarmOff);
+
+    app.patch('/alarm/friendAward/on/:userIdx',alarm.friendAwardAlarmOn);
+
+    app.patch('/alarm/friendAward/off/:userIdx',alarm.friendAwardAlarmOff);
 };

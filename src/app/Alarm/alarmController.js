@@ -67,3 +67,19 @@ exports.friendRequestAlarmOff = async function(req,res){
     const friendRequestAlarmOff = await alarmService.friendRequestAlarmOff(userId);
     return res.send(response(baseResponse.SUCCESS));
 }
+
+exports.friendAwardAlarmOn = async function(req,res){
+
+    const userId = req.params.userIdx;
+
+    const friendAwardAlarmOn = await alarmService.friendAwardAlarmOn(userId);
+    return res.send(response(baseResponse.SUCCESS));
+}
+
+exports.friendAwardAlarmOff = async function(req,res){
+
+    const userId = req.params.userIdx;
+
+    const friendAwardAlarmOff = await alarmService.friendAwardAlarmOff(userId);
+    return res.send(response(baseResponse.SUCCESS));
+}

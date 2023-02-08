@@ -141,3 +141,37 @@ exports.friendRequestAlarmOff = async function(userIdx){
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+exports.friendAwardAlarmOn = async function(userIdx){
+
+    try{
+
+        const connection = await pool.getConnection(async (conn) => conn);
+
+        const friendAwardAlarmOnResponseResult = await alarmDao.friendAwardAlarmOn(connection, userIdx);
+
+        connection.release();
+        return response(baseResponse.FRIEND_AWARD_ON_SUCCESS);
+
+    }catch(err){
+        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.friendAwardAlarmOff = async function(userIdx){
+
+    try{
+
+        const connection = await pool.getConnection(async (conn) => conn);
+
+        const friendAwardAlarmOffResponseResult = await alarmDao.friendAwardAlarmOff(connection, userIdx);
+
+        connection.release();
+        return response(baseResponse.FRIEND_AWARD_OFF_SUCCESS);
+
+    }catch(err){
+        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}

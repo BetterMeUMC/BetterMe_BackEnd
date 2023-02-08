@@ -86,6 +86,27 @@ async function friendRequestAlarmOff(connection,userId){
     return updateFriendRequestAlarmOff;
 }
 
+async function friendAwardAlarmOn(connection,userId){
+
+    const friendAwardAlarmOnQuery= `
+    UPDATE notification
+    SET friendAward_alarm = 'ON'
+    WHERE userIdx = ?;`;
+
+    const updateFriendAwardAlarmOn = await connection.query(friendAwardAlarmOnQuery,userId);
+    return updateFriendAwardAlarmOn;
+}
+
+async function friendAwardAlarmOff(connection,userId){
+
+    const friendAwardAlarmOffQuery= `
+    UPDATE notification
+    SET friendAward_alarm = 'OFF'
+    WHERE userIdx = ?;`;
+
+    const updateFriendAwardAlarmOff = await connection.query(friendAwardAlarmOffQuery,userId);
+    return updateFriendAwardAlarmOff;
+}
 
 module.exports={
     allAlarmOn,
@@ -96,4 +117,6 @@ module.exports={
     habitInviteAlarmOff,
     friendRequestAlarmOn,
     friendRequestAlarmOff,
+    friendAwardAlarmOn,
+    friendAwardAlarmOff,
 };

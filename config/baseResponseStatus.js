@@ -22,6 +22,8 @@ module.exports = {
     HABIT_INVITE_ALARM_OFF_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "습관 초대 알람 OFF 성공"},
     FRIEND_REQUEST_ON_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "친구 요청 알람 ON 성공" },
     FRIEND_REQUEST_OFF_SUCCESS: {"isSuccess" : true, "code" : 201, "message" : "친구 요청 알람 OFF 성공"},
+    FRIEND_AWARD_ON_SUCCESS : {"isSuccess" : true, "code" : 201, "message" : "친구 어워드 알람 ON 성공" },
+    FRIEND_AWARD_OFF_SUCCESS: {"isSuccess" : true, "code" : 201, "message" : "친구 어워드 알람 OFF 성공"},
 
     // Common
     TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },

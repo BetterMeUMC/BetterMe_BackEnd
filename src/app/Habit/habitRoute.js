@@ -1,20 +1,23 @@
+const jwtMiddleware = require("../../../config/jwtMiddleware");
+const habit = require("./habitController");
 module.exports = function(app){
     const habit = require('./habitController');
+    const jwtMiddleware = require('../../../config/jwtMiddleware');
 
     // 1. 습관 생성 API
-    app.post('/app/habits/:userIdx',habit.postHabits);
+    app.post('/app/habits/:userIdx',jwtMiddleware,habit.postHabits);
 
     //2. 습관 조회 API
-    app.get('/app/habits/:userIdx',habit.getHabits);
+    app.get('/app/habits/:userIdx',jwtMiddleware,habit.getHabits);
 
     //3. 특정 습관 조회 API
-    app.get('/app/habits/:userIdx/:habitIdx',habit.getHabitById);
+    app.get('/app/habits/:userIdx/:habitIdx',jwtMiddleware,habit.getHabitById);
 
     //4. 습관 수정 API
-    app.patch('/app/habits/changeH/:userIdx/:habitIdx',habit.patchHabit);
+    app.patch('/app/habits/changeH/:userIdx/:habitIdx',jwtMiddleware,habit.patchHabit);
 
     //5. 습관 삭제 API
-    app.patch('/app/habits/:userIdx/:habitIdx',habit.deleteHabit);
+    app.patch('/app/habits/:userIdx/:habitIdx',jwtMiddleware,habit.deleteHabit);
 
 
     //6. 습관 초대 API
@@ -31,4 +34,7 @@ module.exports = function(app){
 
     //10. 습관 초대 응답 조회 API
     app.get('/app/invite/response/:userIdx', habit.getHabitInviteResponse);
+
+    //11. 습관 체크 API
+    app.patch('/app/habits/check/:userIdx/:habitIdx',jwtMiddleware,habit.checkHabit);
 };

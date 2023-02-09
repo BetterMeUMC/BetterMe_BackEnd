@@ -1,6 +1,8 @@
 module.exports = function(app){
     const user = require('./userController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
+    const  multer  = require('../../../config/multer');
+
 
     // 0. 테스트 API
     //app.get('/app/test', user.getTest)
@@ -31,6 +33,9 @@ module.exports = function(app){
 
     app.patch('/app/users/changePm/:userIdx', jwtMiddleware, user.patchUsersPm);
 
+    // 마이페이지 회원정보 불러오기
+    app.get('/app/users/getMyPage/:userIdx', jwtMiddleware, user.getUserMyPageInfo);
+
     // 임시 비밀번호 발급 API
     app.patch('/app/users/issuedPw/:userIdx', user.issuePw)
 
@@ -43,5 +48,8 @@ module.exports = function(app){
     app.delete('/app/auth/unregister/:userIdx', user.unregisterUsers);
 
 
+
+    //이미지 업로드
+    app.patch('/app/users/upload/:userIdx',jwtMiddleware,multer.single('profile'), user.updatePhoto);
 
 };

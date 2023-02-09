@@ -3,19 +3,19 @@ const { logger } = require("../../../config/winston");
 
 const habitDao = require("./habitDao");
 
-exports.retrieveHabitList = async function (){
+exports.retrieveHabitList = async function (userId){
 
     const connection = await pool.getConnection(async (conn) => conn);
-    const habitListResult = await habitDao.selectHabit(connection);
+    const habitListResult = await habitDao.selectHabit(connection,userId);
     connection.release();
 
     return habitListResult;
 }
 
-exports.retrieveHabit = async function(habitId){
+exports.retrieveHabit = async function(userId,habitId){
 
     const connection = await pool.getConnection(async (conn) => conn);
-    const habitResult = await habitDao.selectHabitId(connection, habitId);
+    const habitResult = await habitDao.selectHabitId(connection, userId,habitId);
 
     connection.release();
 
@@ -40,4 +40,38 @@ exports.retrieveHabitInviteResponse = async function(userIdx){
     connection.release();
 
     return habitInviteResult;
+}
+
+exports.getHabitDay = async function(userId,habitId){
+
+    try {
+        const getHabitDayInfoParams = [userId, habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitDayResult = await habitDao.getHabitDay(connection, getHabitDayInfoParams);
+
+        connection.release();
+
+        return habitDayResult;
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+}
+
+exports.getHabitLife = async function(userId,habitId){
+
+    try{
+        const getHabitLifeInfoParams = [userId, habitId];
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitLifeResult = await habitDao.getHabitLife(connection, getHabitLifeInfoParams);
+
+        connection.release();
+
+        return habitLifeResult;
+    }catch(err){
+        logger.error(`App - editUser Service error\n: ${err.message}`);
+        return errResponse(baseResponse.DB_ERROR);
+    }
+
+
 }

@@ -166,9 +166,13 @@ exports.unregisterUser = async function (id) {
     }
 }
 
-exports.sendEmail = async function (id, temporaryPw) {
-    try {
-        const hashedPassword = await crypto
+
+    exports.sendEmail = async function (id, email) {
+        try {
+            sendgrid.setApiKey(process.env.SENDGRID_API_KEY || secret_config.betterme_sendgrid);
+            const temporaryPw = Math.random().toString(36).slice(2);
+            
+            const hashedPassword = await crypto
             .createHash("sha512")
             .update(temporaryPw)
             .digest("hex");
@@ -176,12 +180,47 @@ exports.sendEmail = async function (id, temporaryPw) {
         const connection = await pool.getConnection(async (conn) => conn);
         const editUserPResult = await userDao.updateUserP(connection, id, hashedPassword);
             
+            connection.release();
+
+ 
+            async function sendTemporaryPw() {
+                await sendgrid.send({
+                    to: email,
+                    from: "TEAM.betterMe.habit@gmail.com",
+                    subject: "BetterMe 임시 비밀번호를 전송드립니다.",
+                    text:`안녕하세요.
+                    BetterMe 서비스를 이용해주셔서 감사합니다.
+                    BetterMe 임시 비밀번호를 전송드립니다.
+                    임시 비밀번호 : ${temporaryPw}
+                    
+                    감사합니다.`
+                    ,
+                });
+              }
+
+              sendTemporaryPw();
+              
+            return response(baseResponse.SUCCESS);
+
+        } catch (err) {
+            logger.error(`App - sendEmail Service error\n: ${err.message}`);
+            return errResponse(baseResponse.DB_ERROR);
+        }
+}
+
+exports.updateUserPhoto = async function (userId,profile){
+
+    try{
+        const connection = await pool.getConnection(async (conn) => conn);
+        const updateUserPhotoResult = await userDao.updateUserPhoto(connection,userId,profile);
         connection.release();
 
         return response(baseResponse.SUCCESS);
 
-    } catch (err) {
-        logger.error(`App - sendEmail Service error\n: ${err.message}`);
+    }catch(err){
+        logger.error(`App - unregisterUser Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
+
+

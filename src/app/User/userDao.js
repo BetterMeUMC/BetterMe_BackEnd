@@ -41,6 +41,16 @@ async function selectUserId(connection, userId) {
   return userRow;
 }
 
+async function getUserMyPageInfo(connection, userId) {
+  const getUserMyPageInfoQuery = `
+                 SELECT userIdx, nickName, photo, promise 
+                 FROM UserTBL 
+                 WHERE userIdx = ?;
+                 `;
+  const [userRow] = await connection.query(getUserMyPageInfoQuery, userId);
+  return userRow;
+}
+
 // 유저 생성
 async function insertUser(connection, insertUserTBLParams) {
   
@@ -119,6 +129,19 @@ async function unregisterUser(connection, id) {
 }
 
 
+
+async function updateUserPhoto(connection,userId,photo){
+  const editUserPhotoQuery = `
+  UPDATE UserTBL
+  SET photo = ?
+  WHERE userIdx = ?;
+  `;
+
+  const updateUserPhotoRow = await connection.query(editUserPhotoQuery,[photo,userId]);
+
+  return updateUserPhotoRow[0];
+}
+
 module.exports = {
   selectUser,
   selectUserEmail,
@@ -129,6 +152,10 @@ module.exports = {
   updateUser,
   selectUserNName,
   updateUserP,
+  unregisterUser,
+  updateUserPhoto,
   updateUserPm,
-  unregisterUser
+  unregisterUser,
+  getUserMyPageInfo
+
 };

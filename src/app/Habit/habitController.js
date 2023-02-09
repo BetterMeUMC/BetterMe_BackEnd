@@ -56,8 +56,10 @@ exports.postHabits = async function(req, res){
 
 exports.getHabits = async function(req, res){
 
+    const userId = req.params.userIdx;
+
     //습관 전체 조회
-    const habitListResult = await habitProvider.retrieveHabitList();
+    const habitListResult = await habitProvider.retrieveHabitList(userId);
     return res.send(response(baseResponse.SUCCESS,habitListResult));
 
 }
@@ -70,9 +72,10 @@ exports.getHabits = async function(req, res){
 
 exports.getHabitById = async function(req,res){
 
+    const userId = req.params.userIdx;
     const habitId = req.params.habitIdx;
 
-    const habitByHabitId = await habitProvider.retrieveHabit(habitId);
+    const habitByHabitId = await habitProvider.retrieveHabit(userId,habitId);
     return res.send(response(baseResponse.SUCCESS, habitByHabitId))
 
 
@@ -145,8 +148,8 @@ exports.postHabitInvite = async function(req, res) {
         return res.send(response(baseResponse.HABIT_ID_EMPTY));
 
     const habitInviteResponse = await habitService.inviteHabit(
-        habitIdx, 
-        senderIdx, 
+        habitIdx,
+        senderIdx,
         receiverIdx
     );
     console.log(habitInviteResponse);
@@ -163,7 +166,7 @@ exports.postHabitInvite = async function(req, res) {
 exports.getHabitInvite = async function(req,res){
 
     const userIdx = req.params.userIdx;
-    
+
     const habitInviteByUserIdx = await habitProvider.retrieveHabitInvite(userIdx);
 
     return res.send(response(baseResponse.SUCCESS, habitInviteByUserIdx));
@@ -183,7 +186,7 @@ exports.patchtHabitInviteAccept = async function(req,res){
 
     // 습관 추가
     const habitByHabitId = await habitProvider.retrieveHabit(habitIdx);
-    
+
     const habitResponse = await habitService.createHabit(
         userIdx,
         habitByHabitId[0].habitName,
@@ -191,7 +194,7 @@ exports.patchtHabitInviteAccept = async function(req,res){
         habitByHabitId[0].goodOrBad,
         habitByHabitId[0].emoge
     );
-    
+
     return res.send(habitInviteResponse);
 }
 
@@ -222,3 +225,45 @@ exports.getHabitInviteResponse = async function(req, res){
     return res.send(response(baseResponse.SUCCESS, habitInviteResponse));
 }
 
+
+/**
+ * API No. 11
+ * API Name : 습관 체크 API
+ * [PATCH] /app/habits/check/:userIdx/:habitIdx
+ */
+
+exports.checkHabit = async function (req, res){
+
+    const check = req.body;
+    const userId = req.params.userIdx;
+    const habitId = req.params.habitIdx;
+    const userIdFromJWT = req.verifiedToken.userIdx;
+
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    }else {
+
+        const habitDay = await habitProvider.getHabitDay(userId, habitId);
+        const habitLife = await habitProvider.getHabitLife(userId, habitId);
+
+        if (habitDay[0][0].habitDay <= 0) { //습관 남은 일 수가 0일 때 처리하는 logic
+            const achieveHabit = await habitService.achieveHabit(userId, habitId);
+            return res.send(response(baseResponse.HABIT_ACHIEVEMENT_SUCCESS));
+        }
+
+        if (habitLife[0][0].life <= 0) {// life가 0이 되어 습관이 삭제되는 logic
+            const deleteHabit = await habitService.deleteHabit(userId, habitId);
+            return res.send(response(baseResponse.HABIT_DELETE_SUCCESS));
+        }
+
+
+        if (check.check) {
+            const checkHabit = await habitService.checkHabit(userId, habitId);
+            return res.send(checkHabit);
+        } else {
+            const noCheckHabit = await habitService.noCheckHabit(userId, habitId);
+            return res.send(noCheckHabit);
+        }
+    }
+
+}

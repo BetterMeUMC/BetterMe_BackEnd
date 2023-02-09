@@ -1,3 +1,4 @@
+const baseResponseStatus = require("../../../config/baseResponseStatus");
 const { pool } = require("../../../config/database");
 const { logger } = require("../../../config/winston");
 
@@ -24,22 +25,40 @@ exports.retrieveHabit = async function(userId,habitId){
 
 exports.retrieveHabitInvite = async function(userIdx){
 
-    const connection = await pool.getConnection(async (conn) => conn);
-    const habitInviteResult = await habitDao.selectHabitInvite(connection, userIdx);
+    try{    
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitInviteResult = await habitDao.selectHabitInvite(connection, userIdx);
+            
+        connection.release();
+    
+        //조회된 습관 초대가 없는 경우
+        if (!habitInviteResult) {
+            return res.send(baseResponseStatus.HABIT_CONTENT_NULL);
+        }
+    
+        return habitInviteResult;
+    }catch(err){
+        logger.error(`App - retrieveHabitInvite Service error\n: ${err.message}`);
+        return errResponse(baseResponseStatus.DB_ERROR);
+    }
 
-    connection.release();
-
-    return habitInviteResult;
 }
 
 exports.retrieveHabitInviteResponse = async function(userIdx){
 
-    const connection = await pool.getConnection(async (conn) => conn);
-    const habitInviteResult = await habitDao.selectHabitInviteResponse(connection, userIdx);
+    try{
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitInviteResult = await habitDao.selectHabitInviteResponse(connection, userIdx);
 
-    connection.release();
+        connection.release();
 
-    return habitInviteResult;
+        return habitInviteResult;
+    }catch(err)
+    {
+        logger.error(`App - retrieveHabitInviteResponse Service error\n: ${err.message}`);
+        return errResponse(baseResponseStatus.DB_ERROR);
+    }
+    
 }
 
 exports.getHabitDay = async function(userId,habitId){
@@ -54,7 +73,7 @@ exports.getHabitDay = async function(userId,habitId){
         return habitDayResult;
     }catch(err){
         logger.error(`App - editUser Service error\n: ${err.message}`);
-        return errResponse(baseResponse.DB_ERROR);
+        return errResponse(baseResponseStatus.DB_ERROR);
     }
 }
 
@@ -70,7 +89,7 @@ exports.getHabitLife = async function(userId,habitId){
         return habitLifeResult;
     }catch(err){
         logger.error(`App - editUser Service error\n: ${err.message}`);
-        return errResponse(baseResponse.DB_ERROR);
+        return errResponse(baseResponseStatus.DB_ERROR);
     }
 
 

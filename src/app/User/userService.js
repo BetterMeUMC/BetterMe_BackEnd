@@ -7,7 +7,6 @@ const baseResponse = require("../../../config/baseResponseStatus");
 const {response} = require("../../../config/response");
 const {errResponse} = require("../../../config/response");
 
-const sendgrid = require('@sendgrid/mail');
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const {connect} = require("http2");
@@ -178,8 +177,8 @@ exports.unregisterUser = async function (id) {
             .update(temporaryPw)
             .digest("hex");
 
-            const connection = await pool.getConnection(async (conn) => conn);
-            const editUserPResult = await userDao.updateUserP(connection, id, hashedPassword);
+        const connection = await pool.getConnection(async (conn) => conn);
+        const editUserPResult = await userDao.updateUserP(connection, id, hashedPassword);
             
             connection.release();
 

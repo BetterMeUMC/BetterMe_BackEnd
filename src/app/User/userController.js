@@ -306,9 +306,10 @@ exports.issuePw = async function (req, res) {
 
 exports.updatePhoto = async function (req,res){
 
-    const userIdFromJWT = req.verifiedToken.userIdx;
+
     const userId = req.params.userIdx;
     const profile = `Better_Me/images/${req.file.originalname}`;
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
 
     if (userIdFromJWT != userId) {

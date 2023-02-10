@@ -12,15 +12,15 @@ module.exports = function(app){
 
     app.patch('/app/alarm/habitCheck/off/:userIdx',jwtMiddleware,alarm.habitCheckAlarmOff);
 
-    app.patch('/alarm/habitInvite/on/:userIdx',jwtMiddleware, alarm.habitInviteAlarmOn);
+    app.patch('/app/alarm/habitInvite/on/:userIdx',jwtMiddleware, alarm.habitInviteAlarmOn);
 
     app.patch('/app/alarm/habitInvite/off/:userIdx',jwtMiddleware, alarm.habitInviteAlarmOff);
 
-    app.patch('/alarm/friendRequest/on/:userIdx',jwtMiddleware, alarm.friendRequestAlarmOn);
+    app.patch('/app/alarm/friendRequest/on/:userIdx',jwtMiddleware, alarm.friendRequestAlarmOn);
 
-    app.patch('/alarm/friendRequest/off/:userIdx',jwtMiddleware, alarm.friendRequestAlarmOff);
+    app.patch('/app/alarm/friendRequest/off/:userIdx',jwtMiddleware, alarm.friendRequestAlarmOff);
 
-    app.patch('/alarm/friendAward/on/:userIdx',jwtMiddleware, alarm.friendAwardAlarmOn);
+    app.patch('/app/alarm/friendAward/on/:userIdx',jwtMiddleware, alarm.friendAwardAlarmOn);
 
     app.patch('/alarm/friendAward/off/:userIdx',jwtMiddleware, alarm.friendAwardAlarmOff);
 };

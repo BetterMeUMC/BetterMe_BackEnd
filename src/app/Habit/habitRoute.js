@@ -21,19 +21,20 @@ module.exports = function(app){
 
 
     //6. 습관 초대 API
-    app.post('/app/invite/:userIdx',habit.postHabitInvite);
+    app.post('/app/invite/:userIdx',jwtMiddleware,habit.postHabitInvite);
 
     //7. 습관 초대 조회 API
-    app.get('/app/invite/:userIdx',habit.getHabitInvite);
+    app.get('/app/invite/:userIdx',jwtMiddleware,habit.getHabitInvite);
 
     //8. 습관 초대 응답 - 수락 API
-    app.patch('/app/invite/accept/:userIdx/:habitIdx',habit.patchtHabitInviteAccept);
+    app.patch('/app/invite/accept/:userIdx/:habitIdx',jwtMiddleware,habit.patchtHabitInviteAccept);
 
     //9. 습관 초대 응답 - 거절 API
-    app.patch('/app/invite/reject/:userIdx/:habitIdx',habit.patchtHabitInviteReject);
+    app.patch('/app/invite/reject/:userIdx/:habitIdx',jwtMiddleware,habit.patchtHabitInviteReject);
 
     //10. 습관 초대 응답 조회 API
-    app.get('/app/invite/response/:userIdx', habit.getHabitInviteResponse);
+    app.get('/app/invite/response/:userIdx',jwtMiddleware,habit.getHabitInviteResponse);
+    
 
     //11. 습관 체크 API
     app.patch('/app/habits/check/:userIdx/:habitIdx',jwtMiddleware,habit.checkHabit);

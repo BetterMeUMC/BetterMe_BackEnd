@@ -159,10 +159,11 @@ exports.deleteHabit = async function (req, res){
 /**
  * API No. 6
  * API Name : 습관 초대 API
- * [POST] /app/invite
+ * [POST] /app/invite/:userIdx
  */
 
 exports.postHabitInvite = async function(req, res) {
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
     const senderIdx = req.params.userIdx;
     const {habitIdx, receiverIdx} = req.body;
@@ -174,6 +175,9 @@ exports.postHabitInvite = async function(req, res) {
         return res.send(response(baseResponse.USER_USERID_EMPTY));
     if(!habitIdx)
         return res.send(response(baseResponse.HABIT_ID_EMPTY));
+
+    if (userIdFromJWT != senderIdx)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     const habitInviteResponse = await habitService.inviteHabit(
         habitIdx,
@@ -193,7 +197,11 @@ exports.postHabitInvite = async function(req, res) {
 
 exports.getHabitInvite = async function(req,res){
 
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const userIdx = req.params.userIdx;
+
+    if (userIdFromJWT != userIdx)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     const habitInviteByUserIdx = await habitProvider.retrieveHabitInvite(userIdx);
 
@@ -207,11 +215,16 @@ exports.getHabitInvite = async function(req,res){
  */
 
 exports.patchtHabitInviteAccept = async function(req,res){
+
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const userIdx = req.params.userIdx;
     const habitIdx = req.params.habitIdx;
 
-    const habitInviteResponse = await habitService.acceptInviteHabit(userIdx, habitIdx);
+    if (userIdFromJWT != userIdx)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
+
+    const habitInviteResponse = await habitService.acceptInviteHabit(userIdx, habitIdx);
     // 습관 추가
     const habitByHabitId = await habitProvider.retrieveHabit(habitIdx);
 
@@ -233,8 +246,13 @@ exports.patchtHabitInviteAccept = async function(req,res){
  */
 
 exports.patchtHabitInviteReject = async function(req,res){
+    const userIdFromJWT = req.verifiedToken.userIdx;
+
     const userIdx = req.params.userIdx;
     const habitIdx = req.params.habitIdx;
+
+    if (userIdFromJWT != userIdx)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     const habitInviteResponse = await habitService.rejectInviteHabit(userIdx, habitIdx);
     return res.send(habitInviteResponse);
@@ -247,7 +265,11 @@ exports.patchtHabitInviteReject = async function(req,res){
  */
 
 exports.getHabitInviteResponse = async function(req, res){
+    const userIdFromJWT = req.verifiedToken.userIdx;
     const userIdx = req.params.userIdx;
+
+    if (userIdFromJWT != userIdx)
+        return res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
 
     const habitInviteResponse = await habitProvider.retrieveHabitInviteResponse(userIdx);
     return res.send(response(baseResponse.SUCCESS, habitInviteResponse));

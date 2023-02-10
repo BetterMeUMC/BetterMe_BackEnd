@@ -17,35 +17,40 @@ exports.postHabits = async function(req, res){
      * Body : emoge, habitName, contents, goodOrBad
      */
     userIdx = req.params.userIdx;
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
-    const {habitName, contents, goodOrBad, emoge} = req.body;
+    if (userIdFromJWT != userIdx) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    }else {
+        const {habitName, contents, goodOrBad, emoge} = req.body;
 
-    //빈 값 체크
-    if(!emoge)
-        return res.send(response(baseResponse.HABIT_EMOGE_EMPTY));
-    if(!habitName)
-        return res.send(response(baseResponse.HABIT_NAME_EMPTY));
-    if (!contents)
-        return res.send(response(baseResponse.HABIT_CONTENTS_EMPTY));
+        //빈 값 체크
+        if (!emoge)
+            return res.send(response(baseResponse.HABIT_EMOGE_EMPTY));
+        if (!habitName)
+            return res.send(response(baseResponse.HABIT_NAME_EMPTY));
+        if (!contents)
+            return res.send(response(baseResponse.HABIT_CONTENTS_EMPTY));
 
 
-    //길이 체크
-    if(emoge.length>1)
-        return res.send(response(baseResponse.HABIT_EMOGE_LENGTH));
-    if(habitName.length>20)
-        return res.send(response(baseResponse.HABIT_NAME_LENGTH));
-    if(contents.length>50)
-        return res.send(response(baseResponse.HABIT_CONTENTS_LENGTH));
+        //길이 체크
+        if (emoge.length > 1)
+            return res.send(response(baseResponse.HABIT_EMOGE_LENGTH));
+        if (habitName.length > 20)
+            return res.send(response(baseResponse.HABIT_NAME_LENGTH));
+        if (contents.length > 50)
+            return res.send(response(baseResponse.HABIT_CONTENTS_LENGTH));
 
-    const habitResponse = await habitService.createHabit(
-        userIdx,
-        habitName,
-        contents,
-        goodOrBad,
-        emoge
-    );
+        const habitResponse = await habitService.createHabit(
+            userIdx,
+            habitName,
+            contents,
+            goodOrBad,
+            emoge
+        );
 
-    return res.send(habitResponse);
+        return res.send(habitResponse);
+    }
 }
 
 /**
@@ -57,10 +62,16 @@ exports.postHabits = async function(req, res){
 exports.getHabits = async function(req, res){
 
     const userId = req.params.userIdx;
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
-    //습관 전체 조회
-    const habitListResult = await habitProvider.retrieveHabitList(userId);
-    return res.send(response(baseResponse.SUCCESS,habitListResult));
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    }else {
+
+        //습관 전체 조회
+        const habitListResult = await habitProvider.retrieveHabitList(userId);
+        return res.send(response(baseResponse.SUCCESS, habitListResult));
+    }
 
 }
 
@@ -74,10 +85,15 @@ exports.getHabitById = async function(req,res){
 
     const userId = req.params.userIdx;
     const habitId = req.params.habitIdx;
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
-    const habitByHabitId = await habitProvider.retrieveHabit(userId,habitId);
-    return res.send(response(baseResponse.SUCCESS, habitByHabitId))
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    }else {
 
+        const habitByHabitId = await habitProvider.retrieveHabit(userId, habitId);
+        return res.send(response(baseResponse.SUCCESS, habitByHabitId))
+    }
 
 }
 
@@ -92,25 +108,31 @@ exports.patchHabit = async function (req, res){
     const userId = req.params.userIdx;
     const habitId = req.params.habitIdx;
     const {habitName, contents, emoge} = req.body;
-    //빈 값 체크
-    if(!emoge)
-        return res.send(response(baseResponse.HABIT_EMOGE_EMPTY));
-    if(!habitName)
-        return res.send(response(baseResponse.HABIT_NAME_EMPTY));
-    if (!contents)
-        return res.send(response(baseResponse.HABIT_CONTENTS_EMPTY));
+    const userIdFromJWT = req.verifiedToken.userIdx;
+
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    }else {
+        //빈 값 체크
+        if (!emoge)
+            return res.send(response(baseResponse.HABIT_EMOGE_EMPTY));
+        if (!habitName)
+            return res.send(response(baseResponse.HABIT_NAME_EMPTY));
+        if (!contents)
+            return res.send(response(baseResponse.HABIT_CONTENTS_EMPTY));
 
 
-    //길이 체크
-    if(emoge.length>1)
-        return res.send(response(baseResponse.HABIT_EMOGE_LENGTH));
-    if(habitName.length>20)
-        return res.send(response(baseResponse.HABIT_NAME_LENGTH));
-    if(contents.length>50)
-        return res.send(response(baseResponse.HABIT_CONTENTS_LENGTH));
+        //길이 체크
+        if (emoge.length > 1)
+            return res.send(response(baseResponse.HABIT_EMOGE_LENGTH));
+        if (habitName.length > 20)
+            return res.send(response(baseResponse.HABIT_NAME_LENGTH));
+        if (contents.length > 50)
+            return res.send(response(baseResponse.HABIT_CONTENTS_LENGTH));
 
-    const editHabitInfo = await habitService.editHabit(userId,habitId,habitName, contents, emoge);
-    return res.send(editHabitInfo);
+        const editHabitInfo = await habitService.editHabit(userId, habitId, habitName, contents, emoge);
+        return res.send(editHabitInfo);
+    }
 }
 /**
  * API No. 5
@@ -122,9 +144,15 @@ exports.deleteHabit = async function (req, res){
 
     const userId = req.params.userIdx;
     const habitId = req.params.habitIdx;
+    const userIdFromJWT = req.verifiedToken.userIdx;
 
-    const deleteHabit = await habitService.deleteHabit(userId,habitId);
-    return res.send(deleteHabit);
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    }else {
+
+        const deleteHabit = await habitService.deleteHabit(userId, habitId);
+        return res.send(deleteHabit);
+    }
 }
 
 

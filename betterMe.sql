@@ -69,6 +69,16 @@ CREATE TABLE `feedback` (
 	`title` VARCHAR(100) NOT NULL,
 	`content` TEXT NOT NULL
 );
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE `notification` (
+    `notificationIdx`	BIGINT	NOT NULL PRIMARY KEY COMMENT 'auto increase',
+    `userIdx`	BIGINT	NOT NULL	COMMENT 'auto increase',
+    `habitCheck_alarm`	VARCHAR(4)	NOT NULL	DEFAULT 'OFF'	COMMENT '활성 : ON, 비활성: OFF',
+    `habitInvite_alarm`	VARCHAR(4)	NOT NULL	DEFAULT 'OFF'	COMMENT '활성 : ON, 비활성: OFF',
+    `friendRequest_alarm`	VARCHAR(4)	NOT NULL	DEFAULT 'OFF'	COMMENT '활성 : ON, 비활성: OFF',
+    `friendAward_alarm`	VARCHAR(4)	NOT NULL	DEFAULT 'OFF'	COMMENT '활성 : ON, 비활성: OFF',
+    `habitCheck_time`	TIMESTAMP	NULL
+);
 
 
 -- foreign key 추가
@@ -87,6 +97,9 @@ ALTER TABLE `follow` ADD CONSTRAINT `FK_UserTBL_TO_follow_1` FOREIGN KEY (`follo
  REFERENCES `UserTBL` (`userIdx`);
 
 ALTER TABLE `follow` ADD CONSTRAINT `FK_UserTBL_TO_follow_2` FOREIGN KEY (`followee`)
+REFERENCES `UserTBL` (`userIdx`);
+
+ALTER TABLE `notification` ADD CONSTRAINT `FK_UserTBL_TO_notification_1` FOREIGN KEY (`userIdx`)
 REFERENCES `UserTBL` (`userIdx`);
 
 -- 회원정보 입력

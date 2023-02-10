@@ -26,6 +26,7 @@ module.exports = function () {
     require('../src/app/Follow/followRoute')(app);
     require('../src/app/Phrase/phraseRoute')(app);
     require('../src/app/Feedback/feedbackRoute')(app);
+    require('../src/app/Alarm/alarmRoute')(app);
 
     return app;
 };

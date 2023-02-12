@@ -1,3 +1,5 @@
+const passport = require('passport');
+
 module.exports = function(app){
     const user = require('./userController');
     const jwtMiddleware = require('../../../config/jwtMiddleware');
@@ -52,4 +54,8 @@ module.exports = function(app){
     //이미지 업로드
     app.patch('/app/users/upload/:userIdx',jwtMiddleware,multer.single('profile'), user.updatePhoto);
 
+    // 소셜 로그인 API
+    // 카카오 로그인
+    app.get('/app/auth/kakao-login', user.kakaoLogin);
+    app.get('/app/auth/kakao-login/callback', user.callbackKakaoLogin);
 };

@@ -283,10 +283,13 @@ exports.getUserMyPageInfo = async function (req, res) {
 exports.unregisterUsers = async function (req, res) {
 
     // jwt - userId, path variable :userId
-
+    
     const userIdFromJWT = req.verifiedToken.userIdx;
     const userId = req.params.userIdx;
 
+    if (!userId)
+        return res.send(response(baseResponse.USER_IDX_EMPTY));
+        
     if (userIdFromJWT != userId) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
     } else {

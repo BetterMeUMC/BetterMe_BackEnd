@@ -8,6 +8,7 @@ const {response, errResponse} = require("../../../config/response");
 const sendgrid = require('@sendgrid/mail');
 const regexEmail = require("regex-email");
 const {emit} = require("nodemon");
+const fetch = require('node-fetch');
 
 /**
  * API No. 0
@@ -369,3 +370,41 @@ exports.check = async function (req, res) {
     console.log(userIdResult);
     return res.send(response(baseResponse.TOKEN_VERIFICATION_SUCCESS));
 };
+
+
+exports.kakaoLogin = async function (req, res) {
+    const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+    const config = {
+      client_id: "d50460c60f16a2e42cd8add38c7f76ae",
+      redirect_uri: "https://localhost:3000/app/auth/kakao-login/callback",
+      response_type: "code",
+    };
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    console.log(finalUrl);
+    return res.redirect(finalUrl);
+  };
+
+exports.callbackKakaoLogin = async function (req, res) {
+    const baseUrl = "https://kauth.kakao.com/oauth/token";
+    const config = {
+        grant_type: "authorization_code",
+        client_id: "d50460c60f16a2e42cd8add38c7f76ae",
+        redirect_uri: "https://localhost:3000/app/auth/kakao-login/callback",
+        code: req.query.code,
+        // client_secret: "",
+    };
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    console.log(finalUrl);
+
+    const kakaoTokenRequest = await fetch(finalUrl, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json", 
+        },
+      });
+      const json = await kakaoTokenRequest.json();
+      console.log(json);
+      res.send(JSON.stringify(json));
+  };

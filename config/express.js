@@ -14,6 +14,8 @@ module.exports = function () {
     app.use(methodOverride());
 
     app.use(cors());
+
+    app.use('/images',express.static('images'));
     // app.use(express.static(process.cwd() + '/public'));
 
     /* App (Android, iOS) */

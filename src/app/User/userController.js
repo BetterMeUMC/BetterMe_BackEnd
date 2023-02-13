@@ -345,6 +345,7 @@ exports.updatePhoto = async function (req,res){
 
     const userId = req.params.userIdx;
     const profile = `/home/ubuntu/BetterMe_BackEnd/images/${req.file.originalname}`;
+    //const profile = `Better_Me/images/${req.file.originalname}`;
     const userIdFromJWT = req.verifiedToken.userIdx;
 
 

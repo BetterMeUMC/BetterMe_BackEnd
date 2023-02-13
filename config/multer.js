@@ -19,6 +19,7 @@ const fileFilter = (req, file, cb) => {
 const storage = multer.diskStorage({
         //폴더위치 지정
         destination:(req, file, cb) => {
+            //cb(null,"C:\\Better_Me/images");
             cb(null, "/home/ubuntu/BetterMe_BackEnd/images");
         },
         filename:(req, file, cb) => {

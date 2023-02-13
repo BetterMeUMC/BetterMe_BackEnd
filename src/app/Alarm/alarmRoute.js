@@ -22,5 +22,7 @@ module.exports = function(app){
 
     app.patch('/app/alarm/friendAward/on/:userIdx',jwtMiddleware, alarm.friendAwardAlarmOn);
 
-    app.patch('/alarm/friendAward/off/:userIdx',jwtMiddleware, alarm.friendAwardAlarmOff);
+    app.patch('/app/alarm/friendAward/off/:userIdx',jwtMiddleware, alarm.friendAwardAlarmOff);
+
+    app.get('/app/alarm/show/:userIdx',jwtMiddleware,alarm.getAlarm);
 };

@@ -218,7 +218,7 @@ exports.updateUserPhoto = async function (userId,profile){
         return response(baseResponse.SUCCESS);
 
     }catch(err){
-        logger.error(`App - unregisterUser Service error\n: ${err.message}`);
+        logger.error(`App - updateUserPhoto Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }

@@ -6,21 +6,30 @@ const habitDao = require("./habitDao");
 
 exports.retrieveHabitList = async function (userId){
 
-    const connection = await pool.getConnection(async (conn) => conn);
-    const habitListResult = await habitDao.selectHabit(connection,userId);
-    connection.release();
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitListResult = await habitDao.selectHabit(connection, userId);
+        connection.release();
 
-    return habitListResult;
+        return habitListResult;
+    }catch(err){
+        logger.error(`App - retrieveHabitList Service error\n: ${err.message}`);
+        return errResponse(baseResponseStatus.DB_ERROR);
+    }
 }
 
 exports.retrieveHabit = async function(userId,habitId){
+    try {
+        const connection = await pool.getConnection(async (conn) => conn);
+        const habitResult = await habitDao.selectHabitId(connection, userId, habitId);
 
-    const connection = await pool.getConnection(async (conn) => conn);
-    const habitResult = await habitDao.selectHabitId(connection, userId,habitId);
+        connection.release();
 
-    connection.release();
-
-    return habitResult;
+        return habitResult;
+    }catch(err){
+        logger.error(`App - retrieveHabit Service error\n: ${err.message}`);
+        return errResponse(baseResponseStatus.DB_ERROR);
+    }
 }
 
 exports.retrieveHabitInvite = async function(userIdx){
@@ -72,7 +81,7 @@ exports.getHabitDay = async function(userId,habitId){
 
         return habitDayResult;
     }catch(err){
-        logger.error(`App - editUser Service error\n: ${err.message}`);
+        logger.error(`App - getHabitDay Service error\n: ${err.message}`);
         return errResponse(baseResponseStatus.DB_ERROR);
     }
 }
@@ -88,7 +97,7 @@ exports.getHabitLife = async function(userId,habitId){
 
         return habitLifeResult;
     }catch(err){
-        logger.error(`App - editUser Service error\n: ${err.message}`);
+        logger.error(`App - getHabitLife Service error\n: ${err.message}`);
         return errResponse(baseResponseStatus.DB_ERROR);
     }
 

@@ -153,3 +153,18 @@ exports.friendAwardAlarmOff = async function(req,res){
         return res.send(friendAwardAlarmOff);
     }
 }
+
+exports.getAlarm = async function(req,res){
+
+    const userId = req.params.userIdx;
+    const userIdFromJWT = req.verifiedToken.userIdx;
+
+
+    if (userIdFromJWT != userId) {
+        res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
+    }
+    else {
+        const alarmShowResult = await alarmProvider.alarmShow(userId);
+        return res.send(response(baseResponse.ALARM_SHOW_SUCCESS, alarmShowResult))
+    }
+}

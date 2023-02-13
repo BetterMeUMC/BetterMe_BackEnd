@@ -18,7 +18,7 @@ exports.allAlarmOn = async function(userIdx){
         return response(baseResponse.ALL_ALARM_ON_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - allAlarmOn Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -35,7 +35,7 @@ exports.allAlarmOff = async function(userIdx){
         return response(baseResponse.ALL_ALARM_OFF_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - allAlarmOff Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -52,7 +52,7 @@ exports.habitCheckAlarmOn = async function(userIdx){
         return response(baseResponse.HABIT_CHECK_ALARM_ON_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - habitCheckAlarmOn Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -69,7 +69,7 @@ exports.habitCheckAlarmOff = async function(userIdx){
         return response(baseResponse.HABIT_CHECK_ALARM_OFF_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - habitCheckAlarmOff Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -86,7 +86,7 @@ exports.habitInviteAlarmOn = async function(userIdx){
         return response(baseResponse.HABIT_INVITE_ALARM_ON_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - habitInviteAlarmOn Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -103,7 +103,7 @@ exports.habitInviteAlarmOff = async function(userIdx){
         return response(baseResponse.HABIT_INVITE_ALARM_OFF_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - habitInviteAlarmOff Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -120,7 +120,7 @@ exports.friendRequestAlarmOn = async function(userIdx){
         return response(baseResponse.FRIEND_REQUEST_ON_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - friendRequestAlarmOn Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -137,7 +137,7 @@ exports.friendRequestAlarmOff = async function(userIdx){
         return response(baseResponse.FRIEND_REQUEST_OFF_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - friendRequestAlarmOff Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -154,7 +154,7 @@ exports.friendAwardAlarmOn = async function(userIdx){
         return response(baseResponse.FRIEND_AWARD_ON_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - friendAwardAlarmOn Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -171,7 +171,7 @@ exports.friendAwardAlarmOff = async function(userIdx){
         return response(baseResponse.FRIEND_AWARD_OFF_SUCCESS);
 
     }catch(err){
-        logger.error(`App - rejectInviteHabit Service error\n: ${err.message}`);
+        logger.error(`App - friendAwardAlarmOff Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }

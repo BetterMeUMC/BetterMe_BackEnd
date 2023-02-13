@@ -33,7 +33,7 @@ exports.editHabit=async function(userId,habitId,habitName, contents, emoge){
 
         return response(baseResponse.HABIT_UPDATE_SUCCESS);
     }catch(err){
-        logger.error(`App - editUser Service error\n: ${err.message}`);
+        logger.error(`App - editHabit Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 
@@ -48,7 +48,7 @@ exports.deleteHabit=async function(userId,habitId){
 
         return response(baseResponse.HABIT_DELETE_SUCCESS);
     }catch(err){
-        logger.error(`App - editUser Service error\n: ${err.message}`);
+        logger.error(`App - deleteHabit Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -126,7 +126,7 @@ exports.checkHabit = async function(userId,habitId){
         return response(baseResponse.HABIT_CHECK_SUCCESS);
 
     }catch(err){
-        logger.error(`App - editUser Service error\n: ${err.message}`);
+        logger.error(`App - checkHabit Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -141,7 +141,7 @@ exports.noCheckHabit = async function(userId,habitId){
         return response(baseResponse.HABIT_NOCHECK_SUCCESS);
 
     }catch(err){
-        logger.error(`App - editUser Service error\n: ${err.message}`);
+        logger.error(`App - noCheckHabit Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }
@@ -155,7 +155,7 @@ exports.achieveHabit = async function(userId,habitId){
 
         return response(baseResponse.HABIT_ACHIEVEMENT_SUCCESS);
     }catch(err){
-        logger.error(`App - editUser Service error\n: ${err.message}`);
+        logger.error(`App - achieveHabit Service error\n: ${err.message}`);
         return errResponse(baseResponse.DB_ERROR);
     }
 }

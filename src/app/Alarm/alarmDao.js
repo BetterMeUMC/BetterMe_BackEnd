@@ -108,6 +108,16 @@ async function friendAwardAlarmOff(connection,userId){
     return updateFriendAwardAlarmOff;
 }
 
+async function selectAlarm(connection,userId){
+
+    const selectAlarmQuery = `
+    SELECT habitCheck_alarm,habitInvite_alarm,friendRequest_alarm,friendAward_alarm,habitCheck_time 
+    FROM notification
+    WHERE userIdx = ?;
+    `;
+    const selectAlarm = await connection.query(selectAlarmQuery,userId);
+    return selectAlarm;
+}
 module.exports={
     allAlarmOn,
     allAlarmOff,
@@ -119,4 +129,5 @@ module.exports={
     friendRequestAlarmOff,
     friendAwardAlarmOn,
     friendAwardAlarmOff,
+    selectAlarm,
 };

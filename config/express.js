@@ -15,7 +15,7 @@ module.exports = function () {
 
     app.use(cors());
 
-    app.use('/images',express.static('images'));
+    app.use('/images',express.static('/home/ubuntu/BetterMe_BackEnd/images'));
     // app.use(express.static(process.cwd() + '/public'));
 
     /* App (Android, iOS) */

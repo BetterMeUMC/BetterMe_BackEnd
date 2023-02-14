@@ -23,8 +23,8 @@ const storage = multer.diskStorage({
             cb(null, "/home/ubuntu/BetterMe_BackEnd/images");
         },
         filename:(req, file, cb) => {
-            const ext = path.extname(req.file.originalname);
-            cb(null, path.basename(req.file.originalname, ext) + Date.now() + ext);
+            const ext = path.extname(file.originalname);
+            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
         },
 
         fileFilter : {fileFilter},

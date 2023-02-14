@@ -344,7 +344,7 @@ exports.updatePhoto = async function (req,res){
 
 
     const userId = req.params.userIdx;
-    const profile = `http://54.180.13.219:3000/images/${req.file.originalname}`;
+    const profile = `http://54.180.13.219:3000/images/${userId}`;
     //const profile = `Better_Me/images/${req.file.originalname}`;
     const userIdFromJWT = req.verifiedToken.userIdx;
 

@@ -40,7 +40,7 @@ CREATE TABLE `UserTBL` (
 	`nickName` varchar(10) NOT NULL,
 	`promise` varchar(30) NOT NULL,
 	`token` text NULL COMMENT '로그인시 사용',
-	`photo` text NULL,
+	`photo` text NULL PRIMARY KEY 'http://54.180.13.219:3000/images/account.png',
 	`createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

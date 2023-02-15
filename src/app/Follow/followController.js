@@ -54,7 +54,7 @@ exports.getAllFollow = async function(req, res) {
  exports.searchFollows = async function(req, res) {
     const userIdFromJWT = req.verifiedToken.userIdx;
     const follower = req.params.follower;
-    const nickName = req.body.nickName;
+    const nickName = req.query.nickName;
     const searchedFollowList = await followProvider.searchFollowList(follower, nickName);
 
     if (userIdFromJWT != follower)
@@ -78,7 +78,7 @@ exports.getAllFollow = async function(req, res) {
  exports.searchFollowEmail = async function(req, res) {
     const userIdFromJWT = req.verifiedToken.userIdx;
     const follower = req.params.follower;
-    const email = req.body.email;
+    const email = req.query.email;
     const searchedFollow = await followProvider.retrieveFollowEmail(follower, email);
 
     if (userIdFromJWT != follower)

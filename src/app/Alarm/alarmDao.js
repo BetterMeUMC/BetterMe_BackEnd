@@ -1,7 +1,7 @@
 async function allAlarmOn(connection,userId){
     const allAlarmOnQuery= `
-    UPDATE notification
-    SET habitCheck_alarm = 'ON',habitInvite_alarm = 'ON', friendRequest_alarm = 'ON', friendAward_alarm = 'ON'
+    UPDATE NotificationTBL
+    SET habitCheckAlarm = 'ON',habitInviteAlarm = 'ON', FriendRequestAlarm = 'ON', FriendAwardAlarm = 'ON'
     WHERE userIdx = ?;`;
 
     const updateAllAlarmOn = await connection.query(allAlarmOnQuery,userId);
@@ -11,8 +11,8 @@ async function allAlarmOn(connection,userId){
 
 async function allAlarmOff(connection,userId){
     const allAlarmOffQuery= `
-    UPDATE notification
-    SET habitCheck_alarm = 'OFF',habitInvite_alarm = 'OFF', friendRequest_alarm = 'OFF', friendAward_alarm = 'OFF'
+    UPDATE NotificationTBL
+    SET habitCheckAlarm = 'OFF',habitInviteAlarm = 'OFF', FriendRequestAlarm = 'OFF', FriendAwardAlarm = 'OFF'
     WHERE userIdx = ?;`;
 
     const updateAllAlarmOff = await connection.query(allAlarmOffQuery,userId);
@@ -23,8 +23,8 @@ async function allAlarmOff(connection,userId){
 async function habitCheckAlarmOn(connection,userId){
 
     const habitCheckAlarmOnQuery= `
-    UPDATE notification
-    SET habitCheck_alarm = 'ON'
+    UPDATE NotificationTBL
+    SET habitCheckAlarm = 'ON'
     WHERE userIdx = ?;`;
 
     const updateHabitCheckAlarmOn = await connection.query(habitCheckAlarmOnQuery,userId);
@@ -34,8 +34,8 @@ async function habitCheckAlarmOn(connection,userId){
 async function habitCheckAlarmOff(connection,userId){
 
     const habitCheckAlarmOffQuery= `
-    UPDATE notification
-    SET habitCheck_alarm = 'OFF'
+    UPDATE NotificationTBL
+    SET habitCheckAlarm = 'OFF'
     WHERE userIdx = ?;`;
 
     const updateHabitCheckAlarmOff = await connection.query(habitCheckAlarmOffQuery,userId);
@@ -45,8 +45,8 @@ async function habitCheckAlarmOff(connection,userId){
 async function habitInviteAlarmOn(connection,userId){
 
     const habitInviteAlarmOnQuery= `
-    UPDATE notification
-    SET habitInvite_alarm = 'ON'
+    UPDATE NotificationTBL
+    SET habitInviteAlarm = 'ON'
     WHERE userIdx = ?;`;
 
     const updateHabitInviteAlarmOn = await connection.query(habitInviteAlarmOnQuery,userId);
@@ -56,8 +56,8 @@ async function habitInviteAlarmOn(connection,userId){
 async function habitInviteAlarmOff(connection,userId){
 
     const habitInviteAlarmOffQuery= `
-    UPDATE notification
-    SET habitInvite_alarm = 'OFF'
+    UPDATE NotificationTBL
+    SET habitInviteAlarm = 'OFF'
     WHERE userIdx = ?;`;
 
     const updateHabitInviteAlarmOff = await connection.query(habitInviteAlarmOffQuery,userId);
@@ -67,8 +67,8 @@ async function habitInviteAlarmOff(connection,userId){
 async function friendRequestAlarmOn(connection,userId){
 
     const friendRequestAlarmOnQuery= `
-    UPDATE notification
-    SET friendRequest_alarm = 'ON'
+    UPDATE NotificationTBL
+    SET FriendRequestAlarm = 'ON'
     WHERE userIdx = ?;`;
 
     const updateFriendRequestAlarmOn = await connection.query(friendRequestAlarmOnQuery,userId);
@@ -78,8 +78,8 @@ async function friendRequestAlarmOn(connection,userId){
 async function friendRequestAlarmOff(connection,userId){
 
     const friendRequestAlarmOffQuery= `
-    UPDATE notification
-    SET friendRequest_alarm = 'OFF'
+    UPDATE NotificationTBL
+    SET FriendRequestAlarm = 'OFF'
     WHERE userIdx = ?;`;
 
     const updateFriendRequestAlarmOff = await connection.query(friendRequestAlarmOffQuery,userId);
@@ -89,8 +89,8 @@ async function friendRequestAlarmOff(connection,userId){
 async function friendAwardAlarmOn(connection,userId){
 
     const friendAwardAlarmOnQuery= `
-    UPDATE notification
-    SET friendAward_alarm = 'ON'
+    UPDATE NotificationTBL
+    SET FriendAwardAlarm = 'ON'
     WHERE userIdx = ?;`;
 
     const updateFriendAwardAlarmOn = await connection.query(friendAwardAlarmOnQuery,userId);
@@ -100,8 +100,8 @@ async function friendAwardAlarmOn(connection,userId){
 async function friendAwardAlarmOff(connection,userId){
 
     const friendAwardAlarmOffQuery= `
-    UPDATE notification
-    SET friendAward_alarm = 'OFF'
+    UPDATE NotificationTBL
+    SET FriendAwardAlarm = 'OFF'
     WHERE userIdx = ?;`;
 
     const updateFriendAwardAlarmOff = await connection.query(friendAwardAlarmOffQuery,userId);
@@ -111,8 +111,8 @@ async function friendAwardAlarmOff(connection,userId){
 async function selectAlarm(connection,userId){
 
     const selectAlarmQuery = `
-    SELECT habitCheck_alarm,habitInvite_alarm,friendRequest_alarm,friendAward_alarm,habitCheck_time 
-    FROM notification
+    SELECT habitCheckAlarm,habitInviteAlarm,FriendRequestAlarm,FriendAwardAlarm,HabitCheckTime 
+    FROM NotificationTBL
     WHERE userIdx = ?;
     `;
     const selectAlarm = await connection.query(selectAlarmQuery,userId);

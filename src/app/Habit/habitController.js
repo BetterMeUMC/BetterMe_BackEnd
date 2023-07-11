@@ -18,15 +18,20 @@ exports.postHabits = async function(req, res){
      */
     userIdx = req.params.userIdx;
     const userIdFromJWT = req.verifiedToken.userIdx;
-
     if (userIdFromJWT != userIdx) {
         res.send(errResponse(baseResponse.USER_ID_NOT_MATCH));
     }else {
-        const {habitName, contents, goodOrBad, emoge} = req.body;
+        const {habitName, categoryIdx, habitDay, contents, emoji, alarm, isPrivate} = req.body;
 
         //빈 값 체크
-        if (!emoge)
-            return res.send(response(baseResponse.HABIT_EMOGE_EMPTY));
+        if (!categoryIdx)
+            return res.send(response(baseResponse.HABIT_CATEGORYIDX_EMPTY));
+        if (!habitDay)
+            return res.send(response(baseResponse.HABIT_HABITDAY_EMPTY));
+        if (!emoji)
+            return res.send(response(baseResponse.HABIT_EMOJI_EMPTY));
+        if (!isPrivate)
+            return res.send(response(baseResponse.HABIT_ISPRIVATE_EMPTY));
         if (!habitName)
             return res.send(response(baseResponse.HABIT_NAME_EMPTY));
         if (!contents)
@@ -34,7 +39,7 @@ exports.postHabits = async function(req, res){
 
 
         //길이 체크
-        if (emoge.length > 1)
+        if (emoji.length > 3) 
             return res.send(response(baseResponse.HABIT_EMOGE_LENGTH));
         if (habitName.length > 20)
             return res.send(response(baseResponse.HABIT_NAME_LENGTH));
@@ -43,10 +48,13 @@ exports.postHabits = async function(req, res){
 
         const habitResponse = await habitService.createHabit(
             userIdx,
-            habitName,
-            contents,
-            goodOrBad,
-            emoge
+            habitName, 
+            categoryIdx, 
+            habitDay, 
+            contents, 
+            emoji,
+            alarm,
+            isPrivate
         );
 
         return res.send(habitResponse);

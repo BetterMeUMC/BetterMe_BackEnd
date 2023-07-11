@@ -1,11 +1,11 @@
  // 1. 친구 전체 조회 
  async function selectAllFollowInfo(connection, follower) {
     const selectAllFollowInfoQuery = `
-        SELECT follow.followee, UserTBL.nickName, UserTBL.photo, UserTBL.promise, follow.acceptedAt
-        FROM UserTBL, follow
-        WHERE UserTBL.userIdx = follow.followee
-            AND follow.follower = ?
-            AND follow.acceptStatus = 2;
+        SELECT FollowTBL.followee, UserTBL.nickName, UserTBL.promise, FollowTBL.acceptedAt
+        FROM UserTBL, FollowTBL
+        WHERE UserTBL.userIdx = FollowTBL.followee
+            AND FollowTBL.follower = ?
+            AND FollowTBL.acceptStatus = 2;
         `;
     
     const [followInfoRows] = await connection.query(selectAllFollowInfoQuery, follower);
@@ -16,7 +16,7 @@
   // 2. 친구 상세 조회
   async function selectFollowDetailInfo(connection, userIdx) {
     const selectFollowDetailInfoQuery = `
-        SELECT userIdx, nickName, photo, promise
+        SELECT userIdx, nickName, promise
         FROM UserTBL
         WHERE userIdx = ?;
     `;
@@ -44,11 +44,11 @@
     const searchNickname = `%${nickName}%`;
     const searchFollowParams = [follower, searchNickname];
     const selectSearchedFollowsQuery = `
-        SELECT follow.followee, UserTBL.nickName, UserTBL.photo
-        FROM UserTBL, follow
-        WHERE UserTBL.userIdx = follow.followee
-            AND follow.acceptStatus = 2
-            AND follow.follower = ?
+        SELECT FollowTBL.followee, UserTBL.nickName
+        FROM UserTBL, FollowTBL
+        WHERE UserTBL.userIdx = FollowTBL.followee
+            AND FollowTBL.acceptStatus = 2
+            AND FollowTBL.follower = ?
             AND UserTBL.nickName LIKE ?;
     `;
 
@@ -60,7 +60,7 @@
   // 4. 추가할 친구 이메일 검색
   async function selectSearchedFollowEmail(connection, email) {
     const selectSearchedFollowEmailQuery = `
-        SELECT userIdx, nickName, photo
+        SELECT userIdx, nickName
         FROM UserTBL
         WHERE UserTBL.email = ?;
     `;
@@ -74,7 +74,7 @@
     const acceptStatusParams = [follower, followee];
     const selectAcceptStatusEmailQuery = `
         SELECT acceptStatus
-        FROM follow
+        FROM FollowTBL
         WHERE follower = ?
             AND followee = ?;
     `;
@@ -88,7 +88,7 @@
  async function selectAllFollowStars(connection, userIdx) {
     const selectAllFollowStarsQuery = `
         SELECT count(if(isAchieved=1, 1, NULL)) stars
-        FROM habit
+        FROM HabitTBL
         WHERE userIdx = ?;
     `;
     
@@ -101,7 +101,7 @@
  async function insertFollow(connection, userIdx, followee, acceptStatus) {
     const insertFollowParams = [userIdx, followee, acceptStatus];
     const insertFollowQuery = `
-        INSERT INTO follow(follower, followee, acceptStatus) VALUES (?, ?, ?);
+        INSERT INTO FollowTBL(follower, followee, acceptStatus) VALUES (?, ?, ?);
     `;
 
     const insertFollowRow = await connection.query(insertFollowQuery, insertFollowParams);
@@ -112,11 +112,11 @@
  // 6. 친구 신청 목록 조회
  async function selectFollowRequest(connection, follower) {
     const selectFollowRequestQuery = `
-        SELECT UserTBL.userIdx, UserTBL.nickName, UserTBL.photo
-        FROM UserTBL, follow
-        WHERE UserTBL.userIdx = follow.followee
-            AND follow.follower = ?
-            AND follow.acceptStatus = 1;
+        SELECT UserTBL.userIdx, UserTBL.nickName
+        FROM UserTBL, FollowTBL
+        WHERE UserTBL.userIdx = FollowTBL.followee
+            AND FollowTBL.follower = ?
+            AND FollowTBL.acceptStatus = 1;
     `;
     
     const [followRequestRows] = await connection.query(selectFollowRequestQuery, follower);
@@ -128,7 +128,7 @@
  async function updateAcceptStatus(connection, follower, followee) {
     const updateAcceptStatusParams = [follower, followee];
     const updateAcceptStatusQuery = `
-        UPDATE follow SET acceptStatus = 2
+        UPDATE FollowTBL SET acceptStatus = 2
         WHERE follower = ?
             AND followee = ?;
     `;
@@ -142,7 +142,7 @@
  async function deleteFollows(connection, follower, followee) {
     const deleteFollowsParams = [follower, followee];
     const deleteFollowsQuery = `
-        DELETE FROM follow
+        DELETE FROM FollowTBL
         WHERE follower = ?
             AND followee = ?;
     `;

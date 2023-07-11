@@ -2,8 +2,8 @@ const {stringify} = require("nodemon/lib/utils");
 //습관생성
 async function insertHabit(connection, insertHabitTBLParams){
     const insertHabitTBLQuery = `
-    INSERT INTO habit(userIdx, habitName, contents,goodOrBad,emoge)
-    VALUES(?, ?, ?, ?, ?);
+    INSERT INTO HabitTBL(userIdx, habitName, categoryIdx, habitDay, contents, emoji, alarm, isPrivate)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?);
 `;
     const insertHabitTBLRow = await connection.query(
         insertHabitTBLQuery,
@@ -16,8 +16,8 @@ async function insertHabit(connection, insertHabitTBLParams){
 async function selectHabit(connection,userId){
 
     const selectHabitListQuery = `
-    SELECT userIdx, habitName, contents, life, habitDay, goodOrBad, emoge
-    FROM habit
+    SELECT userIdx, habitName, contents, life, habitDay, emoji
+    FROM HabitTBL
     WHERE userIdx =?;`;
     const [habitRows] = await connection.query(selectHabitListQuery,userId);
 
@@ -27,7 +27,7 @@ async function selectHabit(connection,userId){
 async function selectHabitId(connection,userId,habitId){
     const selectHabitIdQuery = `
     SELECT userIdx, habitName, contents, life, habitDay, goodOrBad, emoge
-    FROM habit
+    FROM HabitTBL
     WHERE userIdx = ? AND habitIdx = ?;
 `;
     const [habitRow] = await connection.query(selectHabitIdQuery, [userId,habitId]);
@@ -36,7 +36,7 @@ async function selectHabitId(connection,userId,habitId){
 //습관 수정
 async function updateHabit(connection,updateHabitTBLParams){
     const updateHabitQuery= `
-    UPDATE habit
+    UPDATE HabitTBL
     SET habitName = ?, contents = ?, emoge = ?
     WHERE userIdx = ? and habitIdx = ?;`;
 
@@ -47,7 +47,7 @@ async function updateHabit(connection,updateHabitTBLParams){
 //습관 삭제
 async function deleteHabit(connection,deleteHabitTBLParams){
     const deleteHabitQuery = `
-    UPDATE habit
+    UPDATE HabitTBL
     SET stat = 0
     WHERE userIdx = ? and habitIdx = ?;`;
 
@@ -59,7 +59,7 @@ async function deleteHabit(connection,deleteHabitTBLParams){
 //습관 초대
 async function inviteHabit(connection,inviteHabitTBLParams){
     const inviteHabitTBLQuery= `
-    INSERT INTO habit_invite(habitIdx, senderIdx, receiverIdx)
+    INSERT INTO HabitInviteTBL (habitIdx, senderIdx, receiverIdx)
     VALUES(?, ?, ?);
     `;
 
@@ -75,7 +75,7 @@ async function inviteHabit(connection,inviteHabitTBLParams){
 async function selectSendHabitInvite(connection, inviteHabitResponseParams){
     const selectHabitInviteQuery = `
     SELECT *
-    FROM habit_invite
+    FROM HabitInviteTBL
     WHERE habitIdx = ? and receiverIdx = ?`;
     const [habitRows] = await connection.query(selectHabitInviteQuery, inviteHabitResponseParams);
 
@@ -87,8 +87,8 @@ async function selectHabitInvite(connection, userIdx){
 
     const selectHabitInviteQuery = `
     SELECT senderIdx, receiverIdx, habit.habitIdx, habitName, contents, emoge
-    FROM habit_invite
-    INNER JOIN habit ON habit_invite.habitIdx=habit.habitIdx
+    FROM HabitInvite
+    INNER JOIN habit ON habitInviteTBL.habitIdx=HabitTBL.habitIdx
     WHERE receiverIdx= ? ;`;
     const [habitRows] = await connection.query(selectHabitInviteQuery, userIdx);
 
@@ -99,7 +99,7 @@ async function selectHabitInvite(connection, userIdx){
 async function acceptHabitInvite(connection, inviteHabitResponseParams){
 
     const acceptHabitInviteQuery = `
-    UPDATE habit_invite
+    UPDATE HabitInviteTBL
     SET status = 'A'
     WHERE receiverIdx = ? AND habitIdx = ?;`;
     const [habitRows] = await connection.query(acceptHabitInviteQuery, inviteHabitResponseParams);

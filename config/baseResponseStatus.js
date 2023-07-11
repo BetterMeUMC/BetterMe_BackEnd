@@ -65,9 +65,13 @@ module.exports = {
     COMM_CONTENT_EMPTY : {"isSuccess": false, "code": 2029, "message":"내용을 입력해주세요" },
     COMM_ID_EMPTY : {"isSuccess": false, "code": 2030, "message":"댓글 ID를 입력해주세요" },
 
-    HABIT_EMOGE_EMPTY : {"isSuccess" : false, "code": 2031, "message": "이모지를 선택해주세요"},
+    HABIT_EMOJI_EMPTY : {"isSuccess" : false, "code": 2031, "message": "이모지를 선택해주세요"},
     HABIT_NAME_EMPTY : {"isSuccess" : false, "code": 2032, "message" : "습관명을 입력해주세요"},
     HABIT_CONTENTS_EMPTY : {"isSuccess" : false, "code" : 2033, "message" : "내용을 입력해주세요"},
+    HABIT_CATEGORYIDX_EMPTY : {"isSuccess" : false, "code" : 2046, "message" : "카테고리 인덱스를 입력해주세요"},
+    HABIT_HABITDAY_EMPTY : {"isSuccess" : false, "code" : 2047, "message" : "수행일을 입력해주세요"},
+    HABIT_ISPRIVATE_EMPTY : {"isSuccess" : false, "code" : 2048, "message" : "비공개 여부를 입력해주세요"},
+
 
     HABIT_EMOGE_LENGTH:{"isSuccess" : false, "code" : 2034, "message" : "이모지는 한개만 선택해주세요"},
     HABIT_NAME_LENGTH : {"isSuccess" : false, "code" : 2035, "message" : "길이는 20 이하로 설정해주세요"},

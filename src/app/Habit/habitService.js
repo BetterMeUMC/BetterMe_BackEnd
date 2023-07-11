@@ -6,9 +6,9 @@ const baseResponse = require("../../../config/baseResponseStatus");
 const {logger} = require("../../../config/winston");
 
 
-exports.createHabit = async function(userIdx, habitName, contents, goodOrBad, emoge){
+exports.createHabit = async function(userIdx, habitName, categoryIdx, habitDay, contents, emoji, alarm, isPrivate){
     try {
-        const insertHabitInfoParams = [userIdx, habitName, contents, goodOrBad, emoge];
+        const insertHabitInfoParams = [userIdx, habitName, categoryIdx, habitDay, contents, emoji, alarm, isPrivate];
 
         const connection = await pool.getConnection(async (conn) => conn);
 
